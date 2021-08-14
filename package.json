@@ -1,7 +1,7 @@
 {
   "name": "errsole",
   "description": "errsole npm module",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": "Rishi Kumar <rishi@errsole.com>",
   "contributors": [
     "Rishi Kumar <rishi@errsole.com>",
@@ -24,7 +24,7 @@
   ],
   "main": "lib/errsole",
   "dependencies": {
-    "autobahn": "^20.6.1",
+    "@errsole/autobahn": "^20.6.1",
     "chrome-remote-interface": "^0.28.1",
     "form-data": "^3.0.0",
     "jsonpath": "^1.1.0",
