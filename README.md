@@ -13,6 +13,9 @@ Errsole creates a clone of your live app and provides a debugger interface to th
 ### Collaborate with your team members
 You can add developers to your app team. Your team members can view, debug, and fix errors raised in your app.
 
+## Demo
+[![Watch the video](https://img.youtube.com/vi/u6Qwm1boDig/maxresdefault.jpg)](https://youtu.be/u6Qwm1boDig)
+
 ## Installation and Usage
 1. Errsole is a Node.js module. You can install this module using the `npm install` command:
 ```bash
@@ -28,7 +31,7 @@ https://errsole.com/#apps/get-app-token
  */
 require('errsole').initialize({
   framework: 'express',
-  token: 'b13b9679-c3a0-4e20-831f-0cd57646c105'
+  token: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
 })
 
 /**
