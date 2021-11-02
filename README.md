@@ -13,7 +13,7 @@ Errsole creates a clone of your live app and provides a debugger interface to th
 ### Collaborate with your team members
 You can add developers to your app team. Your team members can view, debug, and fix errors raised in your app.
 
-## Demo
+## Demo Video
 [![Watch the video](https://img.youtube.com/vi/u6Qwm1boDig/maxresdefault.jpg)](https://youtu.be/u6Qwm1boDig)
 
 ## Installation and Usage
