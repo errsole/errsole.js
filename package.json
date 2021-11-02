@@ -1,7 +1,7 @@
 {
   "name": "errsole",
-  "description": "errsole npm module",
-  "version": "0.1.7",
+  "description": "Capture errors and debug your app in real-time",
+  "version": "0.1.8",
   "author": "Rishi Kumar <rishi@errsole.com>",
   "contributors": [
     "Rishi Kumar <rishi@errsole.com>",
@@ -10,15 +10,16 @@
   "repository": "errsole/errsole",
   "homepage": "http://www.errsole.com/",
   "keywords": [
-    "errsole",
-    "express",
-    "framework",
+    "errors",
+    "debug",
     "debugger",
-    "http",
-    "rerun",
-    "debugging",
-    "errors"
+    "request"
   ],
+  "bugs": {
+    "url": "https://github.com/errsole/errsole/issues",
+    "email": "support@errsole.com"
+  },
+  "license": "MIT",
   "files": [
     "lib"
   ],
