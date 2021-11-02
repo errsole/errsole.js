@@ -1,14 +1,14 @@
 {
   "name": "errsole",
   "description": "Capture errors and debug your app in real-time",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "author": "Rishi Kumar <rishi@errsole.com>",
   "contributors": [
     "Rishi Kumar <rishi@errsole.com>",
     "Ganji Venkateswarlu <venki@errsole.com>"
   ],
   "repository": "errsole/errsole",
-  "homepage": "http://www.errsole.com/",
+  "homepage": "https://errsole.com",
   "keywords": [
     "errors",
     "debug",
