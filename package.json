@@ -1,29 +1,24 @@
 {
   "name": "errsole",
-  "description": "Capture errors and debug your app in real-time",
   "version": "0.1.9",
-  "author": "Rishi Kumar <rishi@errsole.com>",
-  "contributors": [
-    "Rishi Kumar <rishi@errsole.com>",
-    "Ganji Venkateswarlu <venki@errsole.com>"
-  ],
-  "repository": "errsole/errsole",
+  "description": "Capture errors and debug your app in real-time",
+  "keywords": ["errors", "debug", "debugger", "request"],
   "homepage": "https://errsole.com",
-  "keywords": [
-    "errors",
-    "debug",
-    "debugger",
-    "request"
-  ],
   "bugs": {
     "url": "https://github.com/errsole/errsole/issues",
     "email": "support@errsole.com"
   },
   "license": "MIT",
+  "author": "Rishi Kumar <rishi@errsole.com>",
+  "contributors": [
+    "Rishi Kumar <rishi@errsole.com>",
+    "Ganji Venkateswarlu <venki@errsole.com>"
+  ],
   "files": [
     "lib"
   ],
   "main": "lib/errsole",
+  "repository": "errsole/errsole",
   "dependencies": {
     "@errsole/autobahn": "^20.6.1",
     "chrome-remote-interface": "^0.28.1",
