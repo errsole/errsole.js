@@ -1,6 +1,6 @@
 {
   "name": "errsole",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Capture errors and debug your app in real-time",
   "keywords": [
     "error", "errors", "bug", "bugs",
