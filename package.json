@@ -1,8 +1,14 @@
 {
   "name": "errsole",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Capture errors and debug your app in real-time",
-  "keywords": ["errors", "debug", "debugger", "request"],
+  "keywords": [
+    "error", "errors", "bug", "bugs",
+    "debug", "debugger",
+    "replay", "reproduce",
+    "fix", "resolve",
+    "http", "request", "requests"
+  ],
   "homepage": "https://errsole.com",
   "bugs": {
     "url": "https://github.com/errsole/errsole/issues",
