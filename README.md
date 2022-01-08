@@ -46,7 +46,7 @@ app.listen(3000)
 ```
 
 ## Demo Video
-[![Watch the video](https://img.youtube.com/vi/u6Qwm1boDig/maxresdefault.jpg)](https://youtu.be/u6Qwm1boDig)
+[![Errsole Demo Video](https://www.errsole.com/images/errsole-demo-video.jpeg)](https://youtu.be/u6Qwm1boDig)
 
 ## Support
 If you run into any issues, please email us at [support@errsole.com](mailto:support@errsole.com).\
