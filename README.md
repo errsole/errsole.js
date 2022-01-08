@@ -19,7 +19,7 @@ You can add developers to your app team. Your team members can view, debug, and 
 npm install errsole
 ```
 2. Click on the link below to get the Errsole code snippet. Put the code snippet at the top of your app's main file.\
-https://errsole.com/#apps/get-app-token
+https://www.errsole.com/#apps/get-app-token
 
 ### Example
 ```javascript
@@ -46,7 +46,7 @@ app.listen(3000)
 ```
 
 ## Demo Video
-[![Watch the video](https://img.youtube.com/vi/u6Qwm1boDig/maxresdefault.jpg)](https://youtu.be/u6Qwm1boDig)
+[![Errsole Demo Video](https://www.errsole.com/images/errsole-demo-video.jpeg)](https://youtu.be/u6Qwm1boDig)
 
 ## Support
 If you run into any issues, please email us at [support@errsole.com](mailto:support@errsole.com).\
