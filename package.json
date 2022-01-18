@@ -1,6 +1,6 @@
 {
   "name": "errsole",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Debug your Node.js server code in real-time",
   "keywords": [
     "error", "errors", "bug", "bugs",
