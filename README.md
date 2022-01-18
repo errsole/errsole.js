@@ -4,14 +4,14 @@
 
 ## Features
 
-### View your app errors and their root cause
+### View your Node.js errors and their root cause
 Errsole captures all errors raised in your Node.js app and the HTTP requests that caused the errors. You can view all your app errors and the root cause of each error in one place.
 
-### Debug your app code in real-time
-Errsole creates a clone of your live app and provides a debugger interface to the app clone. You can replay the captured errors and debug the app code in real-time. Your users are not impacted while you debug the app code.
+### Debug your server code in real-time
+Errsole creates a clone of your Node.js app in the server and provides a debugger interface to the app clone. You can replay the captured errors in the app clone and debug the server code in real-time. Your users are not impacted while you debug the server code.
 
 ### Collaborate with your team members
-You can add developers to your app team. Your team members can view, debug, and fix errors raised in your app.
+Add developers to your app team. Then your team members can view, debug, and fix errors raised in your Node.js app.
 
 ## Installation and Usage
 1. Errsole is a Node.js module. You can install this module using the `npm install` command:
