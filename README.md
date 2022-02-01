@@ -1,5 +1,7 @@
 # Errsole
 
+Capture, replay, and debug your Node.js errors
+
 [![npm version](https://badge.fury.io/js/errsole.svg)](https://badge.fury.io/js/errsole)
 
 ## Features
@@ -18,8 +20,8 @@ Add developers to your app team. Then your team members can view, debug, and fix
 ```bash
 npm install errsole
 ```
-2. Click on the link below to get the Errsole code snippet. Put the code snippet at the top of your app's main file.\
-https://www.errsole.com/get-app-token
+2. Click on the button below to get the Errsole code snippet. Put the code snippet at the top of your app's main file.\
+[![Generate Token](https://www.errsole.com/images/generate-token-button.png)](https://www.errsole.com/get-app-token)
 
 ### Example
 ```javascript
