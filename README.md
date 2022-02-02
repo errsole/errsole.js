@@ -1,6 +1,6 @@
 # Errsole
 
-Capture, replay, and debug your Node.js errors
+Capture, replay, and debug errors in your Node.js server
 
 [![npm version](https://badge.fury.io/js/errsole.svg)](https://badge.fury.io/js/errsole)
 
@@ -17,11 +17,12 @@ Add developers to your app team. Then your team members can view, debug, and fix
 
 ## Installation and Usage
 1. Errsole is a Node.js module. You can install this module using the `npm install` command:
-```bash
-npm install errsole
-```
+    ```bash
+    npm install errsole
+    ```
 2. Click on the button below to get the Errsole code snippet. Put the code snippet at the top of your app's main file.\
-[![Generate Token](https://www.errsole.com/images/generate-token-button.png)](https://www.errsole.com/get-app-token)
+<a href="https://www.errsole.com/get-app-token"><img src="https://www.errsole.com/images/generate-token-button.png" alt="GENERATE TOKEN" width="175"></a>
+
 
 ### Example
 ```javascript
@@ -48,7 +49,7 @@ app.listen(3000)
 ```
 
 ## Demo Video
-[![Errsole Demo Video](https://www.errsole.com/images/errsole-demo-video.jpeg)](https://youtu.be/u6Qwm1boDig)
+<a href="https://youtu.be/u6Qwm1boDig"><img src="https://www.errsole.com/images/errsole-demo-video.jpeg" alt="Errsole Demo Video" width="640"></a>
 
 ## Support
 If you run into any issues, please email us at [support@errsole.com](mailto:support@errsole.com).\
