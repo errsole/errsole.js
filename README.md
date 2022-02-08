@@ -1,6 +1,6 @@
 # Errsole
 
-Capture, replay, and debug errors in your Node.js server
+[Capture, replay, and debug errors in your Node.js server](https://github.com/errsole/errsole.js)
 
 [![npm version](https://badge.fury.io/js/errsole.svg)](https://badge.fury.io/js/errsole)
 
@@ -53,7 +53,7 @@ app.listen(3000)
 
 ## Support
 If you run into any issues, please email us at [support@errsole.com](mailto:support@errsole.com).\
-For bug reports, please [open an issue on GitHub](https://github.com/errsole/errsole/issues/new).
+For bug reports, please [open an issue on GitHub](https://github.com/errsole/errsole.js/issues/new).
 
 ## License
 [MIT](LICENSE)
