@@ -1,6 +1,6 @@
 # Errsole
 
-[Capture, replay, and debug errors in your Node.js server](https://github.com/errsole/errsole.js)
+[Capture, replay, debug errors in your Node.js server](https://github.com/errsole/errsole.js)
 
 [![npm version](https://badge.fury.io/js/errsole.svg)](https://badge.fury.io/js/errsole)
 
