@@ -56,7 +56,10 @@ Add developers to your app team. Then your team members can view, debug, and fix
 <a href="https://youtu.be/u6Qwm1boDig"><img src="https://www.errsole.com/images/errsole-demo-video.jpeg" alt="Errsole Demo Video" width="640"></a>
 
 ## Support
-If you run into any issues, please email us at [support@errsole.com](mailto:support@errsole.com).\
+[We appreciate your star, it helps!](https://github.com/errsole/errsole.js)
+
+If you run into any issues, please email us at [support@errsole.com](mailto:support@errsole.com).
+
 For bug reports, please [open an issue on GitHub](https://github.com/errsole/errsole.js/issues/new).
 
 ## License
