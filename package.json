@@ -2,13 +2,7 @@
   "name": "errsole",
   "version": "1.1.0",
   "description": "Fix Your Node.js Errors under 5 Minutes",
-  "keywords": [
-    "error", "errors", "bug", "bugs",
-    "debug", "debugger",
-    "replay", "reproduce",
-    "fix", "resolve",
-    "http", "request", "requests"
-  ],
+  "keywords": ["error", "log", "logger", "logging", "debug"],
   "homepage": "https://www.errsole.com/homepage/",
   "bugs": {
     "url": "https://github.com/errsole/errsole.js/issues",
