@@ -41,16 +41,13 @@
 ## Features
 
 ### View your Node.js errors and their root cause
-Errsole captures all errors raised in your Node.js app and the HTTP requests that caused the errors. You can view all your app errors and the root cause of each error in one place.\
-<img src="https://www.errsole.com/images/feature-1.png" alt="View Errors" width="640">
+Errsole captures all errors raised in your Node.js app and the HTTP requests that caused the errors. You can view all your app errors and the root cause of each error in one place.
 
 ### Debug your server code in real-time
-Errsole creates a clone of your Node.js app in the server and provides a debugger interface to the app clone. You can replay the captured errors in the app clone and debug the server code in real-time. Your users are not impacted while you debug the server code.\
-<img src="https://www.errsole.com/images/feature-2.png" alt="Debug Code" width="640">
+Errsole creates a clone of your Node.js app in the server and provides a debugger interface to the app clone. You can replay the captured errors in the app clone and debug your server code in real-time. Your users are not impacted while you debug the server code.
 
 ### Collaborate with your team members
-Add developers to your app team. Then your team members can view, debug, and fix errors raised in your Node.js app.\
-<img src="https://www.errsole.com/images/feature-3.png" alt="Collaborate" width="640">
+Add developers to your app team. Then your team members can view, debug, and fix errors raised in your Node.js app.
 
 ## Demo Video
 <a href="https://youtu.be/u6Qwm1boDig"><img src="https://www.errsole.com/images/errsole-demo-video.jpeg" alt="Errsole Demo Video" width="640"></a>
