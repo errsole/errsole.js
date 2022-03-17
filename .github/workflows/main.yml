@@ -1,4 +1,4 @@
-name: Publish the errsole package to npm
+name: Publish the Errsole package to npm
 on:
   release:
     types: [created]
