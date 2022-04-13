@@ -1,6 +1,6 @@
 {
   "name": "errsole",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Capture, replay, debug errors in your Node.js server",
   "keywords": ["error", "log", "logger", "logging", "debug"],
   "homepage": "https://www.errsole.com/homepage/",
@@ -24,7 +24,9 @@
     "chrome-remote-interface": "^0.28.1",
     "form-data": "^3.0.0",
     "jsonpath": "^1.1.0",
+    "node-cron": "^3.0.0",
     "slash": "^3.0.0",
-    "terminal-link": "^2.1.1"
+    "terminal-link": "^2.1.1",
+    "uuid": "^8.3.2"
   }
 }
