@@ -43,6 +43,9 @@
 ### View your Node.js errors and their root cause
 Errsole captures all errors raised in your Node.js app and the HTTP requests that caused the errors. View all your Node.js errors and the root cause of each error in one place.
 
+### View session logs
+When an error occurs, Errsole saves the error and the series of HTTP requests the user has made before the error. These are requests made by a single user to whom the error has occurred. With this information, you can see what the user has done before the error and which user activities have caused the error.
+
 ### Debug your server code in real-time
 Errsole creates a clone of your Node.js app in your server and provides a debugger interface to the app clone. You can replay the captured errors in the app clone and debug the server code in real-time. Your users are not impacted while you debug the server code.
 
