@@ -38,6 +38,42 @@
     app.listen(3000)
     ```
 
+### Advanced Configuration
+| Name           | Type    | Default | Description                                                                                                                                                                                                                              |
+|----------------|---------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| framework      | string  |         | Required. Your Node.js framework name.                                                                                                                                                                                                   |
+| token          | string  |         | Required. Click here to generate a unique token                                                                                                                                                                                          |
+| enableDebugger | boolean | true    | Optional. If false, the debugger is disabled.                                                                                                                                                                                            |
+| editCode       | boolean | false   | Optional. If true, you can edit code while debugging an error.<br>Setting true in staging and production environments is not recommended because your developers can run arbitrary code on your production server.                       |
+| evalExpression | boolean | false   | Optional. If true, you can evaluate JavaScript expressions while debugging an error.<br>Setting true in staging and production environments is not recommended because your developers can run arbitrary code on your production server. |
+
+#### Example
+```javascript
+/**
+ * Put the Errsole code snippet at the top of your app's main file
+ */
+const errsole = require('errsole')
+errsole.initialize({
+  framework: 'express',
+  token: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+  enableDebugger: true,
+  editCode: false, // Set true in development and testing environments
+  evalExpression: false // Set true in development and testing environments
+})
+
+/**
+ * Your app code starts here
+ */
+const express = require('express')
+const app = express()
+
+app.get('/', function (req, res) {
+  res.send('Hello World')
+})
+
+app.listen(3000)
+```
+
 ## Features
 
 ### View your Node.js errors and their root cause
