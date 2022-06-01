@@ -92,11 +92,9 @@ Add developers to your app team. Then the developers can view, replay, and debug
 <a href="https://youtu.be/u6Qwm1boDig"><img src="https://www.errsole.com/images/errsole-demo-video.jpeg" alt="Errsole Demo Video" width="640"></a>
 
 ## Support
-[We appreciate your star, it helps!](https://github.com/errsole/errsole.js)
-
-If you run into any issues, please email us at [support@errsole.com](mailto:support@errsole.com).
-
-For bug reports, please [open an issue on GitHub](https://github.com/errsole/errsole.js/issues/new).
+* We appreciate your star, it helps!
+* If you run into any issues, please email us at [support@errsole.com](mailto:support@errsole.com).
+* For bug reports, please [open an issue on GitHub](https://github.com/errsole/errsole.js/issues/new).
 
 ## License
 [MIT](LICENSE)
