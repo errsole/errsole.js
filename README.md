@@ -1,7 +1,7 @@
 # Errsole
 [![npm version](https://badge.fury.io/js/errsole.svg)](https://badge.fury.io/js/errsole)
 
-[Capture, replay, debug Node.js errors](https://github.com/errsole/errsole.js)
+[Capture, replay, and debug errors in your Node.js server](https://github.com/errsole/errsole.js)
 
 ## Installation and Usage
 1. Errsole is a Node.js module. You can install this module using the `npm install` command:
