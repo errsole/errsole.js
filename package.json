@@ -1,6 +1,6 @@
 {
   "name": "errsole",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Capture, replay, and debug errors in your Node.js server",
   "keywords": ["error", "log", "logger", "logging", "debug"],
   "homepage": "https://www.errsole.com/homepage/",
