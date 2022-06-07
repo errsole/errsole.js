@@ -3,6 +3,8 @@
 
 [Capture, replay, and debug errors in your Node.js server](https://github.com/errsole/errsole.js)
 
+***:star: We appreciate your star, it helps!***
+
 ## Installation and Usage
 1. Errsole is a Node.js module. You can install this module using the `npm install` command:
 
@@ -92,7 +94,6 @@ Add developers to your app team. Then the developers can view, replay, and debug
 <a href="https://youtu.be/u6Qwm1boDig"><img src="https://www.errsole.com/images/errsole-demo-video.jpeg" alt="Errsole Demo Video" width="640"></a>
 
 ## Support
-* We appreciate your star, it helps!
 * If you run into any issues, please email us at [support@errsole.com](mailto:support@errsole.com).
 * For bug reports, please [open an issue on GitHub](https://github.com/errsole/errsole.js/issues/new).
 
