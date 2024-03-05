@@ -1,0 +1,26 @@
+{
+  "name": "errsole",
+  "version": "1.9.0",
+  "description": "Open Source: Logger for Node.js Apps",
+  "keywords": [
+    "log",
+    "logging",
+    "logger",
+  ],
+  "homepage": "https://github.com/errsole/errsole.js",
+  "bugs": {
+    "url": "https://github.com/errsole/errsole.js/issues"
+  },
+  "license": "MIT",
+  "author": "Rishi Kumar <rishi@errsole.com>",
+  "contributors": [
+    "Rishi Kumar <rishi@errsole.com>",
+    "Venkateswarlu Ganji <venki@errsole.com>"
+  ],
+  "files": [
+    "lib"
+  ],
+  "main": "lib/errsole",
+  "dependencies": {
+  }
+}
