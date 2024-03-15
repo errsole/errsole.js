@@ -1,11 +1,11 @@
 {
   "name": "errsole",
-  "version": "1.9.0",
-  "description": "Open Source: Logger for Node.js Apps",
+  "version": "1.10.0",
+  "description": "Node.js Logger",
   "keywords": [
     "log",
     "logging",
-    "logger",
+    "logger"
   ],
   "homepage": "https://github.com/errsole/errsole.js",
   "bugs": {
