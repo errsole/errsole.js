@@ -1,0 +1,233 @@
+body {
+  margin: 0; 
+  padding: 0; 
+  background-color: #f4f6fa !important;
+}
+@keyframes loader-animation {
+  0% {
+    left: -100%;
+  }
+  49% {
+    left: 100%;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: -100%;
+  }
+}
+
+.ant-layout-has-sider {
+  background-color: #001529 !important;
+}
+
+.logo {
+  padding: 17px 0px 17px 20px;
+  margin-bottom: 10px;
+}
+
+.top-header {
+  background-color: #fafafa !important;
+  border-bottom: 1px solid #d9d9d9 !important;
+  font-family: Helvetica, Arial, sans-serif !important;
+  z-index: 99;
+  padding: 0;
+  height: 50px !important;
+  line-height: 50px !important;
+  padding: 0 25px !important;
+}
+
+.p-20 {
+  padding: 20px !important;
+}
+
+.float-l {
+  float: left;
+}
+.float-r {
+  float: right;
+}
+
+.pre-json {
+  white-space: pre-wrap;       /* css-3 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+.loader {
+  position: relative;
+  height: 0px;
+  width: 100%;
+}
+.loader .bar {
+  width: 100%;
+  z-index: 9999;
+  position: absolute;
+  height: 5px;
+  background-color: dodgerblue;
+  animation-name: loader-animation;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+@keyframes getWidth {
+	100% { width: 100%; }
+}
+
+.log_panel_header {
+  margin: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.log_panel_header .log_timestamp {
+  width: 250px;
+  display: inline-block;
+}
+
+
+.log_panel:nth-child(odd) {
+  background: #ffffff;
+}
+.log_panel:nth-child(even) {
+  background: #f0f0f0;
+}
+.log_panel:nth-child(odd) .ant-collapse-content-box {
+  background: #ffffff;
+}
+.log_panel:nth-child(even) .ant-collapse-content-box {
+  background: #f0f0f0;
+}
+.log_panel .ant-collapse-content-box pre {
+  white-space: pre-wrap;
+  margin-left: 20px;
+}
+.console_log_content .content-box {
+  margin-top: 5px;
+  border: 1px solid #e0e0e0;
+  border-radius: 3px;
+  background: #ffffff;
+}
+
+.console_log_content .header {
+  background: #e3e3e3;
+  margin: 0;
+  border-radius: 3px 3px 0 0;
+  padding: 15px 10px;
+}
+.console_log_content .header_col_icon {
+  font-size: 12px;
+  margin-left: 6px;
+}
+.console_log_content .header_col_1 {
+  padding-left: 12px;
+  font-weight: bold;
+}
+.console_log_content .header_col_2 {
+  padding-left: 173px;
+  font-weight: bold;
+}
+.console_log_content .logs_more {
+  text-align: center;
+  padding: 10px;
+  margin: 0px;
+  font-style: italic;
+  color: #616161;
+}
+
+.filter-logs {
+  margin-left: 10px;
+}
+
+.date-picker {
+  margin-left: 10px;
+}
+
+.date-picker-date {
+  width: 120px !important;
+}
+
+.date-picker-time {
+  width: 120px !important;
+}
+
+.log-btn-apply {
+  margin-left: 10px;
+}
+
+.log-btn-reset {
+  margin-left: 10px;
+}
+
+.log-btn-reset button {
+  background: #404040;
+  border: 1px solid #404040;
+  color: #ffffff;
+}
+
+.view-logs-modal .ant-modal-body {
+  padding: 0px;
+}
+
+.view-logs-modal .ant-modal-close-icon {
+  color: #ffffff;
+  background: #6d6d6d;
+  border-radius: 50px;
+  padding: 4px;
+  height: 21px;
+  width: 21px;
+  font-size: 13px;
+}
+
+.view-log-btn {
+  float: right;
+  color: #404040 !important;
+  background-color: #ffffff !important;
+  border-color: #404040 !important;
+}
+
+.log-ttl-msg {
+  font-size: 13px;
+  margin-left: 7px;
+}
+
+.logs-layout {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.login-form {
+  border: 1px solid #efefef !important;
+  border-radius: 8px !important;
+  margin-top: 50px !important;
+  padding: 30px !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 1px 30px 0 rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-menu {
+  display: contents !important;
+}
+
+.all-users {
+  background: white;
+  padding: 25px;
+  margin-top: 70px;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+}
+
+.submenu ul {
+  background: #001628 !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
