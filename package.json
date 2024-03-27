@@ -1,6 +1,6 @@
 {
   "name": "errsole",
-  "version": "1.11.2",
+  "version": "1.11.3",
   "description": "Node.js logger with web dashboard",
   "keywords": [
     "log",
