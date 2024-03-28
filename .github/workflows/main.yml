@@ -19,6 +19,7 @@ jobs:
       - run: npm run build:web
         env:
           NODE_OPTIONS: --openssl-legacy-provider
+      - run: rm -rf lib/src/
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
