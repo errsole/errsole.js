@@ -1,12 +1,20 @@
-# Errsole: Node.js Logger with Interactive Dashboard
+<p align="center">
+    <img src="https://www.errsole.com/assets/npm/errsole-logo-20230513.png" width="150"/>
+    <h3 align="center">Node.js Logger with Built-in Dashboard</h3>
+    <p align="center">View, Filter, and Analyze the logs in real time</p>
+</p>
 
-Errsole is an innovative open-source logger designed specifically for Node.js applications. It goes beyond traditional logging by capturing log messages and storing them in a specified database. What sets Errsole apart is its interactive web dashboard, which allows users to effortlessly view, filter, and analyze their logs in real time.
+---
+
+# Errsole: A Logger with Built-in dashboard
+
+Errsole is an open-source logger with built-in dashboard. It goes beyond traditional logging by capturing log messages and storing them in a specified database. What sets Errsole apart is its interactive web dashboard, which allows users to effortlessly view, filter, and analyze their logs in real time.
 
 ## Features
 
 - **Effortless Integration**: Get Errsole up and running with minimal setup, seamlessly integrating into your Node.js projects.
 - **Automated Log Capture**: Automatically captures both informational and error logs, ensuring that you never miss vital application insights.
-- **Interactive Web Dashboard**: Utilize the intuitive web interface for a comprehensive log analysis experience, enabling efficient log viewing, filtering, and real-time insights.
+- **Web Dashboard**: Utilize the intuitive web interface for a comprehensive log analysis experience, enabling efficient log viewing, filtering, and real-time insights.
 
 ## Quick Start Guide
 
