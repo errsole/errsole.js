@@ -6,7 +6,7 @@
 
 ---
 
-# Errsole: A Logger with Built-in dashboard
+# A Logger with Built-in dashboard (Open Source)
 
 Errsole is an open-source logger with built-in dashboard. It goes beyond traditional logging by capturing log messages and storing them in a specified database. What sets Errsole apart is its interactive web dashboard, which allows users to effortlessly view, filter, and analyze their logs in real time.
 
