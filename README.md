@@ -31,6 +31,9 @@ Errsole is an open-source logger with built-in dashboard. It goes beyond traditi
     ```javascript
     const errsole = require('errsole');
     const ErrsoleMongoDB = require('errsole-mongodb');
+    // or using ESM
+    // import errsole from 'errsole';
+    // import ErrsoleMongoDB from 'errsole-mongodb';
 
     errsole.initialize({
       storage: new ErrsoleMongoDB('your-mongodb-url', 'your-database-name'),
@@ -47,10 +50,19 @@ Errsole is an open-source logger with built-in dashboard. It goes beyond traditi
 Integrate Errsole into a simple Express app to see it in action:
 
 ```javascript
+const errsole = require('errsole');
+const ErrsoleMongoDB = require('errsole-mongodb');
+
+errsole.initialize({
+  storage: new ErrsoleMongoDB('your-mongodb-url', 'your-database-name'),
+  port: 8001, // Optional: Specify the dashboard port (default is 8001)
+  path: '/'  // Optional: Specify the dashboard base path (default is '/')
+});
+// Errsole setup (as shown above)
+
 const express = require('express');
 const app = express();
 
-// Errsole setup (as shown above)
 
 app.get('/', (req, res) => {
   res.send('Hello World');
