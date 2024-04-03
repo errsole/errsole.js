@@ -36,14 +36,17 @@ Errsole is an open-source logger with built-in dashboard. It goes beyond traditi
     // import ErrsoleMongoDB from 'errsole-mongodb';
 
     errsole.initialize({
-      storage: new ErrsoleMongoDB('your-mongodb-url', 'your-database-name'),
-      port: 8001, // Optional: Specify the dashboard port (default is 8001)
-      path: '/'  // Optional: Specify the dashboard base path (default is '/')
+      storage: new ErrsoleMongoDB('your-mongodb-url', 'your-database-name', 'options'),
+      port: 8001, // Optional: Specify the dashboard port, default is 8001
+      path: '/',  // Optional: Specify the dashboard base path, default is '/'
+      captureLogs: ['info', 'error'], // Optional: Specify which logs to capture, default is ['info', 'error']
+      suppressConsoleOutput: false // Optional: Set to true to prevent logs from printing in the terminal, default is false
     });
     ```
 
     - Replace `'your-mongodb-url'` with your actual MongoDB connection URL.
     - Replace `'your-database-name'` with the name of the database where logs should be stored.
+    - Replace `'options'` with any MongoDB-specific options you need.
 
 ### Example Usage
 
