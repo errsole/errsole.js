@@ -231,3 +231,7 @@ body {
   box-shadow: none !important;
   -webkit-box-shadow: none !important;
 }
+
+.selected_error_log_panel {
+  background: #f6ec91 !important;
+}
