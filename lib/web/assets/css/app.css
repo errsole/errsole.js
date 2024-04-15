@@ -235,3 +235,9 @@ body {
 .selected_error_log_panel {
   background: #f6ec91 !important;
 }
+
+.ant-layout-sider-children {
+  position: fixed;
+  min-width: 200px;
+  max-width: 200px;
+}
