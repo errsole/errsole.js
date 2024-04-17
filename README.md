@@ -1,5 +1,3 @@
-# errsole
-
 <p align="center">
   <img src="https://github.com/errsole/errsole.js/assets/3775513/e7499016-cb28-488d-a47d-f1ba24804d2b" width="256"/>
 
