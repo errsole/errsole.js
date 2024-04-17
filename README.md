@@ -1,4 +1,6 @@
 # errsole
+![errsole](https://github.com/errsole/errsole.js/assets/3775513/e7499016-cb28-488d-a47d-f1ba24804d2b)
+
 
 Errsole is a Node.js logger with a built-in web dashboard. In this dashboard, you can easily view, filter, and search your app logs.
 
