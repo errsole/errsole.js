@@ -1,13 +1,12 @@
 {
   "name": "errsole",
-  "version": "2.0.2",
-  "description": "Node.js logger with web dashboard",
+  "version": "2.1.0",
+  "description": "Logger with a Built-in Web Dashboard",
   "keywords": [
-    "log",
+    "logs",
     "logging",
     "logger",
-    "open source",
-    "nodejs"
+    "loglevel"
   ],
   "homepage": "https://github.com/errsole/errsole.js",
   "bugs": {
