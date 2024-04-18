@@ -241,3 +241,8 @@ body {
   min-width: 200px;
   max-width: 200px;
 }
+
+.github-star-button {
+  margin: 10px;
+  display: flex;
+}
