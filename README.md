@@ -18,6 +18,11 @@ Errsole is a Node.js logger with a built-in web dashboard. In this dashboard, yo
 
 ---
 
+## Setup
+
+[Errsole with MongoDB](docs/mongodb-storage.md)
+
+---
 ## Upcoming Features
 
 * **Search Logs:** We are adding a new feature to the Errsole Dashboard that enables you to search your app logs over a specified time period.
