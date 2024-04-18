@@ -17,6 +17,7 @@ Errsole is a Node.js logger with a built-in web dashboard. In this dashboard, yo
 ## Setup
 
 * [Errsole with MongoDB](docs/mongodb-storage.md)
+* [Errsole with MySQL](docs/mysql-storage.md)
 
 ## Web Dashboard
 
