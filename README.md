@@ -28,6 +28,12 @@ After the setup, access the Errsole Web Dashboard at [http://localhost:8001/](ht
 * **Custom Logger:** We are introducing a custom logger that supports all log levels (error, warn, info, debug) and allows custom JSON logging.
 * **Error Notifications:** We will implement a notification system that sends alerts about errors directly to your Email or Slack.
 
+## Contribution and Support
+
+**Contribution:** We welcome contributions! If you have ideas for improvements, feel free to fork the repository, make your changes, and submit a pull request.
+
+**Support:** Have questions, facing issues, or want to request a feature? Open an issue on the GitHub repository.
+
 ## License
 
 [MIT](LICENSE)
