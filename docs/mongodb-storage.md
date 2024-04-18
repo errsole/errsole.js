@@ -66,3 +66,7 @@ app.get('/', function (req, res) {
 
 app.listen(3000);
 ```
+
+### Errsole Dashboard
+
+After the setup, access the Errsole Web Dashboard at [http://localhost:8001/](http://localhost:8001/).
