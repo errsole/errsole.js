@@ -69,4 +69,4 @@ app.listen(3000);
 
 ### Errsole Dashboard
 
-After the setup, access the Errsole Web Dashboard at [http://localhost:8001/](http://localhost:8001/).
+After the setup, access the Errsole Web Dashboard at [http://localhost:8001/](http://localhost:8001/). If you have configured Errsole with a different port during initialization, make sure to replace "8001" in the URL with your specific port number.

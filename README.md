@@ -20,7 +20,7 @@ Errsole is a Node.js logger with a built-in web dashboard. In this dashboard, yo
 
 ## Errsole Dashboard
 
-After the setup, access the Errsole Web Dashboard at [http://localhost:8001/](http://localhost:8001/).
+After the setup, access the Errsole Web Dashboard at [http://localhost:8001/](http://localhost:8001/). If you have configured Errsole with a different port during initialization, make sure to replace "8001" in the URL with your specific port number.
 
 ## Upcoming Features
 
@@ -32,7 +32,7 @@ After the setup, access the Errsole Web Dashboard at [http://localhost:8001/](ht
 
 **Contribution:** We welcome contributions! If you have ideas for improvements, feel free to fork the repository, make your changes, and submit a pull request.
 
-**Support:** Have questions, facing issues, or want to request a feature? Open an issue on the GitHub repository.
+**Support:** Have questions, facing issues, or want to request a feature? [Open an issue](https://github.com/errsole/errsole.js/issues/new) on the GitHub repository.
 
 ## License
 
