@@ -18,9 +18,9 @@ Errsole is a Node.js logger with a built-in web dashboard. In this dashboard, yo
 
 * [Errsole with MongoDB](docs/mongodb-storage.md)
 
-## Errsole Dashboard
+## Web Dashboard
 
-After the setup, access the Errsole Web Dashboard at [http://localhost:8001/](http://localhost:8001/). If you have configured Errsole with a different port during initialization, make sure to replace "8001" in the URL with your specific port number.
+After the setup, access the Errsole Web Dashboard at [http://localhost:8001/](http://localhost:8001/). If you have configured Errsole with a different port and path during initialization, remember to replace "8001" in the URL with your chosen port number and add your custom path to the end of the URL.
 
 ## Upcoming Features
 
