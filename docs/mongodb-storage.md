@@ -1,6 +1,4 @@
-# Errsole Setup
-
-## Errsole with MongoDB
+# Errsole with MongoDB
 
 ### Install
 
