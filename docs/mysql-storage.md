@@ -5,7 +5,7 @@
 Install the errsole and errsole-sequelize modules using the npm install command:
 
 ```bash
-npm install errsole errsole-sequelize
+npm install errsole errsole-sequelize mysql2
 ```
 
 ### Configure

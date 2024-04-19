@@ -6,12 +6,46 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="description" content="Node.js logger with web dashboard">
   <title>errsole: Node.js logger with web dashboard</title>
-  <link rel="icon" href="../assets/images/favicon.png" type="image/png">
-  <link rel="stylesheet" href="../assets/css/app.css">
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var basePathMatch = window.location.pathname.match(/^(\/[^\/]+\/?)/);
+      var basePath = basePathMatch ? basePathMatch[0] : '/';
+      if (!basePath.endsWith('/')) {
+        basePath += '/';
+      }
+      function loadCSS(filename) {
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = basePath + filename;
+        document.head.appendChild(link);
+      }
+      function loadFavicon(filename) {
+        var link = document.createElement('link');
+        link.rel = 'icon';
+        link.type = 'image/png';
+        link.href = basePath + filename;
+        document.head.appendChild(link);
+      }
+      loadCSS('assets/css/app.css');
+      loadFavicon('assets/images/favicon.png');
+    });
+  </script>  
 </head>
 <body>
   <div id="app"></div>
-  <script src="../dist/bundle.js"></script>
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <script>
+    var basePathMatch = window.location.pathname.match(/^(\/[^\/]+\/?)/);
+    var basePath = basePathMatch ? basePathMatch[0] : '/';
+    if (!basePath.endsWith('/')) {
+      basePath += '/';
+    }
+    function loadScript(filename) {
+      var script = document.createElement('script');
+      script.src = basePath + filename;
+      document.head.appendChild(script);
+    }
+    loadScript('dist/bundle.js');
+    loadScript('assets/js/github-button.min.js');
+  </script>  
 </body>
 </html>
