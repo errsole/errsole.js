@@ -251,3 +251,15 @@ body {
   border: 1px solid #ccc;
   color: #000000;
 }
+
+.version-menu {
+  padding: 14px !important;
+}
+
+.update-button {
+  font-size: 13px !important;
+  bottom: 14px !important;
+  position: fixed !important;
+  color: #6db6fa !important;
+  border-color: #6db6fa !important;
+}

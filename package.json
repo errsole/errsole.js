@@ -26,6 +26,7 @@
     "build:web": "NODE_OPTIONS=--openssl-legacy-provider webpack --config lib/web/webpack/website.config.js"
   },
   "dependencies": {
+    "axios": "^1.6.8",
     "body-parser": "^1.20.2",
     "express": "^4.17.1",
     "json-api-serializer": "^2.6.6",
@@ -37,7 +38,6 @@
     "@babel/preset-env": "^7.24.0",
     "@babel/preset-react": "^7.23.3",
     "antd": "^3.26.18",
-    "axios": "^1.6.8",
     "babel": "^6.23.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^9.1.3",
