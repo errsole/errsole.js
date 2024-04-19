@@ -243,6 +243,11 @@ body {
 }
 
 .github-star-button {
-  margin: 10px;
   display: flex;
+}
+
+.github-star-button button {
+  background: whitesmoke;
+  border: 1px solid #ccc;
+  color: #000000;
 }
