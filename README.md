@@ -9,15 +9,20 @@ Errsole is an open-source logger for Node.js. It has a built-in web dashboard to
 ## Features
 
 * **Easy Setup:** Just insert the Errsole code snippet at the beginning of your app's main file. That's it!
+
 * **Automated Log Collection:** Errsole automatically collects all your app logs directly from the Node.js console.
+
 * **Centralized Logging:** Errsole consolidates all your app logs from multiple servers into one centralized database. You can choose your preferred database system.
+
 * **Interactive Web Dashboard:** Easily view, filter, and search your app logs using the Errsole web dashboard.
+
 * **Secure Access Control:** Errsole comes with built-in authentication, ensuring that only you and your authorized development team can access the logs.
 
 ## Setup
 
 * [Errsole with MongoDB](docs/mongodb-storage.md)
 * [Errsole with MySQL](docs/mysql-storage.md)
+* [Errsole with Sqlite](docs/sqlite-storage.md)
 
 ## Web Dashboard
 

@@ -1,11 +1,11 @@
-# Errsole with MySQL
+# Errsole with Sqlite
 
 ### Install
 
-Install the errsole, errsole-sequelize and mysql modules using the npm install command:
+Install the errsole, errsole-sequelize and sqlite modules using the npm install command:
 
 ```bash
-npm install errsole errsole-sequelize mysql2
+npm install errsole errsole-sequelize sqlite3
 ```
 
 ### Configure
@@ -22,12 +22,9 @@ npm install errsole errsole-sequelize mysql2
 
     errsole.initialize({
       storage: new ErrsoleSequelize({
-        host: 'mysql-host', // Replace with your actual MySQL host
-        username: 'database-username', // Replace with your actual MySQL username
-        password: 'database-password', // Replace with your actual MySQL password
-        database: 'database-name', // Replace with the name of your MySQL database
-        dialect: 'mysql' // This specifies that you are using MySQL
-      }),
+        dialect: 'sqlite', // This specifies that you are using Sqlite
+        storage: 'path/to/database.sqlite'
+      },
       port: 8001, // Optional: Specify the dashboard port, default is 8001
       path: '/',  // Optional: Specify the dashboard base path, default is '/'
       captureLogs: ['info', 'error'], // Optional: Specify which logs to capture, default is ['info', 'error']
@@ -47,11 +44,8 @@ const ErrsoleSequelize = require('errsole-sequelize');
 
 errsole.initialize({
   storage: new ErrsoleSequelize({
-    host: 'localhost',
-    username: 'root',
-    password: 'password',
-    database: 'dbname',
-    dialect: 'mysql'
+    dialect: 'sqlite',
+    storage: 'path/to/database.sqlite'
   })
 });
 // Errsole setup (as shown above)
