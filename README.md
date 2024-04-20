@@ -4,7 +4,7 @@
   <h3 align="center">Node.js logger with a built-in web dashboard.</h3>
 </p>
 
-Errsole is a Node.js logger with a built-in web dashboard. In this dashboard, you can easily view, filter, and search your app logs.
+Errsole is an open-source logger for Node.js. It has a built-in web dashboard to view, filter, and search your app logs.
 
 ## Features
 
