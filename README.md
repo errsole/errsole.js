@@ -22,6 +22,7 @@ Errsole is an open-source logger for Node.js. It has a built-in web dashboard to
 
 * [Errsole with MongoDB](docs/mongodb-storage.md)
 * [Errsole with MySQL](docs/mysql-storage.md)
+* [Errsole with PostgreSQL](docs/postgresql-storage.md)
 * [Errsole with Sqlite](docs/sqlite-storage.md)
 
 ## Web Dashboard
