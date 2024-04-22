@@ -1,4 +1,4 @@
-# Errsole with Sqlite
+# Errsole with SQLite
 
 ### Install
 
