@@ -3,10 +3,10 @@
   "version": "2.1.0",
   "description": "Logger with a Built-in Web Dashboard",
   "keywords": [
+    "log",
     "logs",
     "logging",
-    "logger",
-    "loglevel"
+    "logger"
   ],
   "homepage": "https://github.com/errsole/errsole.js",
   "bugs": {
