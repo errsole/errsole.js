@@ -263,3 +263,9 @@ body {
   color: #6db6fa !important;
   border-color: #6db6fa !important;
 }
+.npm_install {
+  border: 1px solid #ccc;
+  background: #f0eded;
+  padding: 10px 20px;
+  border-radius: 2px;
+}
