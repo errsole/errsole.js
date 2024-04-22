@@ -14,21 +14,21 @@ npm install errsole errsole-sequelize mariadb
 /**
  * Insert this Errsole code snippet as the first line of your app's main file
  */
-    const errsole = require('errsole');
-    const ErrsoleSequelize = require('errsole-sequelize');
-    // or using ESM
-    // import errsole from 'errsole';
-    // import ErrsoleSequelize from 'errsole-sequelize';
+const errsole = require('errsole');
+const ErrsoleSequelize = require('errsole-sequelize');
+// or using ESM
+// import errsole from 'errsole';
+// import ErrsoleSequelize from 'errsole-sequelize';
 
-    errsole.initialize({
-      storage: new ErrsoleSequelize({
-        dialect: 'mariadb', // This specifies that you are using MariaDB
-        host: 'mariadb-host', // Replace with your actual MariaDB host
-        username: 'database-username', // Replace with your actual MariaDB username
-        password: 'database-password', // Replace with your actual MariaDB password
-        database: 'database-name' // Replace with the name of your MariaDB database
-      })
-    });
+errsole.initialize({
+  storage: new ErrsoleSequelize({
+    dialect: 'mariadb', // This specifies that you are using MariaDB
+    host: 'mariadb-host', // Replace with your actual MariaDB host
+    username: 'database-username', // Replace with your actual MariaDB username
+    password: 'database-password', // Replace with your actual MariaDB password
+    database: 'database-name' // Replace with the name of your MariaDB database
+  })
+});
 // End of Errsole code snippet
 ```
 

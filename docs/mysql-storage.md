@@ -2,7 +2,7 @@
 
 ### Install
 
-Install the errsole, errsole-sequelize and mysql modules using the npm install command:
+Install the errsole, errsole-sequelize and mysql2 modules using the npm install command:
 
 ```bash
 npm install errsole errsole-sequelize mysql2
@@ -14,25 +14,21 @@ npm install errsole errsole-sequelize mysql2
 /**
  * Insert this Errsole code snippet as the first line of your app's main file
  */
-    const errsole = require('errsole');
-    const ErrsoleSequelize = require('errsole-sequelize');
-    // or using ESM
-    // import errsole from 'errsole';
-    // import ErrsoleSequelize from 'errsole-sequelize';
+const errsole = require('errsole');
+const ErrsoleSequelize = require('errsole-sequelize');
+// or using ESM
+// import errsole from 'errsole';
+// import ErrsoleSequelize from 'errsole-sequelize';
 
-    errsole.initialize({
-      storage: new ErrsoleSequelize({
-        host: 'mysql-host', // Replace with your actual MySQL host
-        username: 'database-username', // Replace with your actual MySQL username
-        password: 'database-password', // Replace with your actual MySQL password
-        database: 'database-name', // Replace with the name of your MySQL database
-        dialect: 'mysql' // This specifies that you are using MySQL
-      }),
-      port: 8001, // Optional: Specify the dashboard port, default is 8001
-      path: '/',  // Optional: Specify the dashboard base path, default is '/'
-      captureLogs: ['info', 'error'], // Optional: Specify which logs to capture, default is ['info', 'error']
-      enableConsoleOutput: true // Optional: Set to false to prevent logs from printing in the terminal, default is true
-    });
+errsole.initialize({
+  storage: new ErrsoleSequelize({
+    dialect: 'mysql', // This specifies that you are using MySQL
+    host: 'mysql-host', // Replace with your actual MySQL host
+    username: 'database-username', // Replace with your actual MySQL username
+    password: 'database-password', // Replace with your actual MySQL password
+    database: 'database-name' // Replace with the name of your MySQL database
+  })
+});
 // End of Errsole code snippet
 ```
 
@@ -47,25 +43,38 @@ const ErrsoleSequelize = require('errsole-sequelize');
 
 errsole.initialize({
   storage: new ErrsoleSequelize({
+    dialect: 'mysql',
     host: 'localhost',
     username: 'root',
     password: 'password',
-    database: 'dbname',
-    dialect: 'mysql'
+    database: 'dbname'
   })
 });
-// Errsole setup (as shown above)
+// End of Errsole code snippet
 
+/**
+ * Your app code starts here
+ */
 const express = require('express');
 const app = express();
 
-
-app.get('/', (req, res) => {
+app.get('/', function (req, res) {
   res.send('Hello World');
 });
 
-app.listen(3000, () => console.log('Server running on http://localhost:3000'));
+app.listen(3000);
 ```
+
+#### Advanced Configuration
+
+| **Option**          	| **Type**         	| **Description**                                                                                                                                                                                                                                                                                            	|
+|---------------------	|------------------	|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|
+| storage             	| ErrsoleSequelize 	| Required.<br>Setup MySQL as the storage backend with connection details.                                                                                                                                                                                                                                   	|
+| collectLogs         	| Array of Strings 	| Optional. The default value is ['error', 'info'].<br>By default, Errsole collects both error and info logs. If you wish to limit Errsole to collecting only error logs, you can set this option to ['error']. If you prefer Errsole not to collect any logs, simply set this option to an empty array, []. 	|
+| enableConsoleOutput 	| Boolean          	| Optional. The default value is true.<br>Control whether log output is also shown in the console.                                                                                                                                                                                                           	|
+| enableDashboard     	| Boolean          	| Optional. The default value is true.<br>Enable or disable the web dashboard feature.                                                                                                                                                                                                                       	|
+| port                	| Number           	| Optional. The default value is 8001.<br>Specify the network port for the web dashboard.                                                                                                                                                                                                                    	|
+| path                	| String           	| Optional. The default value is '/'.<br>Define the base path for accessing the web dashboard.                                                                                                                                                                                                               	|
 
 ### Web Dashboard
 
