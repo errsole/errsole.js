@@ -244,12 +244,17 @@ body {
 
 .github-star-button {
   display: flex;
+  float: right;
+  padding-right: 50px;
 }
 
 .github-star-button button {
   background: whitesmoke;
   border: 1px solid #ccc;
   color: #000000;
+}
+.github-issue-button {
+  margin-right: 20px;
 }
 
 .version-menu {
