@@ -22,20 +22,7 @@ const ErrsoleMongoDB = require('errsole-mongodb');
 // import ErrsoleMongoDB from 'errsole-mongodb';
 
 errsole.initialize({
-  // Setup MongoDB as the storage backend with connection details.
-  storage: new ErrsoleMongoDB('<MongoDB Connection URL>', '<Optional: Database Name>', '<Optional: MongoDB Client Options>'),
-
-  // Specify the network port for the errsole dashboard. The default port is 8001 if not specified.
-  port: 8001,
-
-  // Define the base path for accessing the errsole dashboard. Default is the root path ('/').
-  path: '/',
-
-  // Configure the types of logs to capture. By default, 'info' and 'error' logs are captured.
-  captureLogs: ['info', 'error'],
-
-  // Control whether log output is also shown in the console. The default setting is true, allowing console output.
-  enableConsoleOutput: true
+  storage: new ErrsoleMongoDB('<MongoDB Connection URL>', '<Optional: Database Name>', '<Optional: MongoDB Client Options>')
 });
 // End of Errsole code snippet
 ```
@@ -66,6 +53,17 @@ app.get('/', function (req, res) {
 
 app.listen(3000);
 ```
+
+#### Advanced Configuration
+
+| **Option**          	| **Type**         	| **Description**                                                                                      	|
+|---------------------	|------------------	|------------------------------------------------------------------------------------------------------	|
+| storage             	| ErrsoleMongoDB   	| Required. Setup MongoDB as the storage backend with connection details.                              	|
+| captureLogs         	| Array of Strings 	| Optional. The default value is ['error', 'info'].<br><br>Configure the types of logs to capture.     	|
+| enableConsoleOutput 	| Boolean          	| Optional. The default value is true.<br><br>Control whether log output is also shown in the console. 	|
+| enableDashboard     	| Boolean          	| Optional. The default value is true.<br><br>Enable or disable the web dashboard feature.             	|
+| port                	| Number           	| Optional. The default value is 8001.<br><br>Specify the network port for the web dashboard.          	|
+| path                	| String           	| Optional. The default value is '/'.<br><br>Define the base path for accessing the web dashboard.     	|
 
 ### Web Dashboard
 
