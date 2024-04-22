@@ -56,14 +56,14 @@ app.listen(3000);
 
 #### Advanced Configuration
 
-| **Option**          	| **Type**         	| **Description**                                                                                      	|
-|---------------------	|------------------	|------------------------------------------------------------------------------------------------------	|
-| storage             	| ErrsoleMongoDB   	| Required.<br><br>Setup MongoDB as the storage backend with connection details.                       	|
-| captureLogs         	| Array of Strings 	| Optional. The default value is ['error', 'info'].<br><br>Configure the types of logs to capture.     	|
-| enableConsoleOutput 	| Boolean          	| Optional. The default value is true.<br><br>Control whether log output is also shown in the console. 	|
-| enableDashboard     	| Boolean          	| Optional. The default value is true.<br><br>Enable or disable the web dashboard feature.             	|
-| port                	| Number           	| Optional. The default value is 8001.<br><br>Specify the network port for the web dashboard.          	|
-| path                	| String           	| Optional. The default value is '/'.<br><br>Define the base path for accessing the web dashboard.     	|
+| **Option**          	| **Type**         	| **Description**                                                                                  	|
+|---------------------	|------------------	|--------------------------------------------------------------------------------------------------	|
+| storage             	| ErrsoleMongoDB   	| Required.<br>Setup MongoDB as the storage backend with connection details.                       	|
+| captureLogs         	| Array of Strings 	| Optional. The default value is ['error', 'info'].<br>Configure the types of logs to capture.     	|
+| enableConsoleOutput 	| Boolean          	| Optional. The default value is true.<br>Control whether log output is also shown in the console. 	|
+| enableDashboard     	| Boolean          	| Optional. The default value is true.<br>Enable or disable the web dashboard feature.             	|
+| port                	| Number           	| Optional. The default value is 8001.<br>Specify the network port for the web dashboard.          	|
+| path                	| String           	| Optional. The default value is '/'.<br>Define the base path for accessing the web dashboard.     	|
 
 ### Web Dashboard
 
