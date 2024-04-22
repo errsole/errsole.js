@@ -23,7 +23,7 @@ const ErrsoleSequelize = require('errsole-sequelize');
 
 errsole.initialize({
   storage: new ErrsoleSequelize({
-    dialect: 'sqlite', // This specifies that you are using Sqlite
+    dialect: 'sqlite', // This specifies that you are using SQLite
     storage: 'path/to/database.sqlite'
   }
 });
