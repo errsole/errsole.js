@@ -58,7 +58,7 @@ app.listen(3000);
 
 | **Option**          	| **Type**         	| **Description**                                                                                      	|
 |---------------------	|------------------	|------------------------------------------------------------------------------------------------------	|
-| storage             	| ErrsoleMongoDB   	| Required. Setup MongoDB as the storage backend with connection details.                              	|
+| storage             	| ErrsoleMongoDB   	| Required.<br><br>Setup MongoDB as the storage backend with connection details.                       	|
 | captureLogs         	| Array of Strings 	| Optional. The default value is ['error', 'info'].<br><br>Configure the types of logs to capture.     	|
 | enableConsoleOutput 	| Boolean          	| Optional. The default value is true.<br><br>Control whether log output is also shown in the console. 	|
 | enableDashboard     	| Boolean          	| Optional. The default value is true.<br><br>Enable or disable the web dashboard feature.             	|
