@@ -16,6 +16,7 @@ npm install errsole errsole-sequelize mysql2
  */
 const errsole = require('errsole');
 const ErrsoleSequelize = require('errsole-sequelize');
+
 // or using ESM
 // import errsole from 'errsole';
 // import ErrsoleSequelize from 'errsole-sequelize';
