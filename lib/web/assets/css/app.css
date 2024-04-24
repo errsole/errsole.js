@@ -275,8 +275,13 @@ body {
   border-radius: 2px;
 }
 
+.filter-sort-div {
+  padding: 10px !important;
+}
+
 .filter-tags-div {
-  margin-left: 10px;
+  margin-left: 22px;
+  padding-left: 10px 10px 10px 0px !important;
 }
 
 .filter-tags {
@@ -289,6 +294,10 @@ body {
 
 .filter-logs .ant-select-selection__choice {
   display: none !important;
+}
+
+.search-logs {
+  margin-bottom: 22px;
 }
 
 .search-logs-dropdown {
