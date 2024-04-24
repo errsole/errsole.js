@@ -25,7 +25,7 @@ errsole.initialize({
   storage: new ErrsoleSequelize({
     dialect: 'sqlite', // This specifies that you are using SQLite
     storage: 'path/to/database.sqlite'
-  }
+  })
 });
 // End of Errsole code snippet
 ```
