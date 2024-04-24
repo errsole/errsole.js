@@ -274,3 +274,37 @@ body {
   padding: 10px 20px;
   border-radius: 2px;
 }
+
+.filter-tags-div {
+  margin-left: 10px;
+}
+
+.filter-tags {
+  font-size: 13px !important;
+}
+
+.filter-logs .ant-select-selection__placeholder {
+  display: block !important;
+}
+
+.filter-logs .ant-select-selection__choice {
+  display: none !important;
+}
+
+.search-logs-dropdown {
+  display: none !important;
+}
+
+.search-input {
+  margin: 0px 10px !important;
+  width: 815px !important;
+}
+
+.search-input .ant-select-selection__choice  {
+  background-color: #108ee9 !important;
+  color: #ffffff !important;
+}
+
+.search-input .ant-select-selection__choice__remove {
+  color: #ffffff !important;
+}
