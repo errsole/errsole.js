@@ -35,9 +35,8 @@ After the setup, access the Errsole Web Dashboard at [http://localhost:8001/](ht
 
 ## Upcoming Features
 
-* **Search Logs:** We are adding a new feature to the Errsole Dashboard that enables you to search your app logs over a specified time period.
-* **Custom Logger:** We are introducing a custom logger that supports all log levels (error, warn, info, debug) and allows custom JSON logging.
 * **Error Notifications:** We will implement a notification system that sends alerts about errors directly to your Email or Slack.
+* **Custom Logger:** We are introducing a custom logger that supports all log levels (error, warn, info, debug) and allows custom JSON logging.
 
 ## Contribution and Support
 
