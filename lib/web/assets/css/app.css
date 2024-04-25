@@ -294,7 +294,7 @@ body {
 }
 
 .filter-input-div {
-  width: calc(100% - 535px);
+  width: calc(100% - 440px);
 }
 
 .filter-input {
@@ -320,7 +320,7 @@ body {
 
 .search-input {
   margin: 0px 10px !important;
-  width: 90% !important;
+  width: calc(100% - 20px) !important;
 }
 
 .search-input .ant-select-selection__choice  {
