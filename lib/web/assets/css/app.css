@@ -275,8 +275,9 @@ body {
   border-radius: 2px;
 }
 
-.filter-sort-div {
+.filter-div {
   padding: 10px !important;
+  margin-bottom: 20px !important;
 }
 
 .filter-tags-div {
@@ -292,12 +293,25 @@ body {
   display: block !important;
 }
 
-.filter-logs .ant-select-selection__choice {
-  display: none !important;
+.filter-input-div {
+  width: calc(100% - 535px);
 }
 
-.search-logs {
-  margin-bottom: 22px;
+.filter-input {
+  width: 100%;
+}
+
+.filter-input .ant-select-selection__choice  {
+  background-color: #108ee9 !important;
+  color: #ffffff !important;
+}
+
+.filter-input .ant-select-selection__choice__remove {
+  color: #ffffff !important;
+}
+
+.search-div {
+  padding: 10px !important;
 }
 
 .search-logs-dropdown {
@@ -306,7 +320,7 @@ body {
 
 .search-input {
   margin: 0px 10px !important;
-  width: 815px !important;
+  width: 90% !important;
 }
 
 .search-input .ant-select-selection__choice  {
