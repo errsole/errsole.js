@@ -277,7 +277,7 @@ body {
 
 .filter-div {
   padding: 10px !important;
-  margin-bottom: 20px !important;
+  margin-bottom: 35px !important;
 }
 
 .filter-tags-div {
@@ -330,4 +330,12 @@ body {
 
 .search-input .ant-select-selection__choice__remove {
   color: #ffffff !important;
+}
+
+.ant-result-success {
+  padding: 0px !important;
+}
+
+.ant-result-success .anticon-check-circle {
+  display: none !important;
 }
