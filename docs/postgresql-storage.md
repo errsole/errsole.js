@@ -2,7 +2,7 @@
 
 ### Install
 
-Install the errsole, errsole-sequelize and postgres modules using the npm install command:
+Install the errsole, errsole-sequelize, pg, and pg-hstore modules using the npm install command:
 
 ```bash
 npm install errsole errsole-sequelize pg pg-hstore

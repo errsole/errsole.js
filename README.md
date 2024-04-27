@@ -1,7 +1,7 @@
 <p align="center">
   <img src="https://github.com/errsole/errsole.js/assets/3775513/e7499016-cb28-488d-a47d-f1ba24804d2b" width="256"/>
 
-  <h3 align="center">Node.js Logger with a Built-in Web Dashboard</h3>
+  <h3 align="center">Node.js Logger with a Built-in Dashboard</h3>
 </p>
 
 Errsole is an open-source logger for Node.js. It has a built-in web dashboard to view, filter, and search your app logs.
