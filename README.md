@@ -14,6 +14,8 @@ https://github.com/errsole/errsole.js/assets/3775513/b8d7025d-9b82-464a-954a-8e2
 
 * **Automated Log Collection:** Errsole automatically collects all your app logs directly from the Node.js console.
 
+* **Customizable Logging:** In contrast to the Node.js console, which categorizes logs as either info or error, Oxygen's custom logger provides multiple log levels. This allows for greater precision in logging. Additionally, you can include metadata with your logs and receive alerts for specific log events according to your preferences.
+
 * **Centralized Logging:** Errsole consolidates all your app logs from multiple servers into one centralized database. You can choose your preferred database system.
 
 * **Interactive Web Dashboard:** Easily view, filter, and search your app logs using the Errsole web dashboard.
@@ -36,7 +38,6 @@ After the setup, access the Errsole Web Dashboard at [http://localhost:8001/](ht
 ## Upcoming Features
 
 * **Error Notifications:** We will implement a notification system that sends alerts about errors directly to your Email or Slack.
-* **Custom Logger:** We are introducing a custom logger that supports all log levels (error, warn, info, debug) and allows custom JSON logging.
 
 ## Contribution and Support
 
