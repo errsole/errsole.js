@@ -95,7 +95,7 @@ errsole.debug('Debugging information');
 
 ## Upcoming Features
 
-* **Data Retention:** You can specify the number of days you wish to keep your application logs.
+* **Data Retention:** You can specify the number of days you wish to keep your app logs.
 
 ## Contribution and Support
 
