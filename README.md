@@ -93,6 +93,10 @@ The debug function logs debug information, typically used for troubleshooting du
 errsole.debug('Debugging information');
 ```
 
+## Upcoming Features
+
+* **Data Retention:** You can specify the number of days you wish to keep your application logs.
+
 ## Contribution and Support
 
 **Contribution:** We welcome contributions! If you have ideas for improvements, feel free to fork the repository, make your changes, and submit a pull request.
