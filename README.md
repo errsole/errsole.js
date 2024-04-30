@@ -14,7 +14,7 @@ https://github.com/errsole/errsole.js/assets/3775513/b8d7025d-9b82-464a-954a-8e2
 
 * **Automated Log Collection:** Errsole automatically collects all your app logs directly from the Node.js console.
 
-* **Customized Logging:** In contrast to the Node.js console, which categorizes logs as either info or error, Errsole's custom logger provides multiple log levels. This allows for greater precision in logging. Additionally, you can include metadata with your logs and receive alerts for specific log events according to your preferences.
+* **Customized Logging:** Errsole's custom logger provides multiple log levels, thereby enabling greater precision in logging. Additionally, you can include metadata with your logs and receive alerts for specific log events according to your preferences.
 
 * **Centralized Logging:** Errsole consolidates all your app logs from multiple servers into one centralized database. You can choose your preferred database system.
 
@@ -36,6 +36,66 @@ https://github.com/errsole/errsole.js/assets/3775513/b8d7025d-9b82-464a-954a-8e2
 ## Web Dashboard
 
 After the setup, access the Errsole Web Dashboard at [http://localhost:8001/](http://localhost:8001/). If you have configured Errsole with a different port and path during initialization, remember to replace "8001" in the URL with your chosen port number and add your custom path to the end of the URL.
+
+## Custom Logging Functions
+
+### log / info
+
+The log function is used to log messages or information. It can accept one or more arguments, which can be strings, numbers, JavaScript objects, or Error objects.
+
+**Example:**
+
+```javascript
+errsole.log('Logging a message');
+errsole.log('Multiple', 'arguments', 'are supported');
+errsole.log('Logging with a variable:', var1);
+errsole.log(new Error('An error occurred'));
+errsole.log('Logging with an error object:', errorObject);
+```
+
+### alert
+
+The alert function logs a message and sends a notification to configured channels, such as Email or Slack. It accepts the same types of arguments as the log function.
+
+**Example:**
+
+```javascript
+errsole.alert('Alert! Something critical happened');
+```
+
+### error
+
+The error function is specifically designed to log errors. It accepts the same types of arguments as the log function.
+
+**Example:**
+
+```javascript
+errsole.error(new Error('An error occurred'));
+```
+
+### warn
+
+The warn function is used to log warning messages. It accepts the same types of arguments as the log function.
+
+**Example:**
+
+```javascript
+errsole.warn('This is a warning message');
+```
+
+### debug
+
+The debug function logs debug information, typically used for troubleshooting during development. It accepts the same types of arguments as the log function.
+
+**Example:**
+
+```javascript
+errsole.debug('Debugging information');
+```
+
+## Upcoming Features
+
+* **Data Retention:** You can specify the number of days you wish to keep your app logs.
 
 ## Contribution and Support
 
