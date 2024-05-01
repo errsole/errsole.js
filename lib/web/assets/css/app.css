@@ -336,6 +336,6 @@ body {
   padding: 0px !important;
 }
 
-.ant-result-success .anticon-check-circle {
+.integrations .ant-result-icon .anticon-check-circle {
   display: none !important;
 }
