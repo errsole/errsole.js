@@ -28,10 +28,10 @@ https://github.com/errsole/errsole.js/assets/3775513/b8d7025d-9b82-464a-954a-8e2
 
 ## Setup
 
+* [Errsole with SQLite (Quick Setup)](docs/sqlite-storage.md)
 * [Errsole with MongoDB](docs/mongodb-storage.md)
 * [Errsole with MySQL](docs/mysql-storage.md)
 * [Errsole with PostgreSQL](docs/postgresql-storage.md)
-* [Errsole with SQLite](docs/sqlite-storage.md)
 * [Errsole with MariaDB](docs/mariadb-storage.md)
 * [Errsole with OracleDB](docs/oracledb-storage.md)
 

@@ -1,5 +1,7 @@
 # Errsole with SQLite
 
+SQLite stores databases as files. So, if you use SQLite to store logs, those logs will be stored as a file on the storage system.
+
 ### Install
 
 Install the errsole, errsole-sequelize, and sqlite3 modules using the npm install command:
