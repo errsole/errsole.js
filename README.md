@@ -35,16 +35,33 @@ https://github.com/errsole/errsole.js/assets/3775513/b8d7025d-9b82-464a-954a-8e2
 
 ## Web Dashboard
 
-After the setup, access the Errsole Web Dashboard at [http://localhost:8001/](http://localhost:8001/). If you have configured Errsole with a different port and path during initialization, remember to replace "8001" in the URL with your chosen port number and add your custom path to the end of the URL.
+Once you have completed the setup, access the Errsole Web Dashboard at [http://localhost:8001/](http://localhost:8001/). If you have initialized Errsole using a different port or specified a custom path, make sure to adjust the URL accordingly. Replace 8001 with your chosen port and append your custom path at the end of the URL.
 
 ### Proxy Middleware Configuration
 
-If you are having trouble reaching port 8001 due to firewall restrictions or if you prefer hosting the Errsole Web Dashboard on your main domain/port, you can configure Errsole Middleware in your app.
-
-Just add this code to your app:
+Should you encounter issues accessing port 8001, possibly due to firewall constraints, or if you prefer to host the Errsole Web Dashboard on your primary domain/port, configure the Errsole Proxy Middleware in your application. Here is how:
 
 ```javascript
-app.use('/errsole', errsole.proxyMiddleware());
+const errsole = require('errsole');
+const ErrsoleMongoDB = require('errsole-mongodb');
+
+// Initialize Errsole with storage and custom path
+errsole.initialize({
+  storage: new ErrsoleMongoDB('mongodb://localhost:27017/', 'logs'),
+  path: '/errsole'
+});
+
+const express = require('express');
+const app = express();
+
+// Use Errsole proxy middleware
+app.use(errsole.proxyMiddleware());
+
+app.get('/', function (req, res) {
+  res.send('Hello World');
+});
+
+app.listen(3000);
 ```
 
 Once you have done that, you will be able to access the Errsole Web Dashboard using the same domain as your app. For example:
