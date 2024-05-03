@@ -33,7 +33,7 @@ https://github.com/errsole/errsole.js/assets/3775513/b8d7025d-9b82-464a-954a-8e2
 * [Errsole with MariaDB](docs/mariadb-storage.md)
 * [Errsole with OracleDB](docs/oracledb-storage.md)
 
-## Web Dashboard
+## Web Dashboard Access
 
 Once you have completed the setup, access the Errsole Web Dashboard at [http://localhost:8001/](http://localhost:8001/). If you have initialized Errsole using a different port or specified a custom path, make sure to adjust the URL accordingly. Replace 8001 with your chosen port and append your custom path at the end of the URL.
 
