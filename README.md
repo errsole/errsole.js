@@ -39,7 +39,12 @@ Once you have completed the setup, access the Errsole Web Dashboard at [http://l
 
 ### Proxy Middleware Configuration
 
-Should you encounter issues accessing port 8001, possibly due to firewall constraints, or if you prefer to host the Errsole Web Dashboard on your primary domain/port, configure the Errsole Proxy Middleware in your application. Here is how:
+Should you encounter issues accessing port 8001, possibly due to firewall constraints, or if you prefer to host the Errsole Web Dashboard on your primary domain/port, configure the Errsole Proxy Middleware in your application. Follow these steps:
+
+1. Specify the custom path for the Errsole Web Dashboard during the initialization of Errsole.
+2. Integrate the Errsole Proxy Middleware into your app.
+
+**Example:**
 
 ```javascript
 const errsole = require('errsole');
