@@ -8,8 +8,7 @@
   <title>errsole: Node.js logger with a built-in web dashboard</title>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      var basePathMatch = window.location.pathname.match(/^(\/[^\/]+\/?)/);
-      var basePath = basePathMatch ? basePathMatch[0] : '/';
+      var basePathMatch = window.location.pathname;
       if (!basePath.endsWith('/')) {
         basePath += '/';
       }
@@ -34,8 +33,7 @@
 <body>
   <div id="app"></div>
   <script>
-    var basePathMatch = window.location.pathname.match(/^(\/[^\/]+\/?)/);
-    var basePath = basePathMatch ? basePathMatch[0] : '/';
+    var basePath = window.location.pathname;
     if (!basePath.endsWith('/')) {
       basePath += '/';
     }
