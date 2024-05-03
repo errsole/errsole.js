@@ -24,6 +24,8 @@ https://github.com/errsole/errsole.js/assets/3775513/b8d7025d-9b82-464a-954a-8e2
 
 * **Error Notifications:** Errsole delivers notifications for app crashes and custom alerts directly to your Email or Slack.
 
+* **Data Retention:** You can specify the number of days you wish to keep your app logs.
+
 ## Setup
 
 * [Errsole with MongoDB](docs/mongodb-storage.md)
@@ -129,10 +131,6 @@ The debug function logs debug information, typically used for troubleshooting du
 ```javascript
 errsole.debug('Debugging information');
 ```
-
-## Upcoming Features
-
-* **Data Retention:** You can specify the number of days you wish to keep your app logs.
 
 ## Contribution and Support
 
