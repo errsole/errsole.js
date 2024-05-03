@@ -18,7 +18,7 @@ https://github.com/errsole/errsole.js/assets/3775513/b8d7025d-9b82-464a-954a-8e2
 
 * **Centralized Logging:** Errsole consolidates all your app logs from multiple servers into one centralized database. You can choose your preferred database system.
 
-* **Interactive Web Dashboard:** Easily view, filter, and search your app logs using the Errsole web dashboard.
+* **Interactive Web Dashboard:** Easily view, filter, and search your app logs using the Errsole Web Dashboard.
 
 * **Secure Access Control:** Errsole comes with built-in authentication, ensuring that only you and your authorized development team can access the logs.
 
@@ -39,7 +39,7 @@ After the setup, access the Errsole Web Dashboard at [http://localhost:8001/](ht
 
 ### Proxy Middleware Configuration
 
-If you are having trouble reaching port 8001 due to firewall restrictions or if you prefer hosting the Errsole Dashboard on your main domain/port, you can configure Errsole Middleware in your app.
+If you are having trouble reaching port 8001 due to firewall restrictions or if you prefer hosting the Errsole Web Dashboard on your main domain/port, you can configure Errsole Middleware in your app.
 
 Just add this code to your app:
 
@@ -47,10 +47,10 @@ Just add this code to your app:
 app.use('/errsole', errsole.proxyMiddleware());
 ```
 
-Once you have done that, you will be able to access the Errsole Dashboard using the same domain as your app. For example:
+Once you have done that, you will be able to access the Errsole Web Dashboard using the same domain as your app. For example:
 
-* If your local app runs on port 3000, you can access the Errsole Dashboard at http://localhost:3000/errsole.
-* If your remote app is at https://api.example.com, you can access the Errsole Dashboard at https://api.example.com/errsole.
+* If your local app runs on port 3000, you can access the Errsole Web Dashboard at http://localhost:3000/errsole.
+* If your remote app is at https://api.example.com, you can access the Errsole Web Dashboard at https://api.example.com/errsole.
 
 **Note:** At present, Errsole Middleware supports only one level path. Here's a comparison to clarify:
 
