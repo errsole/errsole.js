@@ -69,16 +69,6 @@ Once you have done that, you will be able to access the Errsole Web Dashboard us
 * If your local app runs on port 3000, you can access the Errsole Web Dashboard at http://localhost:3000/errsole.
 * If your remote app is at https://api.example.com, you can access the Errsole Web Dashboard at https://api.example.com/errsole.
 
-**Note:** At present, Errsole Middleware supports only one level path. Here's a comparison to clarify:
-
-```javascript
-// Works fine
-app.use('/logsdashboard', errsole.proxyMiddleware());
-
-// Does not work
-app.use('/logs/dashboard', errsole.proxyMiddleware());
-```
-
 ## Custom Logging Functions
 
 ### log / info
