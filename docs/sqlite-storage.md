@@ -44,7 +44,7 @@ const ErrsoleSequelize = require('errsole-sequelize');
 errsole.initialize({
   storage: new ErrsoleSequelize({
     dialect: 'sqlite',
-    storage: './logsdb.sqlite'
+    storage: '/tmp/logs.sqlite'
   })
 });
 // End of Errsole code snippet

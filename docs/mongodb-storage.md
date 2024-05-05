@@ -86,15 +86,12 @@ If you encounter issues accessing port 8001 due to firewall restrictions, or if 
 
 ```javascript
 const errsole = require('errsole');
-const ErrsoleSequelize = require('errsole-sequelize');
+const ErrsoleMongoDB = require('errsole-mongodb');
 const express = require('express');
 
 // Initialize Errsole
 errsole.initialize({
-  storage: new ErrsoleSequelize({
-    dialect: 'sqlite',
-    storage: '/tmp/logs.sqlite'
-  })
+  storage: new ErrsoleMongoDB('mongodb://localhost:27017/', 'logs')
 });
 
 const app = express();
@@ -128,15 +125,12 @@ If you have initialized Errsole with a custom path, you need to append this cust
 
 ```javascript
 const errsole = require('errsole');
-const ErrsoleSequelize = require('errsole-sequelize');
+const ErrsoleMongoDB = require('errsole-mongodb');
 const express = require('express');
 
 // Initialize Errsole with a custom path
 errsole.initialize({
-  storage: new ErrsoleSequelize({
-    dialect: 'sqlite',
-    storage: '/tmp/logs.sqlite'
-  }),
+  storage: new ErrsoleMongoDB('mongodb://localhost:27017/', 'logs'),
   path: '/logs/dashboard' // Custom path
 });
 

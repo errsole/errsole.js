@@ -104,8 +104,11 @@ const express = require('express');
 // Initialize Errsole
 errsole.initialize({
   storage: new ErrsoleSequelize({
-    dialect: 'sqlite',
-    storage: '/tmp/logs.sqlite'
+    dialect: 'mariadb',
+    host: 'localhost',
+    username: 'root',
+    password: 'password',
+    database: 'dbname'
   })
 });
 
@@ -146,8 +149,11 @@ const express = require('express');
 // Initialize Errsole with a custom path
 errsole.initialize({
   storage: new ErrsoleSequelize({
-    dialect: 'sqlite',
-    storage: '/tmp/logs.sqlite'
+    dialect: 'mariadb',
+    host: 'localhost',
+    username: 'root',
+    password: 'password',
+    database: 'dbname'
   }),
   path: '/logs/dashboard' // Custom path
 });
