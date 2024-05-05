@@ -41,20 +41,19 @@ Once you have completed the setup, access the Errsole Web Dashboard at [http://l
 
 ### Proxy Middleware Configuration
 
-Should you encounter issues accessing port 8001, possibly due to firewall constraints, or if you prefer to host the Errsole Web Dashboard on your primary domain/port, configure the Errsole Proxy Middleware in your app. Follow these steps:
+If you encounter issues accessing port 8001 due to firewall restrictions, or if you prefer to host the Errsole Web Dashboard on your primary domain/port, you can configure the Errsole Proxy Middleware in your app. Here is a step-by-step guide:
 
 #### Step-by-Step Instructions
 
-* Include the Errsole Proxy Middleware in your application. Specify a path in the middleware where the Errsole Web Dashboard will be accessible.
-* Ensure the Errsole Proxy Middleware is the first middleware in your application. Any other middleware should be placed after it.
+* Include the Errsole Proxy Middleware in your app. Specify a path in the middleware where the Errsole Web Dashboard will be accessible.
+* Ensure the Errsole Proxy Middleware is the first middleware in your app. Any other middleware should be placed after it.
 
-#### Example Code
+#### Example
 
 ```javascript
 const errsole = require('errsole');
 const ErrsoleSequelize = require('errsole-sequelize');
 const express = require('express');
-const path = require('path');
 
 // Initialize Errsole
 errsole.initialize({
@@ -68,13 +67,11 @@ const app = express();
 
 // Register Errsole Proxy Middleware at the desired path (e.g., /errsole)
 // Make sure this is the first middleware used
-app.use('/errsole', errsole.errsole.proxyMiddleware());
+app.use('/errsole', errsole.proxyMiddleware());
 
 // Add other middlewares below the Errsole Proxy Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
@@ -97,7 +94,7 @@ Once you have done that, you will be able to access the Errsole Web Dashboard us
 
 The log function is used to log messages or information. It can accept one or more arguments, which can be strings, numbers, JavaScript objects, or Error objects.
 
-**Example:**
+#### Example
 
 ```javascript
 errsole.log('Logging a message');
@@ -111,7 +108,7 @@ errsole.log('Logging with an error object:', errorObject);
 
 The alert function logs a message and sends a notification to configured channels, such as Email or Slack. It accepts the same types of arguments as the log function.
 
-**Example:**
+#### Example
 
 ```javascript
 errsole.alert('Alert! Something critical happened');
@@ -121,7 +118,7 @@ errsole.alert('Alert! Something critical happened');
 
 The error function is specifically designed to log errors. It accepts the same types of arguments as the log function.
 
-**Example:**
+#### Example
 
 ```javascript
 errsole.error(new Error('An error occurred'));
@@ -131,7 +128,7 @@ errsole.error(new Error('An error occurred'));
 
 The warn function is used to log warning messages. It accepts the same types of arguments as the log function.
 
-**Example:**
+#### Example
 
 ```javascript
 errsole.warn('This is a warning message');
@@ -141,7 +138,7 @@ errsole.warn('This is a warning message');
 
 The debug function logs debug information, typically used for troubleshooting during development. It accepts the same types of arguments as the log function.
 
-**Example:**
+#### Example
 
 ```javascript
 errsole.debug('Debugging information');
