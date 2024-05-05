@@ -39,6 +39,58 @@ https://github.com/errsole/errsole.js/assets/3775513/b8d7025d-9b82-464a-954a-8e2
 
 Once you have completed the setup, access the Errsole Web Dashboard at [http://localhost:8001/](http://localhost:8001/). If you have initialized Errsole using a different port or specified a custom path, make sure to adjust the URL accordingly. Replace 8001 with your chosen port and append your custom path at the end of the URL.
 
+### Proxy Middleware Configuration
+
+Should you encounter issues accessing port 8001, possibly due to firewall constraints, or if you prefer to host the Errsole Web Dashboard on your primary domain/port, configure the Errsole Proxy Middleware in your app. Follow these steps:
+
+#### Step-by-Step Instructions
+
+* Include the Errsole Proxy Middleware in your application. Specify a path in the middleware where the Errsole Web Dashboard will be accessible.
+* Ensure the Errsole Proxy Middleware is the first middleware in your application. Any other middleware should be placed after it.
+
+#### Example Code
+
+```javascript
+const errsole = require('errsole');
+const ErrsoleSequelize = require('errsole-sequelize');
+const express = require('express');
+const path = require('path');
+
+// Initialize Errsole
+errsole.initialize({
+  storage: new ErrsoleSequelize({
+    dialect: 'sqlite',
+    storage: '/tmp/logs.sqlite'
+  })
+});
+
+const app = express();
+
+// Register Errsole Proxy Middleware at the desired path (e.g., /errsole)
+// Make sure this is the first middleware used
+app.use('/errsole', errsole.errsole.proxyMiddleware());
+
+// Add other middlewares below the Errsole Proxy Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+```
+
+#### Key Points to Remember
+
+* **Path is Required:** Provide a path for the middleware where the Errsole Web Dashboard can be accessed.
+* **Order of Middleware Matters:** Always place the Errsole Proxy Middleware first in your middleware stack.
+
+Once you have done that, you will be able to access the Errsole Web Dashboard using the same domain as your app. For example:
+
+* If your local app runs on port 3000, you can access the Errsole Web Dashboard at http://localhost:3000/errsole.
+* If your remote app is at https://api.example.com, you can access the Errsole Web Dashboard at https://api.example.com/errsole.
+
 ## Custom Logging Functions
 
 ### log / info
