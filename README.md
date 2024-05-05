@@ -88,6 +88,36 @@ Once you have done that, you will be able to access the Errsole Web Dashboard us
 * If your local app runs on port 3000, you can access the Errsole Web Dashboard at http://localhost:3000/errsole.
 * If your remote app is at https://api.example.com, you can access the Errsole Web Dashboard at https://api.example.com/errsole.
 
+#### Note
+
+If you have initialized Errsole with a custom path, you need to append this custom path to the middleware path.
+
+```javascript
+const errsole = require('errsole');
+const ErrsoleSequelize = require('errsole-sequelize');
+const express = require('express');
+
+// Initialize Errsole with a custom path
+errsole.initialize({
+  storage: new ErrsoleSequelize({
+    dialect: 'sqlite',
+    storage: '/tmp/logs.sqlite'
+  }),
+  path: '/logs/dashboard' // Custom path
+});
+
+const app = express();
+
+// Use Errsole Proxy Middleware
+app.use('/errsole', errsole.proxyMiddleware());
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+```
+
+In the above example, the Errsole Web Dashboard will be accessible at http://localhost:3000/errsole/logs/dashboard.
+
 ## Custom Logging Functions
 
 ### log / info
