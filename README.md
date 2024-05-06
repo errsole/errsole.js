@@ -6,7 +6,7 @@
 
 Errsole is an open-source logger for Node.js. It has a built-in web dashboard to view, filter, and search your app logs.
 
-https://github.com/errsole/errsole.js/assets/3775513/b8d7025d-9b82-464a-954a-8e27be51fd3a
+https://github.com/errsole/errsole.js/assets/3775513/b59424fa-c3b3-4a65-b603-e35499fe4263
 
 ## Features
 
