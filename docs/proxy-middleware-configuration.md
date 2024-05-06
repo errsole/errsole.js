@@ -1,4 +1,4 @@
-## Proxy Middleware Configuration
+# Proxy Middleware Configuration
 
 If you encounter issues accessing port 8001 due to firewall restrictions, or if you prefer to host the Errsole Web Dashboard on your primary domain/port, you can configure the Errsole Proxy Middleware in your app. Here is a step-by-step guide:
 
@@ -76,3 +76,7 @@ app.listen(3000, () => {
 ```
 
 In the above example, the Errsole Web Dashboard will be accessible at http://localhost:3000/errsole/logs/dashboard.
+
+### Main Documentation
+
+[Main Documentation](/README.md)
