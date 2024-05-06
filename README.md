@@ -39,7 +39,7 @@ https://github.com/errsole/errsole.js/assets/3775513/b59424fa-c3b3-4a65-b603-e35
 
 After completing the setup, you can access the Errsole Web Dashboard through the following methods:
 
-1. **Local Environment:** Open your web browser and visit http://localhost:8001/.
+1. **Local Environment:** Open your web browser and visit `http://localhost:8001/`.
 2. **Remote Server:** If you have deployed Errsole on a remote server, use the server's IP address or domain name followed by the port number (e.g., YourServerIP:8001 or YourDomain:8001).
 
 #### Note
@@ -49,7 +49,7 @@ If you initialized Errsole with a different port or specified a custom path, adj
 1. Replace 8001 with your chosen port number.
 2. Append your custom path to the end of the URL.
 
-`http://YourServerIP:CustomPort/YourCustomPath`
+`http(s)://YourServerIP:CustomPort/YourCustomPath`
 
 ### Proxy Middleware Configuration
 
