@@ -44,8 +44,8 @@ app.listen(3000, () => {
 
 Once you have done that, you will be able to access the Errsole Web Dashboard using the same domain as your app. For example:
 
-* If your local app runs on port 3000, you can access the Errsole Web Dashboard at http://localhost:3000/errsole.
-* If your remote app is at https://api.example.com, you can access the Errsole Web Dashboard at https://api.example.com/errsole.
+* If your local app runs on port 3000, you can access the Errsole Web Dashboard at `http://localhost:3000/errsole`.
+* If your remote app is at `https://api.example.com`, you can access the Errsole Web Dashboard at `https://api.example.com/errsole`.
 
 ### Note
 
@@ -75,7 +75,7 @@ app.listen(3000, () => {
 });
 ```
 
-In the above example, the Errsole Web Dashboard will be accessible at http://localhost:3000/errsole/logs/dashboard.
+In the above example, the Errsole Web Dashboard will be accessible at `http://localhost:3000/errsole/logs/dashboard`.
 
 ### Main Documentation
 
