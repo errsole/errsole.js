@@ -13,9 +13,6 @@ npm install errsole errsole-sequelize sqlite3
 ### Configure
 
 ```javascript
-/**
- * Insert this Errsole code snippet as the first line of your app's main file
- */
 const errsole = require('errsole');
 const ErrsoleSequelize = require('errsole-sequelize');
 
@@ -23,36 +20,30 @@ const ErrsoleSequelize = require('errsole-sequelize');
 // import errsole from 'errsole';
 // import ErrsoleSequelize from 'errsole-sequelize';
 
+// Insert the Errsole code snippet at the beginning of your app's main file
 errsole.initialize({
   storage: new ErrsoleSequelize({
     dialect: 'sqlite', // This specifies that you are using SQLite
     storage: 'path/to/database.sqlite'
   })
 });
-// End of Errsole code snippet
 ```
 
 #### Example
 
 ```javascript
-/**
- * Insert this Errsole code snippet as the first line of your app's main file
- */
+const express = require('express');
 const errsole = require('errsole');
 const ErrsoleSequelize = require('errsole-sequelize');
 
+// Insert the Errsole code snippet at the beginning of your app's main file
 errsole.initialize({
   storage: new ErrsoleSequelize({
     dialect: 'sqlite',
     storage: '/tmp/logs.sqlite'
   })
 });
-// End of Errsole code snippet
 
-/**
- * Your app code starts here
- */
-const express = require('express');
 const app = express();
 
 app.get('/', function (req, res) {

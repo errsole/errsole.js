@@ -11,9 +11,6 @@ npm install errsole errsole-sequelize pg pg-hstore
 ### Configure
 
 ```javascript
-/**
- * Insert this Errsole code snippet as the first line of your app's main file
- */
 const errsole = require('errsole');
 const ErrsoleSequelize = require('errsole-sequelize');
 
@@ -21,6 +18,7 @@ const ErrsoleSequelize = require('errsole-sequelize');
 // import errsole from 'errsole';
 // import ErrsoleSequelize from 'errsole-sequelize';
 
+// Insert the Errsole code snippet at the beginning of your app's main file
 errsole.initialize({
   storage: new ErrsoleSequelize({
     dialect: 'postgres', // This specifies that you are using PostgreSQL
@@ -30,18 +28,16 @@ errsole.initialize({
     database: 'database-name' // Replace with the name of your PostgreSQL database
   })
 });
-// End of Errsole code snippet
 ```
 
 #### Example
 
 ```javascript
-/**
- * Insert this Errsole code snippet as the first line of your app's main file
- */
+const express = require('express');
 const errsole = require('errsole');
 const ErrsoleSequelize = require('errsole-sequelize');
 
+// Insert the Errsole code snippet at the beginning of your app's main file
 errsole.initialize({
   storage: new ErrsoleSequelize({
     dialect: 'postgres',
@@ -51,12 +47,7 @@ errsole.initialize({
     database: 'dbname'
   })
 });
-// End of Errsole code snippet
 
-/**
- * Your app code starts here
- */
-const express = require('express');
 const app = express();
 
 app.get('/', function (req, res) {

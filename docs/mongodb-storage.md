@@ -11,9 +11,6 @@ npm install errsole errsole-mongodb
 ### Configure
 
 ```javascript
-/**
- * Insert this Errsole code snippet as the first line of your app's main file
- */
 const errsole = require('errsole');
 const ErrsoleMongoDB = require('errsole-mongodb');
 
@@ -21,30 +18,24 @@ const ErrsoleMongoDB = require('errsole-mongodb');
 // import errsole from 'errsole';
 // import ErrsoleMongoDB from 'errsole-mongodb';
 
+// Insert the Errsole code snippet at the beginning of your app's main file
 errsole.initialize({
   storage: new ErrsoleMongoDB('<MongoDB Connection URL>', '<Optional: Database Name>', '<Optional: MongoDB Client Options>')
 });
-// End of Errsole code snippet
 ```
 
 #### Example
 
 ```javascript
-/**
- * Insert this Errsole code snippet as the first line of your app's main file
- */
+const express = require('express');
 const errsole = require('errsole');
 const ErrsoleMongoDB = require('errsole-mongodb');
 
+// Insert the Errsole code snippet at the beginning of your app's main file
 errsole.initialize({
   storage: new ErrsoleMongoDB('mongodb://localhost:27017/', 'logs')
 });
-// End of Errsole code snippet
 
-/**
- * Your app code starts here
- */
-const express = require('express');
 const app = express();
 
 app.get('/', function (req, res) {
