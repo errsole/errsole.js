@@ -17,7 +17,6 @@ await fastify.register(expressPlugin);
 // Register Errsole Proxy Middleware at the desired path (e.g., /errsole)
 // Make sure this is the first middleware used
 fastify.use('/errsole', errsole.fastifyProxyMiddleware());
-
 // Add other middlewares below the Errsole Proxy Middleware
 
 // Start the server
