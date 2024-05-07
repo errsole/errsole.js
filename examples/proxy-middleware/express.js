@@ -1,8 +1,8 @@
+const express = require('express');
 const errsole = require('errsole');
 const ErrsoleSequelize = require('errsole-sequelize');
-const express = require('express');
 
-// Initialize Errsole
+// Insert the Errsole code snippet at the beginning of your app's main file
 errsole.initialize({
   storage: new ErrsoleSequelize({
     dialect: 'sqlite',
@@ -12,7 +12,7 @@ errsole.initialize({
 
 const app = express();
 
-// Register Errsole Proxy Middleware at the desired path (e.g., /errsole)
+// Register the Errsole Proxy Middleware at the desired path (e.g., /errsole)
 // Make sure this is the first middleware used
 app.use('/errsole', errsole.expressProxyMiddleware());
 
