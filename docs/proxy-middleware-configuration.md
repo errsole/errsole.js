@@ -84,7 +84,7 @@ try {
 
 #### Note
 
-If you have initialized Errsole with a custom path, you need to append this custom path to the middleware path: [Code Example](/examples/proxy-middleware/fastify-custom-path.js)
+If you have initialized Errsole with a custom path, you need to append this custom path to the middleware path: [Code Example](/examples/proxy-middleware/fastify-custom-path.mjs)
 
 ## Main Documentation
 
