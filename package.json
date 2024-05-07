@@ -23,7 +23,9 @@
   ],
   "main": "lib/errsole",
   "scripts": {
-    "build:web": "NODE_OPTIONS=--openssl-legacy-provider webpack --config lib/web/webpack/website.config.js"
+    "build:web": "NODE_OPTIONS=--openssl-legacy-provider webpack --config lib/web/webpack/website.config.js",
+    "setup": "npm install && npm install errsole-sequelize sqlite3 --no-save && npm run build:web",
+    "dev": "node examples/index.js"
   },
   "dependencies": {
     "axios": "^1.6.8",
