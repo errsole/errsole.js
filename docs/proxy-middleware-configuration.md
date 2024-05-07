@@ -13,6 +13,7 @@ Once you have done that, you will be able to access the Errsole Web Dashboard us
 ## Examples
 
 * [Express](#express)
+* [Fastify](#fastify)
 
 ### Express
 
@@ -47,6 +48,43 @@ app.listen(3000, () => {
 #### Note
 
 If you have initialized Errsole with a custom path, you need to append this custom path to the middleware path: [Code Example](/examples/proxy-middleware/express-custom-path.js)
+
+### Fastify
+
+```javascript
+import Fastify from 'fastify';
+import expressPlugin from '@fastify/express';
+import errsole from 'errsole';
+import ErrsoleSequelize from 'errsole-sequelize';
+
+// Insert the Errsole code snippet at the beginning of your app's main file
+errsole.initialize({
+  storage: new ErrsoleSequelize({
+    dialect: 'sqlite',
+    storage: '/tmp/logs.sqlite'
+  })
+});
+
+const fastify = Fastify();
+await fastify.register(expressPlugin);
+
+// Register the Errsole Proxy Middleware at the desired path (e.g., /errsole)
+// Make sure this is the first middleware used
+fastify.use('/errsole', errsole.fastifyProxyMiddleware());
+// Add other middlewares below the Errsole Proxy Middleware
+
+// Start the server
+try {
+  await fastify.listen({ port: 3000 });
+} catch (err) {
+  console.error(err);
+  process.exit(1);
+}
+```
+
+#### Note
+
+If you have initialized Errsole with a custom path, you need to append this custom path to the middleware path: [Code Example](/examples/proxy-middleware/fastify-custom-path.js)
 
 ## Main Documentation
 
