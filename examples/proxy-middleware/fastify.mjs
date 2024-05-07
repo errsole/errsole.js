@@ -3,7 +3,7 @@ import expressPlugin from '@fastify/express';
 import errsole from 'errsole';
 import ErrsoleSequelize from 'errsole-sequelize';
 
-// Initialize Errsole
+// Insert the Errsole code snippet at the beginning of your app's main file
 errsole.initialize({
   storage: new ErrsoleSequelize({
     dialect: 'sqlite',
@@ -14,7 +14,7 @@ errsole.initialize({
 const fastify = Fastify();
 await fastify.register(expressPlugin);
 
-// Register Errsole Proxy Middleware at the desired path (e.g., /errsole)
+// Register the Errsole Proxy Middleware at the desired path (e.g., /errsole)
 // Make sure this is the first middleware used
 fastify.use('/errsole', errsole.fastifyProxyMiddleware());
 // Add other middlewares below the Errsole Proxy Middleware
