@@ -33,7 +33,7 @@ const app = express();
 
 // Register Errsole Proxy Middleware at the desired path (e.g., /errsole)
 // Make sure this is the first middleware used
-app.use('/errsole', errsole.proxyMiddleware());
+app.use('/errsole', errsole.expressProxyMiddleware());
 
 // Add other middlewares below the Errsole Proxy Middleware
 app.use(express.json());

@@ -15,7 +15,7 @@ errsole.initialize({
 const app = express();
 
 // Use Errsole Proxy Middleware
-app.use('/errsole', errsole.proxyMiddleware());
+app.use('/errsole', errsole.expressProxyMiddleware());
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
