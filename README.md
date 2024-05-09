@@ -28,12 +28,12 @@ https://github.com/errsole/errsole.js/assets/3775513/b59424fa-c3b3-4a65-b603-e35
 
 ## Setup
 
-* [Errsole with SQLite (Quick Setup)](/docs/sqlite-storage.md)
-* [Errsole with MongoDB](/docs/mongodb-storage.md)
-* [Errsole with MySQL](/docs/mysql-storage.md)
-* [Errsole with PostgreSQL](/docs/postgresql-storage.md)
-* [Errsole with MariaDB](/docs/mariadb-storage.md)
-* [Errsole with OracleDB](/docs/oracledb-storage.md)
+* [Errsole with SQLite (Quick Setup)](https://github.com/errsole/errsole.js/blob/master/docs/sqlite-storage.md)
+* [Errsole with MongoDB](https://github.com/errsole/errsole.js/blob/master/docs/mongodb-storage.md)
+* [Errsole with MySQL](https://github.com/errsole/errsole.js/blob/master/docs/mysql-storage.md)
+* [Errsole with PostgreSQL](https://github.com/errsole/errsole.js/blob/master/docs/postgresql-storage.md)
+* [Errsole with MariaDB](https://github.com/errsole/errsole.js/blob/master/docs/mariadb-storage.md)
+* [Errsole with OracleDB](https://github.com/errsole/errsole.js/blob/master/docs/oracledb-storage.md)
 
 ## Web Dashboard Access
 
@@ -53,7 +53,7 @@ If you initialized Errsole with a different port or specified a custom path, adj
 
 ### Proxy Middleware Configuration
 
-If you encounter issues accessing port 8001 due to firewall restrictions, or if you prefer to host the Errsole Web Dashboard on your primary domain/port, you can configure the Errsole Proxy Middleware in your app. Here is a step-by-step guide: [Proxy Middleware Configuration](/docs/proxy-middleware-configuration.md)
+If you encounter issues accessing port 8001 due to firewall restrictions, or if you prefer to host the Errsole Web Dashboard on your primary domain/port, you can configure the Errsole Proxy Middleware in your app. Here is a step-by-step guide: [Proxy Middleware Configuration](https://github.com/errsole/errsole.js/blob/master/docs/proxy-middleware-configuration.md)
 
 ## Custom Logging Functions
 
@@ -119,4 +119,4 @@ errsole.debug('Debugging information');
 
 ## License
 
-[MIT](LICENSE)
+[MIT](https://github.com/errsole/errsole.js/blob/master/LICENSE)
