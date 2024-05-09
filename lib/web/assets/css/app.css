@@ -365,3 +365,7 @@ body {
 .log-meta-div .react-json-view {
   overflow-wrap: anywhere;
 }
+
+.ant-collapse-item-active .main-combined-logs {
+  padding-right: 100px;
+}
