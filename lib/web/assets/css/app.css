@@ -188,13 +188,6 @@ body {
   font-size: 13px;
 }
 
-.view-log-btn {
-  float: right;
-  color: #404040 !important;
-  background-color: #ffffff !important;
-  border-color: #404040 !important;
-}
-
 .log-ttl-msg {
   font-size: 13px;
   margin-left: 7px;
@@ -338,4 +331,37 @@ body {
 
 .integrations .ant-result-icon .anticon-check-circle {
   display: none !important;
+}
+
+.ant-collapse-extra {
+  display: none;
+}
+
+.ant-collapse-extra button {
+  margin: 0px 5px;
+  background: #ffffff !important;
+  color: #000000d6 !important;
+  border: 1px solid #00000085 !important;
+}
+
+.ant-collapse-item-active .ant-collapse-extra {
+  margin: -27px 0 0 0;
+  display: block;
+}
+
+.ant-collapse-item-active .main-logs {
+  padding-right: 200px;
+}
+
+.log-meta-div {
+  max-height: 500px;
+  overflow: scroll;
+}
+
+.log-meta-div pre {
+  overflow-wrap: anywhere;
+}
+
+.log-meta-div .react-json-view {
+  overflow-wrap: anywhere;
 }

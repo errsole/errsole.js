@@ -1,6 +1,6 @@
 {
   "name": "errsole",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "description": "Logger with a Built-in Web Dashboard",
   "keywords": [
     "log",
@@ -19,6 +19,8 @@
     "Venkateswarlu Ganji <venki@errsole.com>"
   ],
   "files": [
+    "docs",
+    "examples",
     "lib"
   ],
   "main": "lib/errsole",
@@ -36,6 +38,7 @@
     "json-api-serializer": "^2.6.6",
     "jsonwebtoken": "^9.0.2",
     "nodemailer": "^6.9.13",
+    "react-json-view": "^1.21.3",
     "strip-ansi": "^6.0.1",
     "uuid": "^9.0.1"
   },
