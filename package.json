@@ -19,6 +19,8 @@
     "Venkateswarlu Ganji <venki@errsole.com>"
   ],
   "files": [
+    "docs",
+    "examples",
     "lib"
   ],
   "main": "lib/errsole",
