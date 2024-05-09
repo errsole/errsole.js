@@ -352,3 +352,16 @@ body {
 .ant-collapse-item-active .main-logs {
   padding-right: 200px;
 }
+
+.log-meta-div {
+  max-height: 500px;
+  overflow: scroll;
+}
+
+.log-meta-div pre {
+  overflow-wrap: anywhere;
+}
+
+.log-meta-div .react-json-view {
+  overflow-wrap: anywhere;
+}
