@@ -349,7 +349,7 @@ body {
   display: block;
 }
 
-.ant-collapse-item-active .main-logs {
+.ant-collapse-item-active .panel-details {
   padding-right: 200px;
 }
 
@@ -366,6 +366,14 @@ body {
   overflow-wrap: anywhere;
 }
 
-.ant-collapse-item-active .main-combined-logs {
+.ant-collapse-item-active .meta-logs {
   padding-right: 100px;
+}
+
+.details {
+  background: aliceblue;
+    margin: 0px 0 -8px 0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #d2e8fb;
 }
