@@ -353,6 +353,10 @@ body {
   padding-right: 200px;
 }
 
+.ant-collapse-item-active .panel-details-no-meta {
+  padding-right: 150px;
+}
+
 .log-meta-div {
   max-height: 500px;
   overflow: scroll;
@@ -366,14 +370,14 @@ body {
   overflow-wrap: anywhere;
 }
 
-.ant-collapse-item-active .meta-logs {
+.ant-collapse-item-active .meta-log {
   padding-right: 100px;
 }
 
-.details {
-  background: aliceblue;
-    margin: 0px 0 -8px 0;
-    padding: 5px 10px;
-    border-radius: 5px;
-    border: 1px solid #d2e8fb;
+.log-details {
+  background: #e9e9e9;
+  margin: 0px 0 -8px 0;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #d9d9d9;
 }
