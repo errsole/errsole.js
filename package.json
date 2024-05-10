@@ -37,6 +37,7 @@
     "http-proxy-middleware": "^3.0.0",
     "json-api-serializer": "^2.6.6",
     "jsonwebtoken": "^9.0.2",
+    "koa-proxies": "^0.12.4",
     "nodemailer": "^6.9.13",
     "react-json-view": "^1.21.3",
     "strip-ansi": "^6.0.1",
