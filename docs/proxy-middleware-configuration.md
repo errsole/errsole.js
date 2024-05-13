@@ -14,6 +14,7 @@ Once you have done that, you will be able to access the Errsole Web Dashboard us
 
 * [Express](#express)
 * [Fastify](#fastify)
+* [Koa](#koa)
 
 ### Express
 
@@ -85,6 +86,50 @@ try {
 #### Note
 
 If you have initialized Errsole with a custom path, you need to append this custom path to the middleware path: [Code Example](/examples/proxy-middleware/fastify-custom-path.mjs)
+
+### Koa
+
+```javascript
+const errsole = require('errsole');
+const ErrsoleSequelize = require('errsole-sequelize');
+const Koa = require('koa');
+
+// Insert the Errsole code snippet at the beginning of your app's main file
+errsole.initialize({
+  storage: new ErrsoleSequelize({
+    dialect: 'sqlite',
+    storage: '/tmp/logs.sqlite'
+  })
+});
+
+const app = new Koa();
+
+// Register the Errsole Proxy Middleware at the desired path (e.g., /errsole)
+// Make sure this is the first middleware used
+app.use(errsole.koaProxyMiddleware('/errsole'));
+
+// Add other middlewares below the Errsole Proxy Middleware
+app.use(async (ctx, next) => {
+  await next();
+  const rt = ctx.response.get('X-Response-Time');
+  console.log(`${ctx.method} ${ctx.url} - ${rt}`);
+});
+app.use(async (ctx, next) => {
+  const start = Date.now();
+  await next();
+  const ms = Date.now() - start;
+  ctx.set('X-Response-Time', `${ms}ms`);
+});
+app.use(async ctx => {
+  ctx.body = 'Hello World';
+});
+
+app.listen(3000);
+```
+
+#### Note
+
+If you have initialized Errsole with a custom path, you need to append this custom path to the middleware path: [Code Example](/examples/proxy-middleware/koa-custom-path.js)
 
 ## Main Documentation
 
