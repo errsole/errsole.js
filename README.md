@@ -110,6 +110,22 @@ The debug function logs debug information, typically used for troubleshooting du
 ```javascript
 errsole.debug('Debugging information');
 ```
+### meta
+
+In Errsole's custom logger, you can include metadata with your logs. This metadata can be any contextual information, such as HTTP requests or database query results. In the Errsole Web Dashboard, you can view this metadata in a clean JSON viewer without cluttering the log messages.
+
+To include metadata in your logs, use the `meta` function followed by the appropriate logging function (error, log, etc.).
+
+#### Example
+
+```javascript
+errsole.meta({ reqBody: req.body, queryResults: results }).error(err);
+errsole.meta({ email: req.body.email }).log('User logged in');
+```
+
+#### Note
+
+The `meta` function must be the first function in the chain, followed by the desired logging function.
 
 ## Contribution and Support
 
