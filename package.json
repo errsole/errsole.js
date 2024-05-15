@@ -44,6 +44,7 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.24.5",
     "@babel/preset-env": "^7.24.0",
     "@babel/preset-react": "^7.23.3",
     "antd": "^3.26.18",
