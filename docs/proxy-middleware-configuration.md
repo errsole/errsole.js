@@ -14,7 +14,9 @@ Once you have done that, you will be able to access the Errsole Web Dashboard us
 
 * [Express](#express)
 * [Fastify](#fastify)
+* [Hapi](#hapi)
 * [Koa](#koa)
+* [Nest](#nest)
 
 ### Express
 
@@ -87,6 +89,53 @@ try {
 
 If you have initialized Errsole with a custom path, you need to append this custom path to the middleware path: [Code Example](/examples/proxy-middleware/fastify-custom-path.mjs)
 
+### Hapi
+
+```javascript
+'use strict';
+
+const Hapi = require('@hapi/hapi');
+const errsole = require('errsole');
+const ErrsoleSequelize = require('errsole-sequelize');
+
+// Insert the Errsole code snippet at the beginning of your app's main file
+errsole.initialize({
+  storage: new ErrsoleSequelize({
+    dialect: 'sqlite',
+    storage: '/tmp/logs.sqlite'
+  })
+});
+
+const init = async () => {
+  const server = Hapi.server({
+    port: 3000,
+    host: 'localhost'
+  });
+
+  // Register the Errsole Proxy Middleware at the desired path (e.g., /errsole)
+  // Make sure this is the first plugin to be registered
+  await server.register({
+    plugin: errsole.hapiProxyMiddleware('/errsole')
+  });
+
+  // Register other plugin below the Errsole Proxy Middleware
+
+  await server.start();
+  console.log('Server running on %s', server.info.uri);
+};
+
+process.on('unhandledRejection', (err) => {
+  console.log(err);
+  process.exit(1);
+});
+
+init();
+```
+
+#### Note
+
+If you have initialized Errsole with a custom path, you need to append this custom path to the middleware path: [Code Example](/examples/proxy-middleware/hapi-custom-path.js)
+
 ### Koa
 
 ```javascript
@@ -130,6 +179,50 @@ app.listen(3000);
 #### Note
 
 If you have initialized Errsole with a custom path, you need to append this custom path to the middleware path: [Code Example](/examples/proxy-middleware/koa-custom-path.js)
+
+### Nest
+
+```javascript
+import { NestFactory } from '@nestjs/core';
+import * as bodyParser from 'body-parser';
+import errsole from 'errsole';
+import ErrsoleSequelize from 'errsole-sequelize';
+import { AppModule } from './app.module';
+
+// Insert the Errsole code snippet at the beginning of your app's main file
+errsole.initialize({
+  storage: new ErrsoleSequelize({
+    dialect: 'sqlite',
+    storage: '/tmp/logs.sqlite'
+  })
+});
+
+async function bootstrap () {
+  const app = await NestFactory.create(AppModule);
+
+  // Register the Errsole Proxy Middleware at the desired path (e.g., /errsole)
+  // Make sure this is the first middleware used
+  // Use body-parser middleware if NestJS is using Express
+  app.use(bodyParser.json());
+  app.use('/errsole', (req, res, next) => {
+    errsole.nestExpressProxyMiddleware('/errsole', req, res, next);
+  });
+
+  // For Fastify, use the following middleware
+  // app.use('/errsole', (req, res, next) => {
+  //   errsole.nestFastifyProxyMiddleware('/errsole', req, res);
+  // });
+
+  // Add other middlewares below the Errsole Proxy Middleware
+
+  await app.listen(3000);
+}
+bootstrap();
+```
+
+#### Note
+
+If you have initialized Errsole with a custom path, you need to append this custom path to the middleware path: [Code Example](/examples/proxy-middleware/nest-custom-path.ts)
 
 ## Main Documentation
 
