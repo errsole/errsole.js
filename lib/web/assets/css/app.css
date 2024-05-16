@@ -381,3 +381,7 @@ body {
   border-radius: 5px;
   border: 1px solid #d9d9d9;
 }
+
+.no-log-panel {
+  text-align: center !important;
+}
