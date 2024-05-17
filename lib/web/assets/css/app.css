@@ -249,7 +249,9 @@ body {
 .github-issue-button {
   margin-right: 20px;
 }
-
+.linkedin-share-button {
+  margin-right: 20px;
+}
 .version-menu {
   padding: 14px !important;
 }
