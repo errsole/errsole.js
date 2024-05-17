@@ -385,3 +385,7 @@ body {
 .no-log-panel {
   text-align: center !important;
 }
+
+.no-log-panel p {
+  margin: 0px !important;
+}
