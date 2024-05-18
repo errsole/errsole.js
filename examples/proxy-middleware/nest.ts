@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import * as bodyParser from 'body-parser';
-import errsole from 'errsole';
-import ErrsoleSequelize from 'errsole-sequelize';
+import * as errsole from 'errsole';
+import * as ErrsoleSequelize from 'errsole-sequelize';
 import { AppModule } from './app.module';
 
 // Insert the Errsole code snippet at the beginning of your app's main file

@@ -13,8 +13,8 @@
  */
 import { NestFactory } from '@nestjs/core';
 import * as bodyParser from 'body-parser';
-import errsole from 'errsole';
-import ErrsoleSequelize from 'errsole-sequelize';
+import * as errsole from 'errsole';
+import * as ErrsoleSequelize from 'errsole-sequelize';
 import { AppModule } from './app.module';
 
 // Initialize Errsole with a custom path
