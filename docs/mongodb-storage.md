@@ -11,13 +11,24 @@ npm install errsole errsole-mongodb
 ### Configure
 
 ```javascript
+// CommonJS
 const errsole = require('errsole');
 const ErrsoleMongoDB = require('errsole-mongodb');
+```
 
-// Alternatively, if you are using ECMAScript modules (ESM), you can import the modules as follows:
-// import errsole from 'errsole';
-// import ErrsoleMongoDB from 'errsole-mongodb';
+```javascript
+// ESM
+import errsole from 'errsole';
+import ErrsoleMongoDB from 'errsole-mongodb';
+```
 
+```javascript
+// TypeScript
+import * as errsole from 'errsole';
+import * as ErrsoleMongoDB from 'errsole-mongodb';
+```
+
+```javascript
 // Insert the Errsole code snippet at the beginning of your app's main file
 errsole.initialize({
   storage: new ErrsoleMongoDB('<MongoDB Connection URL>', '<Optional: Database Name>', '<Optional: MongoDB Client Options>')
