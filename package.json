@@ -27,7 +27,8 @@
   "scripts": {
     "build:web": "NODE_OPTIONS=--openssl-legacy-provider webpack --config lib/web/webpack/website.config.js",
     "setup": "npm install && npm install errsole-sequelize sqlite3 --no-save && npm run build:web",
-    "dev": "node examples/index.js"
+    "dev": "node examples/index.js",
+    "test": "jest --coverage"
   },
   "dependencies": {
     "@hapi/h2o2": "^10.0.4",
@@ -47,6 +48,7 @@
     "@babel/core": "^7.24.5",
     "@babel/preset-env": "^7.24.0",
     "@babel/preset-react": "^7.23.3",
+    "@jest/globals": "^29.7.0",
     "antd": "^3.26.18",
     "babel": "^6.23.0",
     "babel-core": "^6.26.3",
@@ -56,6 +58,7 @@
     "compression-webpack-plugin": "^11.1.0",
     "css-loader": "^6.10.0",
     "history": "^4.10.1",
+    "jest": "^29.7.0",
     "moment": "^2.30.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -65,6 +68,7 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "style-loader": "^3.3.4",
+    "supertest": "^7.0.0",
     "universal-cookie": "^7.1.0",
     "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4",
