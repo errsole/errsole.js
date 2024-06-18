@@ -18,7 +18,7 @@ describe('LogController', () => {
     console.error = jest.fn();
   });
 
-  afterAll(() => { // console.log('End test: should update logs TTL successfully'); // Debugging log
+  afterAll(() => {
     console.error = originalConsoleError;
   });
   describe('#getLogs', () => {
@@ -247,14 +247,12 @@ describe('LogController', () => {
     });
 
     it('should update logs TTL successfully', async () => {
-      // console.log('Start test: should update logs TTL successfully'); // Debugging log
       const mockResult = { item: { id: 1, ttl: 30 } };
       mockStorageConnection.setConfig.mockResolvedValue(mockResult);
       mockStorageConnection.ensureLogsTTL.mockResolvedValue(null);
 
       await updateLogsTTL(req, res);
 
-      // console.log('End test: should update logs TTL successfully'); // Debugging log
       expect(mockStorageConnection.setConfig).toHaveBeenCalledWith('logsTTL', 30);
       expect(mockStorageConnection.ensureLogsTTL).toHaveBeenCalled();
       expect(res.status).not.toHaveBeenCalledWith(400);
