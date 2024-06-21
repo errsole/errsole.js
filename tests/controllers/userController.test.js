@@ -1,4 +1,4 @@
-const { createUser, loginUser, getUserProfile } = require('../../lib/main/server/controllers/userController');
+const { createUser, loginUser, getUserProfile, updateUserProfile } = require('../../lib/main/server/controllers/userController');
 const helpers = require('../../lib/main/server/utils/helpers');
 const { getStorageConnection } = require('../../lib/main/server/storageConnection');
 const Jsonapi = require('../../lib/main/server/utils/jsonapiUtil');
@@ -418,6 +418,103 @@ describe('userController', () => {
         errors: [{
           error: 'Internal Server Error',
           message: 'Database connection error' // Expected to match the thrown error
+        }]
+      });
+    });
+  });
+
+  describe('#updateUserProfile', () => {
+    it('should successfully update user details and return updated user data', async () => {
+      const req = {
+        email: 'test@example.com',
+        body: {
+          data: {
+            attributes: {
+              name: 'updated name'
+            }
+          }
+        }
+      };
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        send: jest.fn()
+      };
+
+      helpers.extractAttributes.mockReturnValue({ name: 'updated name' });
+
+      const mockStorageConnection = {
+        updateUserByEmail: jest.fn().mockResolvedValue({
+          item: {
+            email: 'test@example.com',
+            name: 'updated name'
+          }
+        })
+      };
+      getStorageConnection.mockReturnValue(mockStorageConnection);
+      Jsonapi.Serializer.serialize.mockReturnValue({ data: { name: 'updated name', email: 'test@example.com' } });
+
+      await updateUserProfile(req, res);
+
+      expect(helpers.extractAttributes).toHaveBeenCalledWith(req.body);
+      expect(mockStorageConnection.updateUserByEmail).toHaveBeenCalledWith('test@example.com', { name: 'updated name' });
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.send).toHaveBeenCalledWith({ data: { name: 'updated name', email: 'test@example.com' } });
+    });
+
+    it('should return an error message for a bad request when no email is provided', async () => {
+      const req = {
+        body: {
+          data: {
+            attributes: {
+              name: 'updated name'
+            }
+          }
+        }
+      };
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        send: jest.fn()
+      };
+
+      await updateUserProfile(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [{ error: 'Bad Request', message: 'invalid request' }]
+      });
+    });
+
+    it('should handle user update failure due to non-existent user or database error', async () => {
+      const req = {
+        email: 'test@example.com',
+        body: {
+          data: {
+            attributes: {
+              name: 'updated name'
+            }
+          }
+        }
+      };
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        send: jest.fn()
+      };
+
+      // Mocking storageConnection.updateUserByEmail to simulate a failure in finding the user or a database issue
+      const mockStorageConnection = {
+        updateUserByEmail: jest.fn().mockResolvedValue(null) // Simulate no user found or no update performed
+      };
+      getStorageConnection.mockReturnValue(mockStorageConnection);
+      helpers.extractAttributes.mockReturnValue({ name: 'updated name' });
+
+      await updateUserProfile(req, res);
+
+      expect(mockStorageConnection.updateUserByEmail).toHaveBeenCalledWith('test@example.com', { name: 'updated name' });
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [{
+          error: 'Internal Server Error',
+          message: 'An internal server error occurred'
         }]
       });
     });
