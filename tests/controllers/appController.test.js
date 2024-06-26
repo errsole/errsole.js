@@ -1,5 +1,5 @@
 
-const { checkUpdates, getSlackDetails, addSlackDetails, updateSlackDetails, deleteSlackDetails, addEmailDetails } = require('../../lib/main/server/controllers/appController');
+const { checkUpdates, getSlackDetails, addSlackDetails, updateSlackDetails, deleteSlackDetails, getEmailDetails, addEmailDetails } = require('../../lib/main/server/controllers/appController');
 const NPMUpdates = require('../../lib/main/server/utils/npmUpdates');
 const helpers = require('../../lib/main/server/utils/helpers');
 const { getStorageConnection } = require('../../lib/main/server/storageConnection');
@@ -7,7 +7,7 @@ const Jsonapi = require('../../lib/main/server/utils/jsonapiUtil');
 const packageJson = require('../../package.json');
 const { describe } = require('@jest/globals');
 
-/* globals expect, jest, beforeEach, afterAll, beforeAll, it */
+/* globals expect, jest, beforeEach, afterAll, beforeAll, it, afterEach */
 jest.mock('../../lib/main/server/utils/npmUpdates');
 jest.mock('../../lib/main/server/storageConnection');
 jest.mock('../../lib/main/server/utils/jsonapiUtil');
@@ -971,6 +971,118 @@ describe('appController', () => {
             message: 'An unexpected error occurred'
           }
         ]
+      });
+    });
+
+    describe('#getEmailDetails', () => {
+      let req, res, storageConnection, getConfigMock;
+
+      beforeEach(() => {
+        req = {};
+        res = {
+          send: jest.fn(),
+          status: jest.fn().mockReturnThis()
+        };
+        storageConnection = {
+          getConfig: jest.fn()
+        };
+        getConfigMock = storageConnection.getConfig;
+        getStorageConnection.mockReturnValue(storageConnection);
+      });
+
+      afterEach(() => {
+        jest.clearAllMocks();
+      });
+
+      it('should retrieve email integration details and remove the URL', async () => {
+        const mockData = {
+          item: {
+            value: JSON.stringify({ url: 'http://example.com', otherKey: 'value' })
+          }
+        };
+        getConfigMock.mockResolvedValue(mockData);
+
+        await getEmailDetails(req, res);
+
+        expect(getConfigMock).toHaveBeenCalledWith('emailIntegration');
+        expect(res.send).toHaveBeenCalledWith(Jsonapi.Serializer.serialize(Jsonapi.AppType, { otherKey: 'value' }));
+      });
+
+      it('should handle value without URL', async () => {
+        const mockData = {
+          item: {
+            value: JSON.stringify({ otherKey: 'value' })
+          }
+        };
+        getConfigMock.mockResolvedValue(mockData);
+
+        await getEmailDetails(req, res);
+
+        expect(getConfigMock).toHaveBeenCalledWith('emailIntegration');
+        expect(res.send).toHaveBeenCalledWith(Jsonapi.Serializer.serialize(Jsonapi.AppType, { otherKey: 'value' }));
+      });
+
+      it('should return an empty object if data has no item', async () => {
+        getConfigMock.mockResolvedValue({});
+
+        await getEmailDetails(req, res);
+
+        expect(getConfigMock).toHaveBeenCalledWith('emailIntegration');
+        expect(res.send).toHaveBeenCalledWith(Jsonapi.Serializer.serialize(Jsonapi.AppType, {}));
+      });
+
+      it('should handle and log errors, and respond with a 500 status code', async () => {
+        const error = new Error('Something went wrong');
+        getConfigMock.mockRejectedValue(error);
+
+        await getEmailDetails(req, res);
+
+        expect(console.error).toHaveBeenCalledWith(error);
+        expect(res.status).toHaveBeenCalledWith(500);
+        expect(res.send).toHaveBeenCalledWith({
+          errors: [
+            {
+              error: 'Internal Server Error',
+              message: 'An unexpected error occurred'
+            }
+          ]
+        });
+      });
+
+      it('should handle invalid JSON in value', async () => {
+        const mockData = {
+          item: {
+            value: '{ invalid JSON }'
+          }
+        };
+        getConfigMock.mockResolvedValue(mockData);
+
+        await getEmailDetails(req, res);
+
+        expect(console.error).toHaveBeenCalled();
+        expect(res.status).toHaveBeenCalledWith(500);
+        expect(res.send).toHaveBeenCalledWith({
+          errors: [
+            {
+              error: 'Internal Server Error',
+              message: 'An unexpected error occurred'
+            }
+          ]
+        });
+      });
+
+      it('should handle incomplete value object', async () => {
+        const mockData = {
+          item: {
+            value: JSON.stringify({ partialKey: 'value' })
+          }
+        };
+        getConfigMock.mockResolvedValue(mockData);
+
+        await getEmailDetails(req, res);
+
+        expect(getConfigMock).toHaveBeenCalledWith('emailIntegration');
+        expect(res.send).toHaveBeenCalledWith(Jsonapi.Serializer.serialize(Jsonapi.AppType, { partialKey: 'value' }));
       });
     });
   });
