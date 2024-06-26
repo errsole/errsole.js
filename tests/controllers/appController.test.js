@@ -1,5 +1,5 @@
 
-const { checkUpdates, getSlackDetails, addSlackDetails, updateSlackDetails, deleteSlackDetails, getEmailDetails, addEmailDetails } = require('../../lib/main/server/controllers/appController');
+const { checkUpdates, getSlackDetails, addSlackDetails, updateSlackDetails, deleteSlackDetails, getEmailDetails, addEmailDetails, updateEmailDetails, deleteEmailDetails } = require('../../lib/main/server/controllers/appController');
 const NPMUpdates = require('../../lib/main/server/utils/npmUpdates');
 const helpers = require('../../lib/main/server/utils/helpers');
 const { getStorageConnection } = require('../../lib/main/server/storageConnection');
@@ -215,6 +215,7 @@ describe('appController', () => {
       });
     });
   });
+
   describe('#addSlackDetails', () => {
     beforeEach(() => {
       jest.clearAllMocks();
@@ -1083,6 +1084,227 @@ describe('appController', () => {
 
         expect(getConfigMock).toHaveBeenCalledWith('emailIntegration');
         expect(res.send).toHaveBeenCalledWith(Jsonapi.Serializer.serialize(Jsonapi.AppType, { partialKey: 'value' }));
+      });
+    });
+  });
+
+  describe('#updateEmailDetails', () => {
+    let req, res, storageConnection, getConfigMock, setConfigMock, extractAttributesMock;
+
+    beforeEach(() => {
+      req = {
+        body: {}
+      };
+      res = {
+        send: jest.fn(),
+        status: jest.fn().mockReturnThis()
+      };
+      storageConnection = {
+        getConfig: jest.fn(),
+        setConfig: jest.fn()
+      };
+      getConfigMock = storageConnection.getConfig;
+      setConfigMock = storageConnection.setConfig;
+      getStorageConnection.mockReturnValue(storageConnection);
+      extractAttributesMock = helpers.extractAttributes;
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('should update email integration status successfully', async () => {
+      req.body = { status: true };
+      const mockData = {
+        item: {
+          value: JSON.stringify({ status: false })
+        }
+      };
+      const mockResult = {
+        item: {
+          value: JSON.stringify({ status: true })
+        }
+      };
+      extractAttributesMock.mockReturnValue({ status: true });
+      getConfigMock.mockResolvedValue(mockData);
+      setConfigMock.mockResolvedValue(mockResult);
+
+      await updateEmailDetails(req, res);
+
+      expect(getConfigMock).toHaveBeenCalledWith('emailIntegration');
+      expect(setConfigMock).toHaveBeenCalledWith(
+        'emailIntegration',
+        JSON.stringify({ status: true })
+      );
+      expect(res.send).toHaveBeenCalledWith(Jsonapi.Serializer.serialize(Jsonapi.AppType, { status: true }));
+    });
+
+    it('should handle JSON parsing error', async () => {
+      req.body = { status: true };
+      const mockData = {
+        item: {
+          value: '{ invalid JSON }'
+        }
+      };
+      extractAttributesMock.mockReturnValue({ status: true });
+      getConfigMock.mockResolvedValue(mockData);
+
+      await updateEmailDetails(req, res);
+
+      expect(getConfigMock).toHaveBeenCalledWith('emailIntegration');
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Internal Server Error',
+            message: 'An unexpected error occurred'
+          }
+        ]
+      });
+    });
+
+    it('should handle no data found', async () => {
+      req.body = { status: true };
+      extractAttributesMock.mockReturnValue({ status: true });
+      getConfigMock.mockResolvedValue(null);
+
+      await updateEmailDetails(req, res);
+
+      expect(getConfigMock).toHaveBeenCalledWith('emailIntegration');
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Internal Server Error',
+            message: 'An unexpected error occurred'
+          }
+        ]
+      });
+    });
+
+    it('should handle setConfig error', async () => {
+      req.body = { status: true };
+      const mockData = {
+        item: {
+          value: JSON.stringify({ status: false })
+        }
+      };
+      extractAttributesMock.mockReturnValue({ status: true });
+      getConfigMock.mockResolvedValue(mockData);
+      setConfigMock.mockResolvedValue(null);
+
+      await updateEmailDetails(req, res);
+
+      expect(getConfigMock).toHaveBeenCalledWith('emailIntegration');
+      expect(setConfigMock).toHaveBeenCalledWith(
+        'emailIntegration',
+        JSON.stringify({ status: true })
+      );
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Internal Server Error',
+            message: 'An unexpected error occurred'
+          }
+        ]
+      });
+    });
+
+    it('should handle unexpected errors', async () => {
+      const error = new Error('Something went wrong');
+      getConfigMock.mockRejectedValue(error);
+
+      await updateEmailDetails(req, res);
+
+      expect(console.error).toHaveBeenCalledWith(error);
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Internal Server Error',
+            message: 'An unexpected error occurred'
+          }
+        ]
+      });
+    });
+  });
+
+  describe('#deleteEmailDetails', () => {
+    let req, res, storageConnection, deleteConfigMock, extractAttributesMock;
+
+    beforeEach(() => {
+      req = {
+        body: {}
+      };
+      res = {
+        send: jest.fn(),
+        status: jest.fn().mockReturnThis()
+      };
+      storageConnection = {
+        deleteConfig: jest.fn()
+      };
+      deleteConfigMock = storageConnection.deleteConfig;
+      getStorageConnection.mockReturnValue(storageConnection);
+      extractAttributesMock = helpers.extractAttributes;
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('should delete email integration details successfully', async () => {
+      req.body = { url: 'http://example.com' };
+      const mockData = true;
+      extractAttributesMock.mockReturnValue({ url: 'http://example.com' });
+      deleteConfigMock.mockResolvedValue(mockData);
+
+      await deleteEmailDetails(req, res);
+
+      expect(extractAttributesMock).toHaveBeenCalledWith(req.body);
+      expect(deleteConfigMock).toHaveBeenCalledWith('emailIntegration');
+      expect(res.send).toHaveBeenCalledWith(Jsonapi.Serializer.serialize(Jsonapi.AppType, { url: 'http://example.com' }));
+    });
+
+    it('should handle no data found after deletion', async () => {
+      req.body = { url: 'http://example.com' };
+      extractAttributesMock.mockReturnValue({ url: 'http://example.com' });
+      deleteConfigMock.mockResolvedValue(false);
+
+      await deleteEmailDetails(req, res);
+
+      expect(extractAttributesMock).toHaveBeenCalledWith(req.body);
+      expect(deleteConfigMock).toHaveBeenCalledWith('emailIntegration');
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Internal Server Error',
+            message: 'An unexpected error occurred'
+          }
+        ]
+      });
+    });
+
+    it('should handle unexpected errors', async () => {
+      const error = new Error('Something went wrong');
+      req.body = { url: 'http://example.com' };
+      extractAttributesMock.mockReturnValue({ url: 'http://example.com' });
+      deleteConfigMock.mockRejectedValue(error);
+
+      await deleteEmailDetails(req, res);
+
+      expect(extractAttributesMock).toHaveBeenCalledWith(req.body);
+      expect(deleteConfigMock).toHaveBeenCalledWith('emailIntegration');
+      expect(console.error).toHaveBeenCalledWith(error);
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Internal Server Error',
+            message: 'An unexpected error occurred'
+          }
+        ]
       });
     });
   });
