@@ -1,7 +1,5 @@
 const CollectLogsHook = require('../../lib/main/logs/index');
-// const stripAnsi = require('strip-ansi');
 const os = require('os');
-// const stream = require('stream');
 const { it } = require('@jest/globals');
 /* globals expect, jest, beforeEach,  afterEach, describe ,  */
 describe('CollectLogsHook', () => {
@@ -10,7 +8,6 @@ describe('CollectLogsHook', () => {
   let originalStderrWrite;
 
   beforeEach(() => {
-    // Create a mock storage with a postLogs function
     mockStorage = {
       postLogs: jest.fn(),
       once: jest.fn((event, callback) => {
@@ -20,17 +17,13 @@ describe('CollectLogsHook', () => {
       })
     };
 
-    // Backup original write functions of stdout and stderr
     originalStdoutWrite = process.stdout.write;
     originalStderrWrite = process.stderr.write;
-
-    // Mock stdout and stderr write functions
     process.stdout.write = jest.fn();
     process.stderr.write = jest.fn();
   });
 
   afterEach(() => {
-    // Restore original write functions after each test
     process.stdout.write = originalStdoutWrite;
     process.stderr.write = originalStderrWrite;
   });
