@@ -28,7 +28,8 @@
     "build:web": "NODE_OPTIONS=--openssl-legacy-provider webpack --config lib/web/webpack/website.config.js",
     "setup": "npm install && npm install errsole-sequelize sqlite3 --no-save && npm run build:web",
     "dev": "node examples/index.js",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls"
   },
   "dependencies": {
     "@hapi/h2o2": "^10.0.4",
@@ -56,6 +57,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "compression-webpack-plugin": "^11.1.0",
+    "coveralls": "^3.1.1",
     "css-loader": "^6.10.0",
     "history": "^4.10.1",
     "jest": "^29.7.0",
