@@ -2,6 +2,13 @@
   <img src="https://github.com/errsole/errsole.js/assets/3775513/e7499016-cb28-488d-a47d-f1ba24804d2b" width="256"/>
 
   <h3 align="center">Node.js Logger with a Built-in Dashboard</h3>
+
+  <div align="center">
+    <a href="https://coveralls.io/github/errsole/errsole.js">
+      <img src="https://coveralls.io/repos/github/errsole/errsole.js/badge.svg" alt="Coverage Status" />
+    </a>
+  </div>
+
 </p>
 
 Errsole is an open-source logger for Node.js. It has a built-in web dashboard to view, filter, and search your app logs.
