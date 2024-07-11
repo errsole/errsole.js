@@ -1,11 +1,14 @@
 const CollectLogsHook = require('../../lib/main/logs/index');
 const os = require('os');
 const { it } = require('@jest/globals');
-/* globals expect, jest, beforeEach,  afterEach, describe ,  */
+/* globals expect, jest, beforeEach, afterEach, describe */
+
 describe('CollectLogsHook', () => {
   let mockStorage;
   let originalStdoutWrite;
   let originalStderrWrite;
+  let mockStdoutWrite;
+  let mockStderrWrite;
 
   beforeEach(() => {
     mockStorage = {
@@ -19,8 +22,10 @@ describe('CollectLogsHook', () => {
 
     originalStdoutWrite = process.stdout.write;
     originalStderrWrite = process.stderr.write;
-    process.stdout.write = jest.fn();
-    process.stderr.write = jest.fn();
+    mockStdoutWrite = jest.fn();
+    mockStderrWrite = jest.fn();
+    process.stdout.write = mockStdoutWrite;
+    process.stderr.write = mockStderrWrite;
   });
 
   afterEach(() => {
@@ -51,5 +56,18 @@ describe('CollectLogsHook', () => {
     expect(CollectLogsHook.hostname).toBe('custom-server');
     expect(CollectLogsHook.enableConsoleOutput).toBe(false);
     expect(CollectLogsHook.collectLogs).toEqual(['info']);
+  });
+
+  it('should not capture logs if not specified', () => {
+    CollectLogsHook.initialize({ storage: mockStorage, collectLogs: [] });
+    const infoMessage = 'Info log message';
+    const errorMessage = 'Error log message';
+
+    process.stdout.write(infoMessage);
+    process.stderr.write(errorMessage);
+
+    expect(mockStdoutWrite).toHaveBeenCalledWith(infoMessage);
+    expect(mockStderrWrite).toHaveBeenCalledWith(errorMessage);
+    expect(mockStorage.postLogs).not.toHaveBeenCalled();
   });
 });
