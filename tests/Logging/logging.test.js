@@ -88,28 +88,61 @@ describe('CollectLogsHook', () => {
     expect(mockStorage.postLogs).not.toHaveBeenCalled();
   });
 
-  it('should capture info logs', () => {
+  it('should capture info logs', (done) => {
     CollectLogsHook.initialize({ storage: mockStorage, collectLogs: ['info'] });
     const infoMessage = 'Info log message';
 
     process.stdout.write(infoMessage);
 
-    expect(mockStdoutWrite).toHaveBeenCalledWith(infoMessage);
-    expect(mockStorage.postLogs).toHaveBeenCalledWith([expect.objectContaining({ message: stripAnsi(infoMessage), level: 'info' })]);
+    setImmediate(() => {
+      expect(mockStdoutWrite).toHaveBeenCalledWith(infoMessage);
+      expect(mockStorage.postLogs).toHaveBeenCalledWith([expect.objectContaining({ message: stripAnsi(infoMessage), level: 'info' })]);
+      done();
+    });
   });
 
-  it('should capture ERROR logs if enabled', () => {
-    CollectLogsHook.initialize({
-      storage: mockStorage,
-      serverName: 'test-server',
-      enableConsoleOutput: true,
-      collectLogs: ['error']
-    });
+  it('should capture error logs', (done) => {
+    CollectLogsHook.initialize({ storage: mockStorage, collectLogs: ['error'] });
+    const errorMessage = 'Error log message';
 
-    expect(CollectLogsHook.enableConsoleOutput).toBe(true);
-    expect(CollectLogsHook.collectLogs).toEqual(['error']);
-    console.error('Test error message');
-    expect(errorSpy).toHaveBeenCalledTimes(1);
+    process.stderr.write(errorMessage);
+
+    setImmediate(() => {
+      expect(mockStderrWrite).toHaveBeenCalledWith(errorMessage);
+      expect(mockStorage.postLogs).toHaveBeenCalledWith([expect.objectContaining({ message: stripAnsi(errorMessage), level: 'error' })]);
+      done();
+    });
+  });
+
+  it('should not capture info logs when not specified', (done) => {
+    CollectLogsHook.initialize({ storage: mockStorage, collectLogs: ['error'] });
+    const infoMessage = 'Info log message';
+
+    process.stdout.write(infoMessage);
+
+    setImmediate(() => {
+      expect(mockStdoutWrite).toHaveBeenCalledWith(infoMessage);
+      expect(mockStorage.postLogs).not.toHaveBeenCalledWith([expect.objectContaining({ message: stripAnsi(infoMessage), level: 'info' })]);
+      done();
+    });
+  });
+
+  it('should log with console output enabled', (done) => {
+    CollectLogsHook.initialize({ storage: mockStorage, enableConsoleOutput: true, collectLogs: ['info', 'error'] });
+
+    const infoMessage = 'Info log message';
+    const errorMessage = 'Error log message';
+
+    process.stdout.write(infoMessage);
+    process.stderr.write(errorMessage);
+
+    setImmediate(() => {
+      expect(mockStdoutWrite).toHaveBeenCalledWith(infoMessage);
+      expect(mockStderrWrite).toHaveBeenCalledWith(errorMessage);
+      expect(mockStorage.postLogs).toHaveBeenCalledWith([expect.objectContaining({ message: stripAnsi(infoMessage), level: 'info' })]);
+      expect(mockStorage.postLogs).toHaveBeenCalledWith([expect.objectContaining({ message: stripAnsi(errorMessage), level: 'error' })]);
+      done();
+    });
   });
 
   it('should handle error in customLogger', () => {
