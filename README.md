@@ -36,6 +36,14 @@ https://github.com/errsole/errsole.js/assets/3775513/b59424fa-c3b3-4a65-b603-e35
 
 * **Data Retention:** You can specify the number of days you wish to keep your app logs.
 
+## Benchmarks
+
+Errsole outperforms Elasticsearch by 10k requests per minute.
+
+<img src="https://github.com/user-attachments/assets/b01a1c53-37bc-45cb-9d18-b3887facc6dd" alt="errsole-vs-elasticsearch-benchmarks" width="800">
+
+[Read More](https://github.com/errsole/errsole.js/blob/master/docs/benchmarks.md)
+
 ## Setup
 
 * [Errsole with SQLite for File-Based Log Storage](https://github.com/errsole/errsole.js/blob/master/docs/sqlite-storage.md)
