@@ -4,10 +4,13 @@
   <h3 align="center">Node.js Logger with a Built-in Dashboard</h3>
 
   <div align="center">
-    <a href="https://coveralls.io/github/errsole/errsole.js">
-      <img src="https://coveralls.io/repos/github/errsole/errsole.js/badge.svg" alt="Coverage Status" />
-    </a>
-  </div>
+  <img src="https://img.shields.io/github/v/release/errsole/errsole.js" alt="Release Version" />
+  <img src="https://img.shields.io/github/last-commit/errsole/errsole.js" alt="Last Commit" />
+  <img src="https://img.shields.io/github/license/errsole/errsole.js" alt="License" />
+  <a href="https://coveralls.io/github/errsole/errsole.js">
+    <img src="https://coveralls.io/repos/github/errsole/errsole.js/badge.svg" alt="Coverage Status" />
+  </a>
+</div>
 
 </p>
 
