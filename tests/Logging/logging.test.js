@@ -166,4 +166,28 @@ describe('CollectLogsHook', () => {
 
     expect(() => CollectLogsHook.customLogger('info', message, metadata)).not.toThrow();
   });
+
+  it('should handle error in writeFunction.write', () => {
+    const errorMessage = 'Error log message';
+    const options = {
+      storage: mockStorage,
+      enableConsoleOutput: false,
+      collectLogs: ['error']
+    };
+
+    CollectLogsHook.initialize(options);
+
+    // Mock logBuffer to simulate an error during write
+    const logBufferWriteMock = jest.fn((chunk, encoding, done) => {
+      throw new Error('Test error');
+    });
+    CollectLogsHook.logStream.write = logBufferWriteMock;
+
+    expect(() => {
+      process.stderr.write(errorMessage);
+    }).not.toThrow();
+
+    // Check that postLogs was not called due to the error
+    expect(mockStorage.postLogs).not.toHaveBeenCalled();
+  });
 });
