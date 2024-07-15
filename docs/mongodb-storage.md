@@ -17,15 +17,9 @@ const ErrsoleMongoDB = require('errsole-mongodb');
 ```
 
 ```javascript
-// ESM
+// ESM and TypeScript
 import errsole from 'errsole';
 import ErrsoleMongoDB from 'errsole-mongodb';
-```
-
-```javascript
-// TypeScript
-import * as errsole from 'errsole';
-import * as ErrsoleMongoDB from 'errsole-mongodb';
 ```
 
 ```javascript

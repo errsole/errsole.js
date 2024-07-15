@@ -19,15 +19,9 @@ const ErrsoleSequelize = require('errsole-sequelize');
 ```
 
 ```javascript
-// ESM
+// ESM and TypeScript
 import errsole from 'errsole';
 import ErrsoleSequelize from 'errsole-sequelize';
-```
-
-```javascript
-// TypeScript
-import * as errsole from 'errsole';
-import * as ErrsoleSequelize from 'errsole-sequelize';
 ```
 
 ```javascript
