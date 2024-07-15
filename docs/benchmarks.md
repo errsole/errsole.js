@@ -1,6 +1,6 @@
 # Benchmarks
 
-Errsole outperforms Elasticsearch by 10k requests per minute.
+Errsole outperforms Elasticsearch by 15k requests per minute.
 
 ### Test Setup
 
