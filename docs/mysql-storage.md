@@ -2,10 +2,10 @@
 
 ### Install
 
-Install the errsole, errsole-sequelize, and mysql2 modules using the npm install command:
+Install the `errsole` and `errsole-mysql` modules using the npm install command:
 
 ```bash
-npm install errsole errsole-sequelize mysql2
+npm install errsole errsole-mysql
 ```
 
 ### Configure
@@ -13,22 +13,21 @@ npm install errsole errsole-sequelize mysql2
 ```javascript
 // CommonJS
 const errsole = require('errsole');
-const ErrsoleSequelize = require('errsole-sequelize');
+const ErrsoleMySQL = require('errsole-mysql');
 ```
 
 ```javascript
 // ESM and TypeScript
 import errsole from 'errsole';
-import ErrsoleSequelize from 'errsole-sequelize';
+import ErrsoleMySQL from 'errsole-mysql';
 ```
 
 ```javascript
 // Insert the Errsole code snippet at the beginning of your app's main file
 errsole.initialize({
-  storage: new ErrsoleSequelize({
-    dialect: 'mysql', // This specifies that you are using MySQL
+  storage: new ErrsoleMySQL({
     host: 'mysql-host', // Replace with your actual MySQL host
-    username: 'database-username', // Replace with your actual MySQL username
+    user: 'database-user', // Replace with your actual MySQL user
     password: 'database-password', // Replace with your actual MySQL password
     database: 'database-name' // Replace with the name of your MySQL database
   })
@@ -40,14 +39,13 @@ errsole.initialize({
 ```javascript
 const express = require('express');
 const errsole = require('errsole');
-const ErrsoleSequelize = require('errsole-sequelize');
+const ErrsoleMySQL = require('errsole-mysql');
 
 // Insert the Errsole code snippet at the beginning of your app's main file
 errsole.initialize({
-  storage: new ErrsoleSequelize({
-    dialect: 'mysql',
+  storage: new ErrsoleMySQL({
     host: 'localhost',
-    username: 'root',
+    user: 'root',
     password: 'password',
     database: 'dbname'
   })
@@ -66,7 +64,7 @@ app.listen(3000);
 
 | **Option**          	| **Type**         	| **Description**                                                                                                                                                                                                                                                                                            	|
 |---------------------	|------------------	|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|
-| storage             	| ErrsoleSequelize 	| Required.<br>Setup MySQL as the storage backend with connection details.                                                                                                                                                                                                                                   	|
+| storage             	| ErrsoleMySQL 	    | Required.<br>Setup MySQL as the storage backend with connection details.                                                                                                                                                                                                                                   	|
 | collectLogs         	| Array of Strings 	| Optional. The default value is ['error', 'info'].<br>By default, Errsole collects both error and info logs. If you wish to limit Errsole to collecting only error logs, you can set this option to ['error']. If you prefer Errsole not to collect any logs, simply set this option to an empty array, []. 	|
 | enableConsoleOutput 	| Boolean          	| Optional. The default value is true.<br>Control whether log output is also shown in the console.                                                                                                                                                                                                           	|
 | exitOnException     	| Boolean          	| Optional. The default value is true.<br>By default, Errsole will exit the process after capturing an uncaught exception. If this is not the behavior you want, you can disable it by setting exitOnException to false.                                                                                     	|
