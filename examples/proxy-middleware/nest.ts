@@ -1,15 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import * as bodyParser from 'body-parser';
-import * as errsole from 'errsole';
-import * as ErrsoleSequelize from 'errsole-sequelize';
+import errsole from 'errsole';
+import ErrsoleSQLite from 'errsole-sqlite';
 import { AppModule } from './app.module';
 
 // Insert the Errsole code snippet at the beginning of your app's main file
 errsole.initialize({
-  storage: new ErrsoleSequelize({
-    dialect: 'sqlite',
-    storage: '/tmp/logs.sqlite'
-  })
+  storage: new ErrsoleSQLite('/tmp/logs.sqlite')
 });
 
 async function bootstrap () {

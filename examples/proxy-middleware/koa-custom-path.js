@@ -12,15 +12,12 @@
  * ─────────────────────────────────────────────────────────────────────
  */
 const errsole = require('errsole');
-const ErrsoleSequelize = require('errsole-sequelize');
+const ErrsoleSQLite = require('errsole-sqlite');
 const Koa = require('koa');
 
 // Initialize Errsole with a custom path
 errsole.initialize({
-  storage: new ErrsoleSequelize({
-    dialect: 'sqlite',
-    storage: '/tmp/logs.sqlite'
-  }),
+  storage: new ErrsoleSQLite('/tmp/logs.sqlite'),
   path: '/logs/dashboard' // Custom path
 });
 

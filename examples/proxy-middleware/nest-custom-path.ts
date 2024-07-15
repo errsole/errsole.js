@@ -13,16 +13,13 @@
  */
 import { NestFactory } from '@nestjs/core';
 import * as bodyParser from 'body-parser';
-import * as errsole from 'errsole';
-import * as ErrsoleSequelize from 'errsole-sequelize';
+import errsole from 'errsole';
+import ErrsoleSQLite from 'errsole-sqlite';
 import { AppModule } from './app.module';
 
 // Initialize Errsole with a custom path
 errsole.initialize({
-  storage: new ErrsoleSequelize({
-    dialect: 'sqlite',
-    storage: '/tmp/logs.sqlite'
-  }),
+  storage: new ErrsoleSQLite('/tmp/logs.sqlite'),
   path: '/logs/dashboard' // Custom path
 });
 

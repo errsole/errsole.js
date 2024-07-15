@@ -1,14 +1,11 @@
 import Fastify from 'fastify';
 import expressPlugin from '@fastify/express';
 import errsole from 'errsole';
-import ErrsoleSequelize from 'errsole-sequelize';
+import ErrsoleSQLite from 'errsole-sqlite';
 
 // Insert the Errsole code snippet at the beginning of your app's main file
 errsole.initialize({
-  storage: new ErrsoleSequelize({
-    dialect: 'sqlite',
-    storage: '/tmp/logs.sqlite'
-  })
+  storage: new ErrsoleSQLite('/tmp/logs.sqlite')
 });
 
 const fastify = Fastify();

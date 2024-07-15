@@ -14,14 +14,11 @@
 import Fastify from 'fastify';
 import expressPlugin from '@fastify/express';
 import errsole from 'errsole';
-import ErrsoleSequelize from 'errsole-sequelize';
+import ErrsoleSQLite from 'errsole-sqlite';
 
 // Initialize Errsole with a custom path
 errsole.initialize({
-  storage: new ErrsoleSequelize({
-    dialect: 'sqlite',
-    storage: '/tmp/logs.sqlite'
-  }),
+  storage: new ErrsoleSQLite('/tmp/logs.sqlite'),
   path: '/logs/dashboard' // Custom path
 });
 
