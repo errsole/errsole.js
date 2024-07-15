@@ -23,14 +23,11 @@ Once you have done that, you will be able to access the Errsole Web Dashboard us
 ```javascript
 const express = require('express');
 const errsole = require('errsole');
-const ErrsoleSequelize = require('errsole-sequelize');
+const ErrsoleSQLite = require('errsole-sqlite');
 
 // Insert the Errsole code snippet at the beginning of your app's main file
 errsole.initialize({
-  storage: new ErrsoleSequelize({
-    dialect: 'sqlite',
-    storage: '/tmp/logs.sqlite'
-  })
+  storage: new ErrsoleSQLite('/tmp/logs.sqlite')
 });
 
 const app = express();
@@ -58,14 +55,11 @@ If you have initialized Errsole with a custom path, you need to append this cust
 import Fastify from 'fastify';
 import expressPlugin from '@fastify/express';
 import errsole from 'errsole';
-import ErrsoleSequelize from 'errsole-sequelize';
+import ErrsoleSQLite from 'errsole-sqlite';
 
 // Insert the Errsole code snippet at the beginning of your app's main file
 errsole.initialize({
-  storage: new ErrsoleSequelize({
-    dialect: 'sqlite',
-    storage: '/tmp/logs.sqlite'
-  })
+  storage: new ErrsoleSQLite('/tmp/logs.sqlite')
 });
 
 const fastify = Fastify();
@@ -96,14 +90,11 @@ If you have initialized Errsole with a custom path, you need to append this cust
 
 const Hapi = require('@hapi/hapi');
 const errsole = require('errsole');
-const ErrsoleSequelize = require('errsole-sequelize');
+const ErrsoleSQLite = require('errsole-sqlite');
 
 // Insert the Errsole code snippet at the beginning of your app's main file
 errsole.initialize({
-  storage: new ErrsoleSequelize({
-    dialect: 'sqlite',
-    storage: '/tmp/logs.sqlite'
-  })
+  storage: new ErrsoleSQLite('/tmp/logs.sqlite')
 });
 
 const init = async () => {
@@ -140,15 +131,12 @@ If you have initialized Errsole with a custom path, you need to append this cust
 
 ```javascript
 const errsole = require('errsole');
-const ErrsoleSequelize = require('errsole-sequelize');
+const ErrsoleSQLite = require('errsole-sqlite');
 const Koa = require('koa');
 
 // Insert the Errsole code snippet at the beginning of your app's main file
 errsole.initialize({
-  storage: new ErrsoleSequelize({
-    dialect: 'sqlite',
-    storage: '/tmp/logs.sqlite'
-  })
+  storage: new ErrsoleSQLite('/tmp/logs.sqlite')
 });
 
 const app = new Koa();
@@ -185,16 +173,13 @@ If you have initialized Errsole with a custom path, you need to append this cust
 ```javascript
 import { NestFactory } from '@nestjs/core';
 import * as bodyParser from 'body-parser';
-import * as errsole from 'errsole';
-import * as ErrsoleSequelize from 'errsole-sequelize';
+import errsole from 'errsole';
+import ErrsoleSQLite from 'errsole-sqlite';
 import { AppModule } from './app.module';
 
 // Insert the Errsole code snippet at the beginning of your app's main file
 errsole.initialize({
-  storage: new ErrsoleSequelize({
-    dialect: 'sqlite',
-    storage: '/tmp/logs.sqlite'
-  })
+  storage: new ErrsoleSQLite('/tmp/logs.sqlite')
 });
 
 async function bootstrap () {
