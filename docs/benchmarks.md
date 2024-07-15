@@ -35,7 +35,7 @@ Configured the Node.js app with Errsole for logging and MySQL as the storage bac
 
 ### Results
 
-Errsole demonstrated a significant performance advantage, handling 10k more requests per minute compared to Elasticsearch configurations.
+Errsole demonstrated a significant performance advantage, handling 15k-20k more requests per minute compared to Elasticsearch configurations.
 
 <img src="https://github.com/user-attachments/assets/d29d9ccc-de39-4f80-a369-a650962f7291" alt="errsole-vs-elasticsearch-benchmarks" width="800">
 
