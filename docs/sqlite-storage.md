@@ -4,10 +4,10 @@ SQLite stores databases as files. So, if you use SQLite to store logs, those log
 
 ### Install
 
-Install the errsole, errsole-sequelize, and sqlite3 modules using the npm install command:
+Install the `errsole` and `errsole-sqlite` modules using the npm install command:
 
 ```bash
-npm install errsole errsole-sequelize sqlite3
+npm install errsole errsole-sqlite
 ```
 
 ### Configure
@@ -15,22 +15,19 @@ npm install errsole errsole-sequelize sqlite3
 ```javascript
 // CommonJS
 const errsole = require('errsole');
-const ErrsoleSequelize = require('errsole-sequelize');
+const ErrsoleSQLite = require('errsole-sqlite');
 ```
 
 ```javascript
 // ESM and TypeScript
 import errsole from 'errsole';
-import ErrsoleSequelize from 'errsole-sequelize';
+import ErrsoleSQLite from 'errsole-sqlite';
 ```
 
 ```javascript
 // Insert the Errsole code snippet at the beginning of your app's main file
 errsole.initialize({
-  storage: new ErrsoleSequelize({
-    dialect: 'sqlite', // This specifies that you are using SQLite
-    storage: 'path/to/database.sqlite'
-  })
+  storage: new ErrsoleSQLite('path/to/database.sqlite')
 });
 ```
 
@@ -39,11 +36,11 @@ errsole.initialize({
 ```javascript
 const express = require('express');
 const errsole = require('errsole');
-const ErrsoleSequelize = require('errsole-sequelize');
+const ErrsoleSQLite = require('errsole-sqlite');
 
 // Insert the Errsole code snippet at the beginning of your app's main file
 errsole.initialize({
-  storage: new ErrsoleSequelize({
+  storage: new ErrsoleSQLite({
     dialect: 'sqlite',
     storage: '/tmp/logs.sqlite'
   })
@@ -62,7 +59,7 @@ app.listen(3000);
 
 | **Option**          	| **Type**         	| **Description**                                                                                                                                                                                                                                                                                            	|
 |---------------------	|------------------	|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|
-| storage             	| ErrsoleSequelize 	| Required.<br>Setup SQLite as the storage backend with connection details.                                                                                                                                                                                                                                  	|
+| storage             	| ErrsoleSQLite 	  | Required.<br>Setup SQLite as the storage backend with connection details.                                                                                                                                                                                                                                  	|
 | collectLogs         	| Array of Strings 	| Optional. The default value is ['error', 'info'].<br>By default, Errsole collects both error and info logs. If you wish to limit Errsole to collecting only error logs, you can set this option to ['error']. If you prefer Errsole not to collect any logs, simply set this option to an empty array, []. 	|
 | enableConsoleOutput 	| Boolean          	| Optional. The default value is true.<br>Control whether log output is also shown in the console.                                                                                                                                                                                                           	|
 | exitOnException     	| Boolean          	| Optional. The default value is true.<br>By default, Errsole will exit the process after capturing an uncaught exception. If this is not the behavior you want, you can disable it by setting exitOnException to false.                                                                                     	|
