@@ -2,7 +2,7 @@ const CollectLogsHook = require('../../lib/main/logs/index'); // replace with th
 const os = require('os');
 const stream = require('stream');
 const stripAnsi = require('strip-ansi');
-/* globals expect, jest, beforeEach, afterEach, describe, it */
+/* globals expect, jest, beforeEach, afterEach, afterAll, describe, it */
 
 describe('CollectLogsHook', () => {
   let mockStorage;
@@ -12,6 +12,7 @@ describe('CollectLogsHook', () => {
   let mockStderrWrite;
   let logSpy;
   let errorSpy;
+  let activeTimeouts = [];
 
   beforeEach(() => {
     mockStorage = {
@@ -20,7 +21,8 @@ describe('CollectLogsHook', () => {
         if (event === 'ready') {
           callback();
         }
-      })
+      }),
+      flushLogs: jest.fn(() => Promise.resolve())
     };
 
     originalStdoutWrite = process.stdout.write;
@@ -39,6 +41,14 @@ describe('CollectLogsHook', () => {
     // Mocking console.log and console.error
     logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
     errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+
+    // Capture any setTimeout calls to ensure they are cleared
+    const originalSetTimeout = global.setTimeout;
+    jest.spyOn(global, 'setTimeout').mockImplementation((fn, delay) => {
+      const timeout = originalSetTimeout(fn, delay);
+      activeTimeouts.push(timeout);
+      return timeout;
+    });
   });
 
   afterEach(() => {
@@ -48,7 +58,22 @@ describe('CollectLogsHook', () => {
     // Restore original implementations
     logSpy.mockRestore();
     errorSpy.mockRestore();
+
+    // Clear all active timeouts
+    activeTimeouts.forEach(timeout => clearTimeout(timeout));
+    activeTimeouts = [];
   });
+
+  afterAll(async () => {
+    // Ensure any open handles are properly closed
+    if (typeof CollectLogsHook.storage.flushLogs === 'function') {
+      await CollectLogsHook.clearLogsBeforeExit();
+    }
+    jest.clearAllMocks();
+    jest.useRealTimers();
+  });
+
+  // Existing tests...
 
   it('should initialize with default options', () => {
     CollectLogsHook.initialize({ storage: mockStorage });
@@ -189,5 +214,63 @@ describe('CollectLogsHook', () => {
 
     // Check that postLogs was not called due to the error
     expect(mockStorage.postLogs).not.toHaveBeenCalled();
+  });
+
+  it('should flush logs before exit successfully', async () => {
+    CollectLogsHook.initialize({ storage: mockStorage });
+
+    await expect(CollectLogsHook.clearLogsBeforeExit()).resolves.toBeUndefined();
+    expect(mockStorage.flushLogs).toHaveBeenCalled();
+  });
+
+  it('should handle error when flushing logs before exit', async () => {
+    mockStorage.flushLogs.mockImplementation(() => Promise.reject(new Error('Test error')));
+    CollectLogsHook.initialize({ storage: mockStorage });
+
+    await expect(CollectLogsHook.clearLogsBeforeExit()).resolves.toBeUndefined();
+    expect(mockStorage.flushLogs).toHaveBeenCalled();
+  });
+});
+
+describe('CollectLogsHook - clearLogsBeforeExit', () => {
+  let mockStorage;
+
+  beforeEach(() => {
+    mockStorage = {
+      postLogs: jest.fn(),
+      flushLogs: jest.fn(() => Promise.resolve())
+    };
+
+    // Resetting the CollectLogsHook state before each test
+    CollectLogsHook.storage = mockStorage;
+    CollectLogsHook.collectLogs = [];
+    CollectLogsHook.hostname = null;
+    CollectLogsHook.enableConsoleOutput = true;
+
+    jest.useFakeTimers(); // Use fake timers to handle setTimeout and setInterval
+  });
+
+  afterEach(() => {
+    jest.runOnlyPendingTimers(); // Ensure all pending timers are run
+    jest.useRealTimers(); // Restore real timers
+  });
+
+  afterAll(() => {
+    // Ensure that all async operations are stopped
+    if (CollectLogsHook.collectLogs) {
+      clearInterval(CollectLogsHook.collectLogs);
+    }
+  });
+
+  it('should flush logs before exit successfully', async () => {
+    await expect(CollectLogsHook.clearLogsBeforeExit()).resolves.toBeUndefined();
+    expect(mockStorage.flushLogs).toHaveBeenCalled();
+  });
+
+  it('should handle error when flushing logs before exit', async () => {
+    mockStorage.flushLogs.mockImplementation(() => Promise.reject(new Error('Test error')));
+
+    await expect(CollectLogsHook.clearLogsBeforeExit()).resolves.toBeUndefined();
+    expect(mockStorage.flushLogs).toHaveBeenCalled();
   });
 });
