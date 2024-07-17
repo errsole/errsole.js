@@ -1,7 +1,8 @@
 name: Code Coverage Test
 
 on:
-  push:
+  release:
+    types: [created]
     branches:
       - master
 
