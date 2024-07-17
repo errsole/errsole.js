@@ -1,7 +1,7 @@
 {
   "name": "errsole",
   "version": "2.8.5",
-  "description": "Logger with a Built-in Web Dashboard",
+  "description": "Collect, Store, and Visualize Logs with a Single Module",
   "keywords": [
     "log",
     "logs",
