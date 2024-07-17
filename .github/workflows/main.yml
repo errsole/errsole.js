@@ -24,7 +24,7 @@ jobs:
       - run: npm install coveralls --save-dev
       - run: cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
         env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_ERRSOLE_TOKEN }}
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

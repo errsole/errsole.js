@@ -224,8 +224,11 @@ describe('userController', () => {
       });
     });
   });
-
   describe('#loginUser', () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+
     it('should return a token when login is successful with correct email and password', async () => {
       const req = {
         body: {
@@ -308,13 +311,10 @@ describe('userController', () => {
         send: jest.fn()
       };
 
-      // Mock the storageConnection.verifyUser method to return a valid user
       const mockStorageConnection = {
         verifyUser: jest.fn().mockResolvedValue({ item: { email: req.body.data.attributes.email, password: req.body.data.attributes.password } })
       };
       getStorageConnection.mockReturnValue(mockStorageConnection);
-
-      // Mock the helpers.getJWTSecret method to return null
       helpers.getJWTSecret.mockReturnValue(null);
       helpers.addJWTSecret.mockResolvedValue(false);
 
@@ -329,6 +329,71 @@ describe('userController', () => {
           message: 'An internal server error occurred'
         }]
       });
+    });
+
+    it('should return 500 status code for unexpected errors', async () => {
+      const req = {
+        body: {
+          data: {
+            attributes: {
+              email: 'test@example.com',
+              password: 'password123'
+            }
+          }
+        }
+      };
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        send: jest.fn()
+      };
+
+      const mockStorageConnection = {
+        verifyUser: jest.fn().mockRejectedValue(new Error('Unexpected error'))
+      };
+      getStorageConnection.mockReturnValue(mockStorageConnection);
+      helpers.extractAttributes.mockReturnValue(req.body.data.attributes);
+
+      await loginUser(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [{ error: 'Internal Server Error', message: 'An internal server error occurred' }]
+      });
+    });
+
+    it('should handle JWT secret addition when not available and proceed with login', async () => {
+      const req = {
+        body: {
+          data: {
+            attributes: {
+              email: 'test@example.com',
+              password: 'password123'
+            }
+          }
+        }
+      };
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        send: jest.fn()
+      };
+
+      const mockStorageConnection = {
+        verifyUser: jest.fn().mockResolvedValue({ item: { email: 'test@example.com' } })
+      };
+      getStorageConnection.mockReturnValue(mockStorageConnection);
+      helpers.extractAttributes.mockReturnValue(req.body.data.attributes);
+      helpers.getJWTSecret.mockReturnValueOnce(null).mockReturnValueOnce('secret');
+      helpers.addJWTSecret.mockResolvedValue(true);
+      jwt.sign.mockReturnValue('token');
+      Jsonapi.Serializer.serialize.mockReturnValue({ data: { token: 'token' } });
+
+      await loginUser(req, res);
+
+      expect(helpers.getJWTSecret).toHaveBeenCalledTimes(2);
+      expect(helpers.addJWTSecret).toHaveBeenCalled();
+      expect(mockStorageConnection.verifyUser).toHaveBeenCalledWith('test@example.com', 'password123');
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.send).toHaveBeenCalledWith({ data: { token: 'token' } });
     });
   });
 
@@ -969,6 +1034,47 @@ describe('userController', () => {
     });
   });
 
+  describe('#getTotalUsers', () => {
+    it('should retrieve the total user count successfully', async () => {
+      const req = {};
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        send: jest.fn()
+      };
+
+      const mockUserCountResult = { count: 100 };
+
+      const mockStorageConnection = {
+        getUserCount: jest.fn().mockResolvedValue(mockUserCountResult)
+      };
+      getStorageConnection.mockReturnValue(mockStorageConnection);
+      Jsonapi.Serializer.serialize.mockReturnValue({ data: { count: 100 } });
+
+      await getTotalUsers(req, res);
+
+      expect(mockStorageConnection.getUserCount).toHaveBeenCalled();
+      expect(res.send).toHaveBeenCalledWith({ data: { count: 100 } });
+    });
+
+    it('should handle errors gracefully', async () => {
+      const req = {};
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        send: jest.fn()
+      };
+
+      const mockStorageConnection = {
+        getUserCount: jest.fn().mockRejectedValue(new Error('Database error'))
+      };
+      getStorageConnection.mockReturnValue(mockStorageConnection);
+
+      await getTotalUsers(req, res);
+
+      expect(mockStorageConnection.getUserCount).toHaveBeenCalled();
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({ error: 'An error occurred while fetching user count.' });
+    });
+  });
   describe('#removeUser', () => {
     it('should remove a user successfully with valid admin email and user ID', async () => {
       const req = {
@@ -1071,48 +1177,6 @@ describe('userController', () => {
       expect(res.send).toHaveBeenCalledWith({
         errors: [{ error: 'Internal Server Error', message: 'Unexpected error' }]
       });
-    });
-  });
-
-  describe('#getTotalUsers', () => {
-    it('should retrieve the total user count successfully', async () => {
-      const req = {};
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        send: jest.fn()
-      };
-
-      const mockUserCountResult = { count: 100 };
-
-      const mockStorageConnection = {
-        getUserCount: jest.fn().mockResolvedValue(mockUserCountResult)
-      };
-      getStorageConnection.mockReturnValue(mockStorageConnection);
-      Jsonapi.Serializer.serialize.mockReturnValue({ data: { count: 100 } });
-
-      await getTotalUsers(req, res);
-
-      expect(mockStorageConnection.getUserCount).toHaveBeenCalled();
-      expect(res.send).toHaveBeenCalledWith({ data: { count: 100 } });
-    });
-
-    it('should handle errors gracefully', async () => {
-      const req = {};
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        send: jest.fn()
-      };
-
-      const mockStorageConnection = {
-        getUserCount: jest.fn().mockRejectedValue(new Error('Database error'))
-      };
-      getStorageConnection.mockReturnValue(mockStorageConnection);
-
-      await getTotalUsers(req, res);
-
-      expect(mockStorageConnection.getUserCount).toHaveBeenCalled();
-      expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.send).toHaveBeenCalledWith({ error: 'An error occurred while fetching user count.' });
     });
   });
 });

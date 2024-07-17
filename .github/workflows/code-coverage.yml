@@ -1,7 +1,8 @@
 name: Code Coverage Test
 
 on:
-  push:
+  release:
+    types: [created]
     branches:
       - master
 
@@ -18,4 +19,4 @@ jobs:
       - run: npm install coveralls --save-dev
       - run: cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
         env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_ERRSOLE_TOKEN }}

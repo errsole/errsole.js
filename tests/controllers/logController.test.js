@@ -63,6 +63,51 @@ describe('LogController', () => {
       expect(res.send).toHaveBeenCalledWith({ data: 'serialized data' });
     });
 
+    it('should handle empty search terms', async () => {
+      req.query.search_terms = '';
+      req.query.limit = '10';
+      req.query.levels = 'info,error';
+      req.query.level_json = '[{"key":"value"}]';
+      const mockLogs = {
+        items: [{ id: 1, message: 'log message' }],
+        filters: {}
+      };
+      mockStorageConnection.getLogs.mockResolvedValue(mockLogs);
+
+      await getLogs(req, res);
+
+      expect(mockStorageConnection.getLogs).toHaveBeenCalledWith({
+        limit: 10,
+        levels: ['info', 'error'],
+        level_json: [{ key: 'value' }],
+        search_terms: ''
+      });
+      expect(res.send).toHaveBeenCalledWith({ data: 'serialized data' });
+    });
+
+    it('should handle invalid JSON in level_json gracefully', async () => {
+      const req = {
+        query: {
+          level_json: 'invalid_json'
+        }
+      };
+      const res = {
+        send: jest.fn(),
+        status: jest.fn().mockReturnThis()
+      };
+
+      await getLogs(req, res);
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Internal Server Error',
+            message: 'An unexpected error occurred'
+          }
+        ]
+      });
+    });
+
     it('should return logs when no search terms are provided', async () => {
       req.query.limit = '10';
       const mockLogs = { items: [{ id: 1, message: 'log 1' }, { id: 2, message: 'log 2' }] };
@@ -91,29 +136,6 @@ describe('LogController', () => {
       await getLogs(req, res);
       expect(mockStorageConnection.getLogs).toHaveBeenCalledWith({ level_json: [{ level: 'error' }] });
       expect(res.send).toHaveBeenCalledWith({ data: 'serialized data' });
-    });
-
-    it('should handle invalid JSON in level_json gracefully', async () => {
-      const req = {
-        query: {
-          level_json: 'invalid_json'
-        }
-      };
-      const res = {
-        send: jest.fn(),
-        status: jest.fn().mockReturnThis()
-      };
-
-      await getLogs(req, res);
-      expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.send).toHaveBeenCalledWith({
-        errors: [
-          {
-            error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
-          }
-        ]
-      });
     });
 
     it('should return 400 when no logs are found', async () => {
@@ -277,6 +299,24 @@ describe('LogController', () => {
       });
     });
 
+    it('should return 400 if setConfig result does not contain item', async () => {
+      const mockResult = {};
+      mockStorageConnection.setConfig.mockResolvedValue(mockResult);
+
+      await updateLogsTTL(req, res);
+
+      expect(mockStorageConnection.setConfig).toHaveBeenCalledWith('logsTTL', 30);
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Bad Request',
+            message: 'invalid request'
+          }
+        ]
+      });
+    });
+
     it('should handle errors gracefully', async () => {
       mockStorageConnection.setConfig.mockRejectedValue(new Error('Unexpected error'));
 
@@ -292,7 +332,28 @@ describe('LogController', () => {
         ]
       });
     });
+
+    it('should handle errors from ensureLogsTTL gracefully', async () => {
+      const mockResult = { item: { id: 1, ttl: 30 } };
+      mockStorageConnection.setConfig.mockResolvedValue(mockResult);
+      mockStorageConnection.ensureLogsTTL.mockRejectedValue(new Error('Ensure TTL error'));
+
+      await updateLogsTTL(req, res);
+
+      expect(mockStorageConnection.setConfig).toHaveBeenCalledWith('logsTTL', 30);
+      expect(mockStorageConnection.ensureLogsTTL).toHaveBeenCalled();
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Internal Server Error',
+            message: 'An unexpected error occurred'
+          }
+        ]
+      });
+    });
   });
+
   describe('getLogMeta', () => {
     let req, res, storageConnectionMock;
 
