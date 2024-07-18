@@ -1,10 +1,11 @@
 
-const { checkUpdates, getSlackDetails, addSlackDetails, updateSlackDetails, deleteSlackDetails, getEmailDetails, addEmailDetails, updateEmailDetails, deleteEmailDetails } = require('../../lib/main/server/controllers/appController');
+const { checkUpdates, getSlackDetails, addSlackDetails, updateSlackDetails, deleteSlackDetails, getEmailDetails, addEmailDetails, updateEmailDetails, deleteEmailDetails, testEmailNotification, testSlackNotification } = require('../../lib/main/server/controllers/appController');
 const NPMUpdates = require('../../lib/main/server/utils/npmUpdates');
 const helpers = require('../../lib/main/server/utils/helpers');
 const { getStorageConnection } = require('../../lib/main/server/storageConnection');
 const Jsonapi = require('../../lib/main/server/utils/jsonapiUtil');
 const packageJson = require('../../package.json');
+const Alerts = require('../../lib/main/server/utils/alerts');
 const { describe } = require('@jest/globals');
 
 /* globals expect, jest, beforeEach, afterAll, beforeAll, it, afterEach */
@@ -12,6 +13,7 @@ jest.mock('../../lib/main/server/utils/npmUpdates');
 jest.mock('../../lib/main/server/storageConnection');
 jest.mock('../../lib/main/server/utils/jsonapiUtil');
 jest.mock('../../lib/main/server/utils/helpers');
+jest.mock('../../lib/main/server/utils/alerts');
 
 describe('appController', () => {
   let originalConsoleError;
@@ -1296,6 +1298,92 @@ describe('appController', () => {
 
       expect(extractAttributesMock).toHaveBeenCalledWith(req.body);
       expect(deleteConfigMock).toHaveBeenCalledWith('emailIntegration');
+      expect(console.error).toHaveBeenCalledWith(error);
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Internal Server Error',
+            message: 'An unexpected error occurred'
+          }
+        ]
+      });
+    });
+  });
+
+  describe('#testSlackNotification', () => {
+    it('should send a test Slack notification successfully', async () => {
+      const req = {};
+      const res = {
+        send: jest.fn(),
+        status: jest.fn().mockReturnThis()
+      };
+
+      Alerts.testSlackAlert.mockResolvedValue(true);
+      Jsonapi.Serializer.serialize.mockReturnValue({ success: true });
+
+      await testSlackNotification(req, res);
+
+      expect(Alerts.testSlackAlert).toHaveBeenCalledWith('Hello, This is a test notification.', 'Test');
+      expect(Jsonapi.Serializer.serialize).toHaveBeenCalledWith(Jsonapi.AppType, { success: true });
+      expect(res.send).toHaveBeenCalledWith({ success: true });
+    });
+
+    it('should handle errors and respond with a 500 status code', async () => {
+      const req = {};
+      const res = {
+        send: jest.fn(),
+        status: jest.fn().mockReturnThis()
+      };
+
+      const error = new Error('Test error');
+      Alerts.testSlackAlert.mockRejectedValue(error);
+
+      await testSlackNotification(req, res);
+
+      expect(console.error).toHaveBeenCalledWith(error);
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Internal Server Error',
+            message: 'An unexpected error occurred'
+          }
+        ]
+      });
+    });
+  });
+
+  describe('#testEmailNotification', () => {
+    it('should send a test email notification successfully', async () => {
+      const req = {};
+      const res = {
+        send: jest.fn(),
+        status: jest.fn().mockReturnThis()
+      };
+
+      Alerts.testEmailAlert.mockResolvedValue(true);
+      Jsonapi.Serializer.serialize.mockReturnValue({ success: true });
+
+      await testEmailNotification(req, res);
+
+      expect(Alerts.testEmailAlert).toHaveBeenCalledWith('Hello, This is a test notification.', 'Test');
+      expect(Jsonapi.Serializer.serialize).toHaveBeenCalledWith(Jsonapi.AppType, { success: true });
+      expect(res.send).toHaveBeenCalledWith({ success: true });
+    });
+
+    it('should handle errors and respond with a 500 status code', async () => {
+      const req = {};
+      const res = {
+        send: jest.fn(),
+        status: jest.fn().mockReturnThis()
+      };
+
+      const error = new Error('Test error');
+      Alerts.testEmailAlert.mockRejectedValue(error);
+
+      await testEmailNotification(req, res);
+
       expect(console.error).toHaveBeenCalledWith(error);
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.send).toHaveBeenCalledWith({
