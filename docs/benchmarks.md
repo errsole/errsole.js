@@ -1,6 +1,6 @@
 # Benchmarks
 
-Errsole outperforms Elasticsearch by 15k requests per minute.
+Errsole outperforms Elasticsearch by 80k requests per minute.
 
 ### Test Setup
 
@@ -35,7 +35,16 @@ Configured the Node.js app with Errsole for logging and MySQL as the storage bac
 
 ### Results
 
-Errsole demonstrated a significant performance advantage, handling 15k-20k more requests per minute compared to Elasticsearch configurations.
+Errsole demonstrated a significant performance advantage, handling 79k-85k more requests per minute compared to Elasticsearch configurations.
+
+| **Test No.** 	| **Pino + Elasticsearch** 	| **Winston + Elasticsearch** 	| **Errsole + MySQL** 	|
+|--------------	|--------------------------	|-----------------------------	|---------------------	|
+| 1            	| 265363                   	| 268917                      	| 349623              	|
+| 2            	| 265160                   	| 273568                      	| 352383              	|
+| 3            	| 272862                   	| 274449                      	| 351421              	|
+| 4            	| 259297                   	| 270090                      	| 350173              	|
+| 5            	| 263454                   	| 271782                      	| 350188              	|
+| Average      	| 265227                   	| 271761                      	| 350758              	|
 
 <img src="https://github.com/user-attachments/assets/d29d9ccc-de39-4f80-a369-a650962f7291" alt="errsole-vs-elasticsearch-benchmarks" width="800">
 
