@@ -3,14 +3,20 @@
 
   <h3 align="center">Collect, Store, and Visualize Logs with a Single Module</h3>
 
-  <div align="center">
-  <img src="https://img.shields.io/github/v/release/errsole/errsole.js" alt="Release Version" />
-  <img src="https://img.shields.io/github/last-commit/errsole/errsole.js" alt="Last Commit" />
-  <img src="https://img.shields.io/github/license/errsole/errsole.js" alt="License" />
+<div align="center">
+  <a href="https://github.com/errsole/errsole.js/releases" style="text-decoration: none;">
+    <img src="https://img.shields.io/github/v/release/errsole/errsole.js" alt="Release Version" />
+  </a>
+  <a href="https://github.com/errsole/errsole.js/commits/master" style="text-decoration: none;">
+    <img src="https://img.shields.io/github/last-commit/errsole/errsole.js" alt="GitHub last commit">
+  </a>
+  <a href="https://github.com/errsole/errsole.js?tab=MIT-1-ov-file#readme" style="text-decoration: none;">
+    <img src="https://img.shields.io/github/license/errsole/errsole.js" alt="License" />
+  </a>
   <a href="https://coveralls.io/github/errsole/errsole.js">
     <img src="https://coveralls.io/repos/github/errsole/errsole.js/badge.svg" alt="Coverage Status" />
   </a>
-  </div>
+</div>
 
 </p>
 
