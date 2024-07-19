@@ -1324,7 +1324,7 @@ describe('appController', () => {
 
       await testSlackNotification(req, res);
 
-      expect(Alerts.testSlackAlert).toHaveBeenCalledWith('Hello, This is a test notification.', 'Test');
+      expect(Alerts.testSlackAlert).toHaveBeenCalledWith('This is a test notification from the Errsole Logger.', 'Test Notification');
       expect(Jsonapi.Serializer.serialize).toHaveBeenCalledWith(Jsonapi.AppType, { success: true });
       expect(res.send).toHaveBeenCalledWith({ success: true });
     });
@@ -1367,7 +1367,7 @@ describe('appController', () => {
 
       await testEmailNotification(req, res);
 
-      expect(Alerts.testEmailAlert).toHaveBeenCalledWith('Hello, This is a test notification.', 'Test');
+      expect(Alerts.testEmailAlert).toHaveBeenCalledWith('This is a test notification from the Errsole Logger. If you received this email, it means your SMTP settings are correctly configured in Errsole.', 'Test Notification');
       expect(Jsonapi.Serializer.serialize).toHaveBeenCalledWith(Jsonapi.AppType, { success: true });
       expect(res.send).toHaveBeenCalledWith({ success: true });
     });
