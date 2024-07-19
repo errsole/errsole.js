@@ -42,7 +42,7 @@ Errsole demonstrated a significant performance advantage, handling 79k-85k more 
 | 3            	| 272862                   	| 274449                      	| 351421              	|
 | 4            	| 259297                   	| 270090                      	| 350173              	|
 | 5            	| 263454                   	| 271782                      	| 350188              	|
-| Average      	| 265227                   	| 271761                      	| 350758              	|
+| **Average**     | **265227**                  | **271761**                     | **350758**            |
 
 <img src="https://github.com/user-attachments/assets/14eb3290-a2d5-4365-8926-532120e2c6c5" alt="errsole-vs-elasticsearch-benchmarks" width="800">
 
@@ -66,14 +66,14 @@ We also conducted tests comparing the performance of Errsole with Amazon CloudWa
 
 Errsole handled 55k more requests per minute compared to CloudWatch configurations. Notably, Winston + CloudWatch failed in all test scenarios.
 
-| **Test No.** 	| **Winston + CloudWatch** 	| **Pino + CloudWatch** 	| **Errsole + MySQL** 	|
-|--------------	|--------------------------	|-----------------------	|---------------------	|
-| 1            	| Failed                   	| 296752                	| 349623              	|
-| 2            	| Failed                   	| 290988                	| 352383              	|
-| 3            	| Failed                   	| 301431                	| 351421              	|
-| 4            	| Failed                   	| 292222                	| 350173              	|
-| 5            	| Failed                   	| 294272                	| 350188              	|
-| Average      	| Failed                   	| 295133                	| 350758              	|
+| **Test No.** 	| **CloudWatch** 	| **Winston + CloudWatch** 	| **Pino + CloudWatch** 	| **Errsole + MySQL** 	|
+|--------------	|----------------	|--------------------------	|-----------------------	|---------------------	|
+| 1            	| 54185          	| Failed                   	| 296752                	| 349623              	|
+| 2            	| 55126          	| Failed                   	| 290988                	| 352383              	|
+| 3            	| 54932          	| Failed                   	| 301431                	| 351421              	|
+| 4            	| 54859          	| Failed                   	| 292222                	| 350173              	|
+| 5            	| 55239          	| Failed                   	| 294272                	| 350188              	|
+| **Average**  	| **54868**      	| **Failed**               	| **295133**            	| **350758**          	|
 
 ## Benchmarks Code
 
