@@ -33,7 +33,7 @@ We conducted load testing under three different configurations to compare perfor
 
 ### Results
 
-Errsole demonstrated a significant performance advantage, handling 79k-85k more requests per minute compared to Elasticsearch configurations.
+Errsole demonstrated a significant performance advantage, handling 79,000-85,000 more requests per minute compared to Elasticsearch configurations.
 
 | **Test No.** 	| **Pino + Elasticsearch** 	| **Winston + Elasticsearch** 	| **Errsole + MySQL** 	|
 |--------------	|--------------------------	|-----------------------------	|---------------------	|
@@ -64,7 +64,7 @@ We also conducted tests comparing the performance of Errsole with Amazon CloudWa
 
 ### Results
 
-Errsole handled 55k more requests per minute compared to CloudWatch configurations. Notably, Winston + CloudWatch failed in all test scenarios.
+Errsole significantly outperformed all CloudWatch configurations in benchmark tests. It handled 296,000 more requests per minute than direct CloudWatch and 55,000 more requests per minute than Pino + CloudWatch. Notably, Winston + CloudWatch failed in all test scenarios.
 
 | **Test No.** 	| **CloudWatch** 	| **Winston + CloudWatch** 	| **Pino + CloudWatch** 	| **Errsole + MySQL** 	|
 |--------------	|----------------	|--------------------------	|-----------------------	|---------------------	|
