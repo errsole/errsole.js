@@ -38,7 +38,7 @@ https://github.com/errsole/errsole.js/assets/3775513/b59424fa-c3b3-4a65-b603-e35
 
 ## Benchmarks
 
-Errsole outperforms Elasticsearch by 80k requests per minute. [Read More](https://github.com/errsole/errsole.js/blob/master/docs/benchmarks.md)
+Errsole outperforms Elasticsearch by 80,000 requests per minute. [Read More](https://github.com/errsole/errsole.js/blob/master/docs/benchmarks.md)
 
 <img src="https://github.com/user-attachments/assets/14eb3290-a2d5-4365-8926-532120e2c6c5" alt="errsole-vs-elasticsearch-benchmarks" width="800">
 
