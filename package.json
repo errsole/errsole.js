@@ -75,5 +75,10 @@
     "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4",
     "webpack-merge": "^5.10.0"
+  },
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "/lib/main/server/utils/alerts.js"
+    ]
   }
 }
