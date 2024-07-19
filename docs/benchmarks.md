@@ -1,8 +1,6 @@
 # Benchmarks
 
-Errsole outperforms Elasticsearch by 80k requests per minute.
-
-### Test Setup
+## Test Setup
 
 To benchmark Errsole against Elasticsearch, we conducted tests under the following setup:
 
@@ -17,21 +15,21 @@ To benchmark Errsole against Elasticsearch, we conducted tests under the followi
     * **Specifications:** 2 CPUs, 8 GB RAM
 4. **Load Testing Tool:** Grafana K6
 
-### Load Testing Scenarios
+## Elasticsearch
 
 We conducted load testing under three different configurations to compare performance:
 
 1. **Winston + Elasticsearch:**
 
-Configured the Node.js app with Winston for logging and Elasticsearch as the storage backend.
+    Configured the Node.js app with Winston for logging and Elasticsearch as the storage backend.
 
 2. **Pino + Elasticsearch:**
 
-Configured the Node.js app with Pino for logging and Elasticsearch as the storage backend.
+    Configured the Node.js app with Pino for logging and Elasticsearch as the storage backend.
 
 3. **Errsole + MySQL:**
 
-Configured the Node.js app with Errsole for logging and MySQL as the storage backend.
+    Configured the Node.js app with Errsole for logging and MySQL as the storage backend.
 
 ### Results
 
@@ -48,8 +46,39 @@ Errsole demonstrated a significant performance advantage, handling 79k-85k more 
 
 <img src="https://github.com/user-attachments/assets/14eb3290-a2d5-4365-8926-532120e2c6c5" alt="errsole-vs-elasticsearch-benchmarks" width="800">
 
-To access the benchmark code, visit [https://github.com/errsole/errsole.js/tree/master/benchmarks](https://github.com/errsole/errsole.js/tree/master/benchmarks).
+## Amazon CloudWatch
 
-### Main Documentation
+We also conducted tests comparing the performance of Errsole with Amazon CloudWatch.
+
+1. **Winston + CloudWatch:**
+
+    Configured the Node.js app with Winston for logging and CloudWatch as the storage backend.
+
+2. **Pino + CloudWatch:**
+
+    Configured the Node.js app with Pino for logging and CloudWatch as the storage backend.
+
+3. **Errsole + MySQL:**
+
+    Configured the Node.js app with Errsole for logging and MySQL as the storage backend.
+
+### Results
+
+Errsole handled 55k more requests per minute compared to CloudWatch configurations. Notably, Winston + CloudWatch failed in all test scenarios.
+
+| **Test No.** 	| **Winston + CloudWatch** 	| **Pino + CloudWatch** 	| **Errsole + MySQL** 	|
+|--------------	|--------------------------	|-----------------------	|---------------------	|
+| 1            	| Failed                   	| 296752                	| 349623              	|
+| 2            	| Failed                   	| 290988                	| 352383              	|
+| 3            	| Failed                   	| 301431                	| 351421              	|
+| 4            	| Failed                   	| 292222                	| 350173              	|
+| 5            	| Failed                   	| 294272                	| 350188              	|
+| Average      	| Failed                   	| 295133                	| 350758              	|
+
+## Benchmarks Code
+
+To access the benchmarks code, visit [https://github.com/errsole/errsole.js/tree/master/benchmarks](https://github.com/errsole/errsole.js/tree/master/benchmarks).
+
+## Main Documentation
 
 [Main Documentation](/README.md)
