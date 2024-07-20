@@ -7,7 +7,7 @@ on:
       - master
 
 jobs:
-  build:
+  build_and_publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -16,16 +16,25 @@ jobs:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
       - run: npm install
+
+      # Run tests with coverage
+      - run: npm test -- --coverage
+        continue-on-error: false
+      
+      # Send coverage report to Coveralls
+      - run: npm install coveralls --save-dev
+      - run: cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_ERRSOLE_TOKEN }}
+
+      # Build the project
       - run: npm run build:web
         env:
           NODE_OPTIONS: --openssl-legacy-provider
       - run: rm -rf lib/web/src/
       - run: rm -rf benchmarks/
-      - run: npm test -- --coverage
-      - run: npm install coveralls --save-dev
-      - run: cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_ERRSOLE_TOKEN }}
+      
+      # Publish the package to npm
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
