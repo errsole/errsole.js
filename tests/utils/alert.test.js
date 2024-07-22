@@ -86,6 +86,49 @@ describe('EmailService', () => {
     }));
     expect(EmailService.transporter).toBe(mockTransporter);
   });
+  it('should successfully send an email alert', async () => {
+    const mockConfig = {
+      item: {
+        value: JSON.stringify({
+          host: 'smtp.example.com',
+          port: '587',
+          username: 'user@example.com',
+          password: 'password',
+          sender: 'sender@example.com',
+          receivers: 'receiver@example.com',
+          status: true
+        })
+      }
+    };
+    mockStorageConnection.getConfig.mockResolvedValue(mockConfig);
+
+    const mockTransporter = {
+      sendMail: jest.fn().mockResolvedValue({})
+    };
+    nodemailer.createTransport.mockReturnValue(mockTransporter);
+
+    const result = await EmailService.sendAlert('Test message', 'Test type', { appName: 'TestApp', environmentName: 'TestEnv' });
+
+    expect(mockTransporter.sendMail).toHaveBeenCalledWith(expect.objectContaining({
+      from: 'sender@example.com',
+      to: 'receiver@example.com',
+      subject: 'Errsole: Test type (TestApp app, TestEnv environment)',
+      text: 'App Name: TestApp\nEnvironment Name: TestEnv\n\nTest message'
+    }));
+    expect(result).toBe(true);
+  });
+
+  it('should log error and return false when email transporter initialization fails', async () => {
+    getStorageConnection.mockReturnValue({
+      getConfig: jest.fn().mockImplementation(() => {
+        throw new Error('Unexpected error');
+      })
+    });
+
+    const result = await EmailService.sendAlert('Test message', 'Test type', {});
+    expect(console.error).toHaveBeenCalledWith('Failed to create email transporter: ', expect.any(Error));
+    expect(result).toBe(false);
+  });
 
   it('should handle transporter initialization failure', async () => {
     getStorageConnection.mockReturnValue({
@@ -337,6 +380,26 @@ describe('SlackService', () => {
 
     const result = await SlackService.sendAlert('Test message', 'Test type', {});
 
+    expect(result).toBe(false);
+  });
+
+  it('should log error and return false during Slack alert sending error', async () => {
+    mockStorageConnection.getConfig.mockImplementation(() => {
+      throw new Error('Unexpected error');
+    });
+
+    const result = await SlackService.sendAlert('Test message', 'Test type', {});
+    expect(console.error).toHaveBeenCalledWith('Failed to send slack alert:', expect.any(Error));
+    expect(result).toBe(false);
+  });
+
+  it('should handle no config found', async () => {
+    const mockConfig = {
+      item: null
+    };
+    mockStorageConnection.getConfig.mockResolvedValue(mockConfig);
+
+    const result = await SlackService.sendAlert('Test message', 'Test type', {});
     expect(result).toBe(false);
   });
 });
