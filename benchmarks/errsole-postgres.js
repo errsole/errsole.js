@@ -1,9 +1,12 @@
-const app = require('express')();
+'use strict';
+
+const express = require('express');
+const app = express();
 
 const errsole = require('errsole');
-const ErrsoleMySQL = require('errsole-mysql');
+const ErrsolePostgres = require('errsole-postgres');
 errsole.initialize({
-  storage: new ErrsoleMySQL({
+  storage: new ErrsolePostgres({
     host: '172.xx.xx.xx',
     user: 'admin',
     password: 'xxxxxxxxxxx',
