@@ -21,9 +21,11 @@
   "files": [
     "docs",
     "examples",
-    "lib"
+    "lib",
+    "types"
   ],
-  "main": "lib/errsole",
+  "main": "lib/errsole.js",
+  "types": "types/errsole.d.ts",
   "scripts": {
     "build:web": "NODE_OPTIONS=--openssl-legacy-provider webpack --config lib/web/webpack/website.config.js",
     "setup": "npm install && npm install errsole-sequelize sqlite3 --no-save && npm run build:web",
