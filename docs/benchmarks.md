@@ -33,7 +33,7 @@ We conducted load testing under three different configurations to compare perfor
 
 ### Results
 
-Errsole demonstrated a significant performance advantage, handling 79,000 - 85,000 more requests per minute compared to Elasticsearch configurations.
+Errsole demonstrated a significant performance advantage, handling 70,000 - 90,000 more requests per minute compared to Elasticsearch configurations.
 
 | **Test No.** 	| **Pino + Elasticsearch** 	| **Winston + Elasticsearch** 	| **Errsole + MongoDB** 	| **Errsole + MySQL** 	| **Errsole + PostgreSQL** 	| **Errsole + SQLite** 	|
 |--------------	|--------------------------	|-----------------------------	|-----------------------	|---------------------	|--------------------------	|----------------------	|
