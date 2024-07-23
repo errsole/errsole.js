@@ -44,7 +44,7 @@ Errsole demonstrated a significant performance advantage, handling 79,000 - 85,0
 | 5            	| 263454                   	| 271782                      	| 350188              	|
 | **Average**     | **265227**                  | **271761**                     | **350758**            |
 
-<img src="https://github.com/user-attachments/assets/14eb3290-a2d5-4365-8926-532120e2c6c5" alt="errsole-vs-elasticsearch-benchmarks" width="800">
+<img src="https://github.com/user-attachments/assets/e193e016-a14a-46c1-92af-865b3be27df4" alt="errsole-vs-elasticsearch-benchmarks" width="800">
 
 ## Amazon CloudWatch
 
