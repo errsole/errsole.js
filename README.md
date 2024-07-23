@@ -38,7 +38,7 @@ https://github.com/errsole/errsole.js/assets/3775513/b59424fa-c3b3-4a65-b603-e35
 
 ## Benchmarks
 
-A Node.js app with Errsole Logger handles 90,000 more requests per minute than Elasticsearch and 70,000 more requests per minute than Amazon CloudWatch. [Read More](https://github.com/errsole/errsole.js/blob/master/docs/benchmarks.md)
+A Node.js app using Errsole Logger can handle 90,000 more requests per minute than when using Elasticsearch and 70,000 more requests per minute than when using Amazon CloudWatch. [Read More](https://github.com/errsole/errsole.js/blob/master/docs/benchmarks.md)
 
 <img src="https://github.com/user-attachments/assets/e193e016-a14a-46c1-92af-865b3be27df4" alt="errsole-vs-elasticsearch-benchmarks" width="800">
 
