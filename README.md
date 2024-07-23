@@ -148,11 +148,12 @@ The `meta` function must be the first function in the chain, followed by the des
 
 **Contribution:** We welcome contributions! If you have ideas for improvements, feel free to fork the repository, make your changes, and submit a pull request.
 
-**Support:** Have questions, facing issues, or want to request a feature? [Open an issue](https://github.com/errsole/errsole.js/issues/new) on the GitHub repository.
+**Support:** If you are facing issues, [Open an issue](https://github.com/errsole/errsole.js/issues/new) on the GitHub repository.
 
 ## Resources
 
 * [FAQs](https://github.com/errsole/errsole.js/discussions/categories/faqs)
+* Have questions, want to request a feature, or share ideas? Use our [Q&A Forum](https://github.com/errsole/errsole.js/discussions/categories/q-a).
 
 ## License
 
