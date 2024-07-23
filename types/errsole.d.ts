@@ -1,4 +1,4 @@
-declare module 'Errsole' {
+declare module 'errsole' {
   interface Options {
     storage: any;
     port?: number;
