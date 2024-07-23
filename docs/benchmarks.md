@@ -2,7 +2,7 @@
 
 ## Test Setup
 
-To benchmark Errsole against Elasticsearch, we conducted tests under the following setup:
+To benchmark Errsole against Elasticsearch and Amazon CloudWatch, we conducted tests under the following setup:
 
 1. **Node.js Application:**
     * **Instance Type:** r7g.medium EC2 Instance
@@ -10,26 +10,27 @@ To benchmark Errsole against Elasticsearch, we conducted tests under the followi
 2. **MySQL Server:**
     * **Instance Type:** m5.large EC2 Instance
     * **Specifications:** 2 CPUs, 8 GB RAM
-3. **Elasticsearch Server:**
+3. **PostgreSQL Server:**
     * **Instance Type:** m5.large EC2 Instance
     * **Specifications:** 2 CPUs, 8 GB RAM
-4. **Load Testing Tool:** Grafana K6
+4. **MongoDB Server:**
+    * **Instance Type:** m5.large EC2 Instance
+    * **Specifications:** 2 CPUs, 8 GB RAM
+5. **Elasticsearch Server:**
+    * **Instance Type:** m5.large EC2 Instance
+    * **Specifications:** 2 CPUs, 8 GB RAM
+6. **Load Testing Tool:** Grafana K6
 
 ## Elasticsearch
 
-We conducted load testing under three different configurations to compare performance:
+We tested the following configurations:
 
-1. **Winston + Elasticsearch:**
-
-    Configured the Node.js app with Winston for logging and Elasticsearch as the storage backend.
-
-2. **Pino + Elasticsearch:**
-
-    Configured the Node.js app with Pino for logging and Elasticsearch as the storage backend.
-
-3. **Errsole + MySQL:**
-
-    Configured the Node.js app with Errsole for logging and MySQL as the storage backend.
+1. **Winston + Elasticsearch:** Configured the Node.js app with Winston for logging and Elasticsearch as the storage backend.
+2. **Pino + Elasticsearch:** Configured the Node.js app with Pino for logging and Elasticsearch as the storage backend.
+3. **Errsole + SQLite:** Configured the Node.js app with Errsole for logging and SQLite as the storage backend.
+4. **Errsole + MySQL:** Configured the Node.js app with Errsole for logging and MySQL as the storage backend.
+5. **Errsole + PostgreSQL:** Configured the Node.js app with Errsole for logging and PostgreSQL as the storage backend.
+6. **Errsole + MongoDB:** Configured the Node.js app with Errsole for logging and MongoDB as the storage backend.
 
 ### Results
 
@@ -48,32 +49,24 @@ Errsole demonstrated a significant performance advantage, handling 70,000 - 90,0
 
 ## Amazon CloudWatch
 
-We also conducted tests comparing the performance of Errsole with Amazon CloudWatch.
+We also conducted tests comparing the performance of Errsole with Amazon CloudWatch:
 
-1. **Winston + CloudWatch:**
+1. **Winston + CloudWatch:** Configured the Node.js app with Winston for logging and CloudWatch as the storage backend.
 
-    Configured the Node.js app with Winston for logging and CloudWatch as the storage backend.
-
-2. **Pino + CloudWatch:**
-
-    Configured the Node.js app with Pino for logging and CloudWatch as the storage backend.
-
-3. **Errsole + MySQL:**
-
-    Configured the Node.js app with Errsole for logging and MySQL as the storage backend.
+2. **Pino + CloudWatch:** Configured the Node.js app with Pino for logging and CloudWatch as the storage backend.
 
 ### Results
 
-Errsole significantly outperformed all CloudWatch configurations in benchmark tests. It handled 296,000 more requests per minute than direct CloudWatch and 55,000 more requests per minute than Pino + CloudWatch. Notably, Winston + CloudWatch failed in all test scenarios.
+Errsole significantly outperformed all CloudWatch configurations in benchmark tests. It handled 280,000 - 300,000 more requests per minute than direct CloudWatch and 40,000 - 70,000 more requests per minute than Pino + CloudWatch. Notably, Winston + CloudWatch failed in all test scenarios.
 
-| **Test No.** 	| **CloudWatch** 	| **Winston + CloudWatch** 	| **Pino + CloudWatch** 	| **Errsole + MySQL** 	|
-|--------------	|----------------	|--------------------------	|-----------------------	|---------------------	|
-| 1            	| 54185          	| Failed                   	| 296752                	| 349623              	|
-| 2            	| 55126          	| Failed                   	| 290988                	| 352383              	|
-| 3            	| 54932          	| Failed                   	| 301431                	| 351421              	|
-| 4            	| 54859          	| Failed                   	| 292222                	| 350173              	|
-| 5            	| 55239          	| Failed                   	| 294272                	| 350188              	|
-| **Average**  	| **54868**      	| **Failed**               	| **295133**            	| **350758**          	|
+| **Test No.** 	| **CloudWatch** 	| **Winston + CloudWatch** 	| **Pino + CloudWatch** 	| **Errsole + MongoDB** 	| **Errsole + MySQL** 	| **Errsole + PostgreSQL** 	| **Errsole + SQLite** 	|
+|--------------	|----------------	|--------------------------	|-----------------------	|-----------------------	|---------------------	|--------------------------	|----------------------	|
+| 1            	| 54185          	| Failed                   	| 296752                	| 340490                	| 349623              	| 360264                   	| 370499               	|
+| 2            	| 55126          	| Failed                   	| 290988                	| 338163                	| 352383              	| 360785                   	| 362611               	|
+| 3            	| 54932          	| Failed                   	| 301431                	| 338963                	| 351421              	| 364411                   	| 364310               	|
+| 4            	| 54859          	| Failed                   	| 292222                	| 337759                	| 350173              	| 367953                   	| 361347               	|
+| 5            	| 55239          	| Failed                   	| 294272                	| 340265                	| 350188              	| 367309                   	| 362578               	|
+| **Average**  	| **54868**      	| **Failed**               	| **295133**            	| **339128**            	| **350758**          	| **364144**               	| **364269**           	|
 
 ## Benchmarks Code
 
