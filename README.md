@@ -150,6 +150,10 @@ The `meta` function must be the first function in the chain, followed by the des
 
 **Support:** Have questions, facing issues, or want to request a feature? [Open an issue](https://github.com/errsole/errsole.js/issues/new) on the GitHub repository.
 
+## Resources
+
+* [FAQs](https://github.com/errsole/errsole.js/discussions/categories/faqs)
+
 ## License
 
 [MIT](https://github.com/errsole/errsole.js/blob/master/LICENSE)
