@@ -52,7 +52,6 @@ Errsole demonstrated a significant performance advantage, handling 70,000 - 90,0
 We also conducted tests comparing the performance of Errsole with Amazon CloudWatch:
 
 1. **Winston + CloudWatch:** Configured the Node.js app with Winston for logging and CloudWatch as the storage backend.
-
 2. **Pino + CloudWatch:** Configured the Node.js app with Pino for logging and CloudWatch as the storage backend.
 
 ### Results
