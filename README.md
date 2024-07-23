@@ -50,6 +50,7 @@ A Node.js app using Errsole Logger can handle 90,000 more requests per minute th
 * [Errsole with PostgreSQL](https://github.com/errsole/errsole.js/blob/master/docs/postgresql-storage.md)
 * [Errsole with MariaDB](https://github.com/errsole/errsole.js/blob/master/docs/mariadb-storage.md)
 * [Errsole with OracleDB](https://github.com/errsole/errsole.js/blob/master/docs/oracledb-storage.md)
+* [Advanced Configuration](https://github.com/errsole/errsole.js/blob/master/docs/advanced-configuration.md)
 
 ## Web Dashboard Access
 
