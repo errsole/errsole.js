@@ -144,16 +144,17 @@ errsole.meta({ email: req.body.email }).log('User logged in');
 
 The `meta` function must be the first function in the chain, followed by the desired logging function.
 
-## Contribution and Support
-
-**Contribution:** We welcome contributions! If you have ideas for improvements, feel free to fork the repository, make your changes, and submit a pull request.
-
-**Support:** If you are facing issues, [Open an issue](https://github.com/errsole/errsole.js/issues/new) on the GitHub repository.
-
-## Resources
+## Useful Links
 
 * [FAQs](https://github.com/errsole/errsole.js/discussions/categories/faqs)
-* Have questions, want to request a feature, or share ideas? Use our [Q&A Forum](https://github.com/errsole/errsole.js/discussions/categories/q-a).
+
+* **Encountering issues?** [Open an issue](https://github.com/errsole/errsole.js/issues/new) on our GitHub repository.
+
+* **Have questions?** Use our [Q&A forum](https://github.com/errsole/errsole.js/discussions/categories/q-a).
+
+* **Want to request a feature or share your ideas?** Use our [discussion forum](https://github.com/errsole/errsole.js/discussions/categories/general).
+
+* **Want to contribute?** First, share your idea with the community in our [discussion forum](https://github.com/errsole/errsole.js/discussions/categories/general) to see what others are saying. Then, fork the repository, make your changes, and submit a pull request.
 
 ## License
 
