@@ -2,6 +2,14 @@ declare module 'errsole' {
   interface Options {
     storage: any;
     port?: number;
+    enableConsoleOutput?: boolean;
+    exitOnException?: boolean;
+    enableDashboard?: boolean;
+    path?: string;
+    appName?: string;
+    environmentName?: string;
+    serverName?: string;
+    collectLogs?: string[];
   }
 
   interface Logger {
