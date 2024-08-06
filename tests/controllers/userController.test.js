@@ -395,6 +395,89 @@ describe('userController', () => {
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.send).toHaveBeenCalledWith({ data: { token: 'token' } });
     });
+
+    it('should return 400 status code when email is missing', async () => {
+      const req = {
+        body: {
+          data: {
+            attributes: {
+              password: 'password123'
+            }
+          }
+        }
+      };
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        send: jest.fn()
+      };
+
+      helpers.extractAttributes.mockReturnValue({ password: 'password123' });
+
+      await loginUser(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.send).toHaveBeenCalledWith({
+        error: 'Bad Request',
+        message: 'Email or password is missing'
+      });
+    });
+
+    it('should return 400 status code when password is missing', async () => {
+      const req = {
+        body: {
+          data: {
+            attributes: {
+              email: 'test@example.com'
+            }
+          }
+        }
+      };
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        send: jest.fn()
+      };
+
+      helpers.extractAttributes.mockReturnValue({ email: 'test@example.com' });
+
+      await loginUser(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.send).toHaveBeenCalledWith({
+        error: 'Bad Request',
+        message: 'Email or password is missing'
+      });
+    });
+
+    it('should return 500 status code for unexpected errors', async () => {
+      const req = {
+        body: {
+          data: {
+            attributes: {
+              email: 'test@example.com',
+              password: 'password123'
+            }
+          }
+        }
+      };
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        send: jest.fn()
+      };
+
+      helpers.extractAttributes.mockImplementation(() => {
+        throw new Error('Unexpected error');
+      });
+
+      await loginUser(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [{
+          error: 'Internal Server Error',
+          message: 'Unexpected error'
+        }]
+      });
+    });
   });
 
   describe('#getUserProfile', () => {
@@ -1176,6 +1259,36 @@ describe('userController', () => {
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.send).toHaveBeenCalledWith({
         errors: [{ error: 'Internal Server Error', message: 'Unexpected error' }]
+      });
+    });
+  });
+
+  describe('#removeUser', () => {
+    it('should handle errors gracefully', async () => {
+      const req = {
+        email: 'admin@example.com',
+        params: { userId: '12345' }
+      };
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        send: jest.fn()
+      };
+
+      const mockStorageConnection = {
+        getUserByEmail: jest.fn().mockRejectedValue(new Error('Unexpected error')),
+        deleteUser: jest.fn() // This won't be called because getUserByEmail will throw
+      };
+      getStorageConnection.mockReturnValue(mockStorageConnection);
+
+      await removeUser(req, res);
+
+      expect(mockStorageConnection.getUserByEmail).toHaveBeenCalledWith('admin@example.com');
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [{
+          error: 'Internal Server Error',
+          message: 'Unexpected error'
+        }]
       });
     });
   });
