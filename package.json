@@ -40,6 +40,7 @@
     "express": "^4.17.1",
     "express-static-gzip": "^2.1.7",
     "http-proxy-middleware": "^3.0.0",
+    "immutable": "^4.3.7",
     "json-api-serializer": "^2.6.6",
     "jsonwebtoken": "^9.0.2",
     "koa-proxies": "^0.12.4",
