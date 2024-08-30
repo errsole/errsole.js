@@ -219,6 +219,14 @@ body {
   border-radius: 5px;
 }
 
+.all-intergrations {
+  background: white;
+  padding: 25px;
+  margin-top: 70px;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+}
+
 .submenu ul {
   background: #001628 !important;
   box-shadow: none !important;
