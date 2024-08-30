@@ -144,6 +144,10 @@ errsole.meta({ email: req.body.email }).log('User logged in');
 
 The `meta` function must be the first function in the chain, followed by the desired logging function.
 
+## Upcoming Features
+
+**AI Copilot:** When an error occurs, Errsole's AI Copilot identifies the exact location in the code where the error occurred, explains the cause of the error, and suggests a fix.
+
 ## Useful Links
 
 * [FAQs](https://github.com/errsole/errsole.js/discussions/categories/faqs)
