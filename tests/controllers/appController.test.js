@@ -1,5 +1,5 @@
 
-const { checkUpdates, getSlackDetails, addSlackDetails, updateSlackDetails, deleteSlackDetails, getEmailDetails, addEmailDetails, updateEmailDetails, deleteEmailDetails, testEmailNotification, testSlackNotification } = require('../../lib/main/server/controllers/appController');
+const { checkUpdates, getSlackDetails, addSlackDetails, updateSlackDetails, deleteSlackDetails, getEmailDetails, addEmailDetails, updateEmailDetails, deleteEmailDetails, testEmailNotification, testSlackNotification, getAlertUrlDetails, addAlertUrlDetails } = require('../../lib/main/server/controllers/appController');
 const NPMUpdates = require('../../lib/main/server/utils/npmUpdates');
 const helpers = require('../../lib/main/server/utils/helpers');
 const { getStorageConnection } = require('../../lib/main/server/storageConnection');
@@ -1394,6 +1394,175 @@ describe('appController', () => {
           }
         ]
       });
+    });
+  });
+
+  describe('#getAlertUrlDetails', () => {
+    let req, res, storageConnection;
+
+    beforeEach(() => {
+      req = {};
+      res = {
+        status: jest.fn().mockReturnThis(),
+        send: jest.fn()
+      };
+      storageConnection = {
+        getConfig: jest.fn()
+      };
+      getStorageConnection.mockReturnValue(storageConnection);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('should retrieve and parse alert URL configuration successfully', async () => {
+      const mockData = {
+        item: {
+          value: JSON.stringify({ url: 'https://alert.example.com' })
+        }
+      };
+      storageConnection.getConfig.mockResolvedValue(mockData);
+
+      await getAlertUrlDetails(req, res);
+
+      expect(storageConnection.getConfig).toHaveBeenCalledWith('alertUrl');
+      expect(res.send).toHaveBeenCalledWith(Jsonapi.Serializer.serialize(Jsonapi.AppType, { url: 'https://alert.example.com' }));
+    });
+
+    it('should return an empty object if no configuration exists', async () => {
+      // Simulate a scenario where no configuration exists
+      storageConnection.getConfig.mockResolvedValue({ item: null });
+
+      await getAlertUrlDetails(req, res);
+
+      expect(storageConnection.getConfig).toHaveBeenCalledWith('alertUrl');
+      expect(res.send).toHaveBeenCalledWith(Jsonapi.Serializer.serialize(Jsonapi.AppType, {}));
+    });
+
+    it('should handle invalid JSON in the alert URL configuration', async () => {
+      const mockData = {
+        item: {
+          value: '{ invalid JSON }'
+        }
+      };
+      storageConnection.getConfig.mockResolvedValue(mockData);
+
+      await getAlertUrlDetails(req, res);
+
+      expect(storageConnection.getConfig).toHaveBeenCalledWith('alertUrl');
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Internal Server Error',
+            message: 'An unexpected error occurred'
+          }
+        ]
+      });
+    });
+
+    it('should return 500 if there is an error retrieving the alert URL configuration', async () => {
+      storageConnection.getConfig.mockRejectedValue(new Error('Storage connection failed'));
+
+      await getAlertUrlDetails(req, res);
+
+      expect(storageConnection.getConfig).toHaveBeenCalledWith('alertUrl');
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Internal Server Error',
+            message: 'An unexpected error occurred'
+          }
+        ]
+      });
+    });
+  });
+
+  describe('appController #addAlertUrlDetails', () => {
+    let req, res, storageConnection;
+
+    beforeEach(() => {
+      req = {
+        body: {
+          data: {
+            attributes: {
+              url: 'http://example.com'
+            }
+          }
+        }
+      };
+      res = {
+        send: jest.fn(),
+        status: jest.fn().mockReturnThis()
+      };
+      storageConnection = {
+        setConfig: jest.fn()
+      };
+      getStorageConnection.mockReturnValue(storageConnection);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('should successfully add the alert URL and return the serialized result', async () => {
+      const mockDetails = { value: { url: 'http://example.com' } }; // Adjusted structure
+      const mockResult = {
+        item: {
+          value: JSON.stringify({ url: 'http://example.com' })
+        }
+      };
+
+      helpers.extractAttributes.mockReturnValue({ url: 'http://example.com' });
+      storageConnection.setConfig.mockResolvedValue(mockResult);
+      Jsonapi.Serializer.serialize.mockReturnValue({ data: mockDetails }); // Adjusted return
+
+      await addAlertUrlDetails(req, res);
+
+      expect(helpers.extractAttributes).toHaveBeenCalledWith(req.body);
+      expect(storageConnection.setConfig).toHaveBeenCalledWith('alertUrl', JSON.stringify({ url: 'http://example.com' }));
+      expect(Jsonapi.Serializer.serialize).toHaveBeenCalledWith(Jsonapi.AppType, { value: { url: 'http://example.com' } }); // Adjusted
+      expect(res.send).toHaveBeenCalledWith({ data: mockDetails });
+    });
+
+    it('should return a 500 error when storageConnection.setConfig fails', async () => {
+      helpers.extractAttributes.mockReturnValue({ url: 'http://example.com' });
+      storageConnection.setConfig.mockResolvedValue(null);
+
+      await addAlertUrlDetails(req, res);
+
+      expect(storageConnection.setConfig).toHaveBeenCalledWith('alertUrl', JSON.stringify({ url: 'http://example.com' }));
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Internal Server Error',
+            message: 'An unexpected error occurred'
+          }
+        ]
+      });
+    });
+
+    it('should handle and return a 500 error for unexpected exceptions', async () => {
+      const error = new Error('Unexpected error');
+      helpers.extractAttributes.mockImplementation(() => {
+        throw error;
+      });
+
+      await addAlertUrlDetails(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Internal Server Error',
+            message: 'An unexpected error occurred'
+          }
+        ]
+      });
+      expect(console.error).toHaveBeenCalledWith(error);
     });
   });
 });
