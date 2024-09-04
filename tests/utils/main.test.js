@@ -20,6 +20,111 @@ describe('SlackService.sendAlert', () => {
     jest.spyOn(console, 'log').mockImplementation(() => {}); // Mock console.log
   });
 
+  it('should include server name in the Slack payload when provided in messageExtraInfo', async () => {
+    const mockConfig = {
+      item: {
+        value: JSON.stringify({
+          url: 'https://hooks.slack.com/services/test',
+          username: 'Errsole',
+          icon_url: 'https://avatars.githubusercontent.com/u/84983840',
+          status: true
+        })
+      }
+    };
+    const mockAlertUrlData = {
+      item: {
+        value: JSON.stringify({
+          url: 'http://example.com'
+        })
+      }
+    };
+    mockStorageConnection.getConfig
+      .mockResolvedValueOnce(mockConfig) // Slack config
+      .mockResolvedValueOnce(mockAlertUrlData); // Alert URL config
+
+    const mockServerName = 'TestServer';
+    const messageExtraInfo = {
+      appName: 'TestApp',
+      environmentName: 'TestEnv',
+      serverName: mockServerName
+    };
+
+    axios.post.mockResolvedValue({});
+
+    await SlackService.sendAlert('Test message', 'Test type', messageExtraInfo, '12345');
+
+    expect(axios.post).toHaveBeenCalledWith(
+      'https://hooks.slack.com/services/test',
+      expect.objectContaining({
+        blocks: expect.arrayContaining([
+          {
+            type: 'rich_text',
+            elements: [
+              {
+                type: 'rich_text_section',
+                elements: expect.arrayContaining([
+                  { type: 'text', text: 'Server Name: ', style: { bold: true } },
+                  { type: 'text', text: mockServerName }
+                ])
+              }
+            ]
+          }
+        ])
+      })
+    );
+  });
+
+  it('should not include server name in the Slack payload if not provided', async () => {
+    const mockConfig = {
+      item: {
+        value: JSON.stringify({
+          url: 'https://hooks.slack.com/services/test',
+          username: 'Errsole',
+          icon_url: 'https://avatars.githubusercontent.com/u/84983840',
+          status: true
+        })
+      }
+    };
+    const mockAlertUrlData = {
+      item: {
+        value: JSON.stringify({
+          url: 'http://example.com'
+        })
+      }
+    };
+    mockStorageConnection.getConfig
+      .mockResolvedValueOnce(mockConfig) // Slack config
+      .mockResolvedValueOnce(mockAlertUrlData); // Alert URL config
+
+    const messageExtraInfo = {
+      appName: 'TestApp',
+      environmentName: 'TestEnv'
+    };
+
+    axios.post.mockResolvedValue({});
+
+    await SlackService.sendAlert('Test message', 'Test type', messageExtraInfo, '12345');
+
+    expect(axios.post).toHaveBeenCalledWith(
+      'https://hooks.slack.com/services/test',
+      expect.objectContaining({
+        blocks: expect.not.arrayContaining([
+          {
+            type: 'rich_text',
+            elements: [
+              {
+                type: 'rich_text_section',
+                elements: expect.arrayContaining([
+                  { type: 'text', text: 'Server Name: ', style: { bold: true } }
+                ])
+              }
+            ]
+          }
+        ])
+      })
+    );
+  });
+
   it('should successfully send a Slack alert', async () => {
     const mockConfig = {
       item: {
@@ -124,6 +229,62 @@ describe('SlackService.sendAlert', () => {
 
     const result = await SlackService.sendAlert('Test message', 'Test type', {});
     expect(result).toBe(false);
+  });
+
+  it('should correctly parse and construct alert URL with errsoleLogId and timestamp', async () => {
+    const mockAlertUrlData = {
+      item: {
+        value: JSON.stringify({
+          url: 'http://example.com'
+        })
+      }
+    };
+    const mockErrsoleLogId = '12345';
+    const parsedAlertUrlValue = JSON.parse(mockAlertUrlData.item.value);
+    const timestamp = new Date(new Date().getTime() + 2000).toISOString();
+    const alertUrl = parsedAlertUrlValue.url + '#/logs?errsole_log_id=' + mockErrsoleLogId + '&timestamp=' + timestamp;
+
+    expect(alertUrl).toEqual(`http://example.com#/logs?errsole_log_id=${mockErrsoleLogId}&timestamp=${timestamp}`);
+  });
+
+  it('should handle invalid JSON in alertUrlData gracefully', () => {
+    const mockAlertUrlData = { item: { value: 'invalid_json' } };
+
+    expect(() => {
+      JSON.parse(mockAlertUrlData.item.value);
+    }).toThrow();
+  });
+
+  it('should handle missing errsoleLogId and still construct the URL', () => {
+    const mockAlertUrlData = {
+      item: {
+        value: JSON.stringify({
+          url: 'http://example.com'
+        })
+      }
+    };
+    const mockErrsoleLogId = undefined;
+    const parsedAlertUrlValue = JSON.parse(mockAlertUrlData.item.value);
+    const timestamp = new Date(new Date().getTime() + 2000).toISOString();
+    const alertUrl = parsedAlertUrlValue.url + '#/logs?errsole_log_id=' + mockErrsoleLogId + '&timestamp=' + timestamp;
+
+    expect(alertUrl).toEqual(`http://example.com#/logs?errsole_log_id=${mockErrsoleLogId}&timestamp=${timestamp}`);
+  });
+
+  it('should return an empty string if URL is missing in alertUrlData', () => {
+    const mockAlertUrlData = {
+      item: {
+        value: JSON.stringify({
+          url: ''
+        })
+      }
+    };
+    const mockErrsoleLogId = '12345';
+    const parsedAlertUrlValue = JSON.parse(mockAlertUrlData.item.value);
+    const timestamp = new Date(new Date().getTime() + 2000).toISOString();
+    const alertUrl = parsedAlertUrlValue.url + '#/logs?errsole_log_id=' + mockErrsoleLogId + '&timestamp=' + timestamp;
+
+    expect(alertUrl).toEqual(`#/logs?errsole_log_id=${mockErrsoleLogId}&timestamp=${timestamp}`);
   });
 });
 
