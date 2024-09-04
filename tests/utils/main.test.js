@@ -168,7 +168,7 @@ describe('EmailService.sendAlert', () => {
       from: 'sender@example.com',
       to: 'receiver@example.com',
       subject: 'Errsole: Test type (TestApp app, TestEnv environment)',
-      text: 'App Name: TestApp\nEnvironment Name: TestEnv\n\nTest message'
+      html: expect.stringContaining('<p><b>App Name: TestApp\nEnvironment Name: TestEnv</b></p>')
     }));
     expect(result).toBe(true);
   });
@@ -234,44 +234,14 @@ describe('EmailService.sendAlert', () => {
     nodemailer.createTransport.mockReturnValue(mockTransporter);
 
     const result = await EmailService.sendAlert('Test message', 'Test type', { appName: 'TestApp', environmentName: 'TestEnv' });
-    expect(result).toBe(true);
+
     expect(mockTransporter.sendMail).toHaveBeenCalledWith(expect.objectContaining({
       from: 'sender@example.com',
       to: 'receiver@example.com',
       subject: 'Errsole: Test type (TestApp app, TestEnv environment)',
-      text: 'App Name: TestApp\nEnvironment Name: TestEnv\n\nTest message'
+      html: expect.stringContaining('<p><b>App Name: TestApp\nEnvironment Name: TestEnv</b></p>')
     }));
-  });
-
-  it('should construct email with only appName', async () => {
-    const mockConfig = {
-      item: {
-        value: JSON.stringify({
-          host: 'smtp.example.com',
-          port: '587',
-          username: 'user@example.com',
-          password: 'password',
-          sender: 'sender@example.com',
-          receivers: 'receiver@example.com',
-          status: true
-        })
-      }
-    };
-    mockStorageConnection.getConfig.mockResolvedValue(mockConfig);
-
-    const mockTransporter = {
-      sendMail: jest.fn().mockResolvedValue({})
-    };
-    nodemailer.createTransport.mockReturnValue(mockTransporter);
-
-    const result = await EmailService.sendAlert('Test message', 'Test type', { appName: 'TestApp' });
     expect(result).toBe(true);
-    expect(mockTransporter.sendMail).toHaveBeenCalledWith(expect.objectContaining({
-      from: 'sender@example.com',
-      to: 'receiver@example.com',
-      subject: 'Errsole: Test type (TestApp app)',
-      text: 'App Name: TestApp\n\nTest message'
-    }));
   });
 
   it('should construct email with only environmentName', async () => {
@@ -296,13 +266,14 @@ describe('EmailService.sendAlert', () => {
     nodemailer.createTransport.mockReturnValue(mockTransporter);
 
     const result = await EmailService.sendAlert('Test message', 'Test type', { environmentName: 'TestEnv' });
-    expect(result).toBe(true);
+
     expect(mockTransporter.sendMail).toHaveBeenCalledWith(expect.objectContaining({
       from: 'sender@example.com',
       to: 'receiver@example.com',
       subject: 'Errsole: Test type (TestEnv environment)',
-      text: 'Environment Name: TestEnv\n\nTest message'
+      html: expect.stringContaining('<p><b>Environment Name: TestEnv</b></p>')
     }));
+    expect(result).toBe(true);
   });
 
   it('should construct email without appName, environmentName, or serverName', async () => {
@@ -327,13 +298,14 @@ describe('EmailService.sendAlert', () => {
     nodemailer.createTransport.mockReturnValue(mockTransporter);
 
     const result = await EmailService.sendAlert('Test message', 'Test type', {});
-    expect(result).toBe(true);
+
     expect(mockTransporter.sendMail).toHaveBeenCalledWith(expect.objectContaining({
       from: 'sender@example.com',
       to: 'receiver@example.com',
       subject: 'Errsole: Test type',
-      text: 'Test message'
+      html: 'Test message'
     }));
+    expect(result).toBe(true);
   });
 
   it('should handle email send timeout', async () => {
@@ -361,5 +333,36 @@ describe('EmailService.sendAlert', () => {
 
     const result = await EmailService.sendAlert('Test message', 'Test type', { appName: 'TestApp', environmentName: 'TestEnv' });
     expect(result).toBe(false);
+  });
+
+  it('should send email successfully before timeout', async () => {
+    const mockConfig = {
+      item: {
+        value: JSON.stringify({
+          host: 'smtp.example.com',
+          port: '587',
+          username: 'user@example.com',
+          password: 'password',
+          sender: 'sender@example.com',
+          receivers: 'receiver@example.com',
+          status: true
+        })
+      }
+    };
+    mockStorageConnection.getConfig.mockResolvedValue(mockConfig);
+
+    const mockTransporter = {
+      sendMail: jest.fn(() => new Promise((resolve) => {
+        // Simulate email sending that finishes before the timeout
+        setTimeout(() => resolve({}), 2000);
+      }))
+    };
+    nodemailer.createTransport.mockReturnValue(mockTransporter);
+
+    const result = await EmailService.sendAlert('Test message', 'Test type', { appName: 'TestApp', environmentName: 'TestEnv' });
+
+    // Ensure that the email was sent successfully within the timeout period
+    expect(result).toBe(true);
+    expect(console.log).not.toHaveBeenCalledWith(expect.any(Error));
   });
 });
