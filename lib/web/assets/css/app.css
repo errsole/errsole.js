@@ -227,6 +227,23 @@ body {
   border-radius: 5px;
 }
 
+.all-useful-links {
+  background: white;
+  padding: 25px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+}
+
+.data-retention {
+  background: white;
+  padding: 25px;
+  margin-top: 70px;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+}
+
 .submenu ul {
   background: #001628 !important;
   box-shadow: none !important;
@@ -398,4 +415,8 @@ body {
 
 .no-log-panel p {
   margin: 0px !important;
+}
+
+.feedback-message p {
+  margin: 0px;
 }
