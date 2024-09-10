@@ -20,21 +20,29 @@ https://github.com/errsole/errsole.js/assets/3775513/b59424fa-c3b3-4a65-b603-e35
 
 ## Features
 
-* **Easy Setup:** Just insert the Errsole code snippet at the beginning of your app's main file. That's it!
+### Minimal Setup
 
-* **Automated Log Collection:** Errsole automatically collects all your app logs directly from the Node.js console.
+Just include the Errsole package in your code—no need for dedicated servers, software installations, or complicated configurations.
 
-* **Customized Logging:** Errsole's custom logger provides multiple log levels, thereby enabling greater precision in logging. Additionally, you can include metadata with your logs and receive alerts for specific log events according to your preferences. [Read More](#custom-logging-functions)
+### Logger++
 
-* **Centralized Logging:** Errsole consolidates all your app logs from multiple servers into one centralized database. You can choose your preferred database system.
+Errsole automatically collects all logs from the Node.js console. Additionally, it provides a custom logger with multiple log levels and allows you to include metadata with your logs for better context. [Read More](#custom-logging-functions)
 
-* **Interactive Web Dashboard:** Easily view, filter, and search your app logs using the Errsole Web Dashboard.
+### Store Anywhere
 
-* **Secure Access Control:** Errsole comes with built-in authentication, ensuring that only you and your authorized development team can access the logs.
+Store your logs wherever you want—whether in a file or any database of your choice. You can also configure log rotation to specify how long logs should be retained.
 
-* **Error Notifications:** Errsole delivers notifications for app crashes and custom alerts directly to your Email or Slack.
+### Web Dashboard
 
-* **Data Retention:** You can specify the number of days you wish to keep your app logs.
+View, filter, and search through your logs using the built-in Web Dashboard. Secure authentication and team management features ensure that only you and your team can access the logs.
+
+### Critical Error Notifications
+
+Get immediate notifications when your app crashes or encounters critical errors. The notification includes the error message, the app name, the environment, the server name, and a direct link to view the error in your logs.
+
+### AI Copilot (Upcoming)
+
+Errsole's AI Copilot analyzes your error logs, pinpoints the exact location in the code where the error occurred, explains the cause of the error, and suggests a fix.
 
 ## Benchmarks
 
@@ -143,10 +151,6 @@ errsole.meta({ email: req.body.email }).log('User logged in');
 #### Note
 
 The `meta` function must be the first function in the chain, followed by the desired logging function.
-
-## Upcoming Features
-
-**AI Copilot:** When an error occurs, Errsole's AI Copilot identifies the exact location in the code where the error occurred, explains the cause of the error, and suggests a fix.
 
 ## Useful Links
 
