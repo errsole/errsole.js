@@ -68,5 +68,5 @@ declare module 'errsole' {
   }
 
   export = Errsole;
-  export as namespace Errsole;
 }
+export as namespace Errsole;

@@ -1,4 +1,4 @@
-const { getLogs, getLogsTTL, updateLogsTTL, getLogMeta } = require('../../lib/main/server/controllers/logController');
+const { getLogs, getLogsTTL, updateLogsTTL, getLogMeta, getHostnames } = require('../../lib/main/server/controllers/logController');
 const Jsonapi = require('../../lib/main/server/utils/jsonapiUtil');
 const { getStorageConnection } = require('../../lib/main/server/storageConnection');
 const { describe, it } = require('@jest/globals');
@@ -169,6 +169,53 @@ describe('LogController', () => {
       req.query.search_terms = 'error';
 
       await getLogs(req, res);
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Internal Server Error',
+            message: 'An unexpected error occurred'
+          }
+        ]
+      });
+    });
+
+    it('should handle empty hostnames array', async () => {
+      req.query.hostnames = '[]';
+      req.query.limit = '10';
+      const mockLogs = { items: [{ id: 1, message: 'log message' }] };
+      mockStorageConnection.getLogs.mockResolvedValue(mockLogs);
+
+      await getLogs(req, res);
+
+      expect(mockStorageConnection.getLogs).toHaveBeenCalledWith({
+        limit: 10,
+        hostnames: []
+      });
+      expect(res.send).toHaveBeenCalledWith({ data: 'serialized data' });
+    });
+
+    it('should correctly parse valid hostnames array', async () => {
+      req.query.hostnames = '["host1", "host2"]';
+      req.query.limit = '10';
+      const mockLogs = { items: [{ id: 1, message: 'log message' }] };
+      mockStorageConnection.getLogs.mockResolvedValue(mockLogs);
+
+      await getLogs(req, res);
+
+      expect(mockStorageConnection.getLogs).toHaveBeenCalledWith({
+        limit: 10,
+        hostnames: ['host1', 'host2']
+      });
+      expect(res.send).toHaveBeenCalledWith({ data: 'serialized data' });
+    });
+
+    it('should handle invalid JSON in hostnames gracefully', async () => {
+      req.query.hostnames = 'invalid_json';
+      req.query.limit = '10';
+
+      await getLogs(req, res);
+
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.send).toHaveBeenCalledWith({
         errors: [
@@ -429,6 +476,75 @@ describe('LogController', () => {
 
       expect(storageConnectionMock.getMeta).toHaveBeenCalledWith('123');
       expect(res.send).toHaveBeenCalledWith(Jsonapi.Serializer.serialize(Jsonapi.LogType, { id: '123', meta: '{}' }));
+    });
+  });
+
+  describe('#getHostnames', () => {
+    let req, res, mockStorageConnection;
+
+    beforeEach(() => {
+      req = {}; // No need for query parameters for this function
+      res = {
+        send: jest.fn(),
+        status: jest.fn().mockReturnThis()
+      };
+      mockStorageConnection = {
+        getHostnames: jest.fn()
+      };
+      getStorageConnection.mockReturnValue(mockStorageConnection);
+    });
+
+    it('should return hostnames when valid data is returned', async () => {
+      const mockHostnames = { items: ['host1', 'host2', 'host3'] };
+      mockStorageConnection.getHostnames.mockResolvedValue(mockHostnames);
+
+      await getHostnames(req, res);
+
+      expect(mockStorageConnection.getHostnames).toHaveBeenCalled();
+      expect(res.send).toHaveBeenCalledWith(Jsonapi.Serializer.serialize(Jsonapi.LogType, { hostnames: ['host1', 'host2', 'host3'] }));
+    });
+
+    it('should return 400 when no hostnames are found', async () => {
+      mockStorageConnection.getHostnames.mockResolvedValue({});
+
+      await getHostnames(req, res);
+
+      expect(mockStorageConnection.getHostnames).toHaveBeenCalled();
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Bad Request',
+            message: 'invalid request'
+          }
+        ]
+      });
+    });
+
+    it('should handle error when getHostnames is not a function', async () => {
+      mockStorageConnection.getHostnames.mockRejectedValue(new Error('storageConnection.getHostnames is not a function'));
+
+      await getHostnames(req, res);
+
+      expect(mockStorageConnection.getHostnames).toHaveBeenCalled();
+      expect(res.send).toHaveBeenCalledWith(Jsonapi.Serializer.serialize(Jsonapi.LogType, {}));
+    });
+
+    it('should handle unexpected errors gracefully', async () => {
+      mockStorageConnection.getHostnames.mockRejectedValue(new Error('Unexpected error'));
+
+      await getHostnames(req, res);
+
+      expect(mockStorageConnection.getHostnames).toHaveBeenCalled();
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Internal Server Error',
+            message: 'An unexpected error occurred'
+          }
+        ]
+      });
     });
   });
 });

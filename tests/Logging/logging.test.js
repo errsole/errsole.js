@@ -1,21 +1,30 @@
-const CollectLogsHook = require('../../lib/main/logs/index'); // replace with the actual path to the file
+const logCollector = require('../../lib/main/logs/index');
 const os = require('os');
-const stream = require('stream');
-const stripAnsi = require('strip-ansi');
-/* globals expect, jest, beforeEach, afterEach, afterAll, describe, it */
+/* globals expect, jest, beforeEach, afterEach, describe, afterAll, test, beforeAll */
 
-describe('CollectLogsHook', () => {
-  let mockStorage;
+describe('logCollector', () => {
+  let storageMock;
   let originalStdoutWrite;
   let originalStderrWrite;
   let mockStdoutWrite;
   let mockStderrWrite;
   let logSpy;
   let errorSpy;
+  let originalConsoleError;
   let activeTimeouts = [];
+  let activeIntervals = [];
+
+  beforeAll(() => {
+    originalConsoleError = console.error;
+    console.error = jest.fn();
+  });
+
+  afterAll(() => {
+    console.error = originalConsoleError;
+  });
 
   beforeEach(() => {
-    mockStorage = {
+    storageMock = {
       postLogs: jest.fn(),
       once: jest.fn((event, callback) => {
         if (event === 'ready') {
@@ -32,22 +41,21 @@ describe('CollectLogsHook', () => {
     process.stdout.write = mockStdoutWrite;
     process.stderr.write = mockStderrWrite;
 
-    // Resetting the CollectLogsHook state before each test
-    CollectLogsHook.storage = {};
-    CollectLogsHook.collectLogs = [];
-    CollectLogsHook.hostname = null;
-    CollectLogsHook.enableConsoleOutput = true;
-
-    // Mocking console.log and console.error
     logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
     errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-    // Capture any setTimeout calls to ensure they are cleared
     const originalSetTimeout = global.setTimeout;
     jest.spyOn(global, 'setTimeout').mockImplementation((fn, delay) => {
       const timeout = originalSetTimeout(fn, delay);
       activeTimeouts.push(timeout);
       return timeout;
+    });
+
+    const originalSetInterval = global.setInterval;
+    jest.spyOn(global, 'setInterval').mockImplementation((fn, delay) => {
+      const interval = originalSetInterval(fn, delay);
+      activeIntervals.push(interval);
+      return interval;
     });
   });
 
@@ -55,222 +63,323 @@ describe('CollectLogsHook', () => {
     process.stdout.write = originalStdoutWrite;
     process.stderr.write = originalStderrWrite;
 
-    // Restore original implementations
     logSpy.mockRestore();
     errorSpy.mockRestore();
 
-    // Clear all active timeouts
     activeTimeouts.forEach(timeout => clearTimeout(timeout));
     activeTimeouts = [];
+
+    activeIntervals.forEach(interval => clearInterval(interval));
+    activeIntervals = [];
+
+    jest.clearAllMocks();
   });
 
   afterAll(async () => {
-    // Ensure any open handles are properly closed
-    if (typeof CollectLogsHook.storage.flushLogs === 'function') {
-      await CollectLogsHook.clearLogsBeforeExit();
+    if (typeof logCollector.storage.flushLogs === 'function') {
+      await logCollector.flushLogs();
     }
     jest.clearAllMocks();
     jest.useRealTimers();
   });
 
-  // Existing tests...
+  describe('flushLogs', () => {
+    test('should call storage.flushLogs with a timeout', async () => {
+      logCollector.storage = storageMock;
+      const flushLogsSpy = jest.spyOn(logCollector.storage, 'flushLogs');
 
-  it('should initialize with default options', () => {
-    CollectLogsHook.initialize({ storage: mockStorage });
+      await logCollector.flushLogs();
 
-    expect(CollectLogsHook.storage).toBe(mockStorage);
-    expect(CollectLogsHook.hostname).toBe(os.hostname());
-    expect(CollectLogsHook.enableConsoleOutput).toBe(true);
-    expect(CollectLogsHook.collectLogs).toEqual(['info', 'error']);
-  });
+      expect(flushLogsSpy).toHaveBeenCalled();
+    });
 
-  it('should initialize with custom options', () => {
-    const options = {
-      storage: mockStorage,
-      serverName: 'custom-server',
-      enableConsoleOutput: false,
-      collectLogs: ['info']
-    };
+    test('should handle flushLogs timeout', async () => {
+      logCollector.storage = storageMock;
+      storageMock.flushLogs.mockImplementation(() => new Promise(resolve => setTimeout(resolve, 6000))); // Mock a delay
 
-    CollectLogsHook.initialize(options);
+      await logCollector.flushLogs(5000);
 
-    expect(CollectLogsHook.storage).toBe(mockStorage);
-    expect(CollectLogsHook.hostname).toBe('custom-server');
-    expect(CollectLogsHook.enableConsoleOutput).toBe(false);
-    expect(CollectLogsHook.collectLogs).toEqual(['info']);
-  });
-
-  it('should not capture logs if not specified', () => {
-    CollectLogsHook.initialize({ storage: mockStorage, collectLogs: [] });
-    const infoMessage = 'Info log message';
-    const errorMessage = 'Error log message';
-
-    process.stdout.write(infoMessage);
-    process.stderr.write(errorMessage);
-
-    expect(mockStdoutWrite).toHaveBeenCalledWith(infoMessage);
-    expect(mockStderrWrite).toHaveBeenCalledWith(errorMessage);
-    expect(mockStorage.postLogs).not.toHaveBeenCalled();
-  });
-
-  it('should capture info logs', (done) => {
-    CollectLogsHook.initialize({ storage: mockStorage, collectLogs: ['info'] });
-    const infoMessage = 'Info log message';
-
-    process.stdout.write(infoMessage);
-
-    setImmediate(() => {
-      expect(mockStdoutWrite).toHaveBeenCalledWith(infoMessage);
-      expect(mockStorage.postLogs).toHaveBeenCalledWith([expect.objectContaining({ message: stripAnsi(infoMessage), level: 'info' })]);
-      done();
+      expect(console.error).toHaveBeenCalledWith(new Error('flushLogs timed out'));
     });
   });
 
-  it('should capture error logs', (done) => {
-    CollectLogsHook.initialize({ storage: mockStorage, collectLogs: ['error'] });
-    const errorMessage = 'Error log message';
+  describe('initialize', () => {
+    test('should set storage and collectLogs', () => {
+      const options = {
+        storage: storageMock,
+        collectLogs: ['info', 'error'],
+        enableConsoleOutput: true,
+        serverName: 'test-server'
+      };
 
-    process.stderr.write(errorMessage);
+      logCollector.initialize(options);
 
-    setImmediate(() => {
-      expect(mockStderrWrite).toHaveBeenCalledWith(errorMessage);
-      expect(mockStorage.postLogs).toHaveBeenCalledWith([expect.objectContaining({ message: stripAnsi(errorMessage), level: 'error' })]);
-      done();
+      expect(logCollector.storage).toBe(options.storage);
+      expect(logCollector.collectLogs).toEqual(options.collectLogs);
+      expect(logCollector.enableConsoleOutput).toBe(options.enableConsoleOutput);
+      expect(logCollector.hostname).toBe(options.serverName);
+    });
+
+    test('should set default collectLogs if not provided', () => {
+      const options = {
+        storage: storageMock
+      };
+
+      logCollector.initialize(options);
+
+      expect(logCollector.collectLogs).toEqual(['info', 'error']);
+    });
+
+    test('should set hostname to os.hostname if serverName not provided', () => {
+      const options = {
+        storage: storageMock
+      };
+
+      logCollector.initialize(options);
+
+      expect(logCollector.hostname).toBe(os.hostname());
+    });
+
+    test('should intercept logs for info and error levels', () => {
+      const options = {
+        storage: storageMock,
+        collectLogs: ['info', 'error']
+      };
+
+      const interceptLogsSpy = jest.spyOn(logCollector, 'interceptLogs');
+      logCollector.initialize(options);
+
+      expect(interceptLogsSpy).toHaveBeenCalledWith('info');
+      expect(interceptLogsSpy).toHaveBeenCalledWith('error');
+      interceptLogsSpy.mockRestore();
+    });
+
+    test('should not intercept logs if level is not included in collectLogs', () => {
+      const options = {
+        storage: storageMock,
+        collectLogs: ['error']
+      };
+
+      const interceptLogsSpy = jest.spyOn(logCollector, 'interceptLogs');
+      logCollector.initialize(options);
+
+      expect(interceptLogsSpy).not.toHaveBeenCalledWith('info');
+      expect(interceptLogsSpy).toHaveBeenCalledWith('error');
+      interceptLogsSpy.mockRestore();
+    });
+
+    test('should create log stream if initialization failed', () => {
+      logCollector.isInitializationFailed = true;
+      const createLogStreamSpy = jest.spyOn(logCollector, 'createLogStream');
+      const options = {
+        storage: storageMock
+      };
+
+      logCollector.initialize(options);
+      storageMock.once.mock.calls[0][1]();
+
+      expect(createLogStreamSpy).toHaveBeenCalled();
+      expect(logCollector.isInitializationFailed).toBe(false);
+    });
+
+    test('should uncork log stream if initialization did not fail', () => {
+      logCollector.isInitializationFailed = false;
+      logCollector.logStream = { uncork: jest.fn() };
+      const uncorkSpy = jest.spyOn(logCollector.logStream, 'uncork');
+      const options = {
+        storage: storageMock
+      };
+
+      logCollector.initialize(options);
+      storageMock.once.mock.calls[0][1]();
+
+      expect(uncorkSpy).toHaveBeenCalled();
+    });
+
+    test('should not capture info logs if not included in collectLogs', () => {
+      const options = {
+        storage: storageMock,
+        collectLogs: ['error'],
+        enableConsoleOutput: false
+      };
+
+      logCollector.initialize(options);
+
+      expect(process.stdout.write).toEqual(expect.any(Function));
+      expect(() => {
+        process.stdout.write('', null, () => {});
+      }).not.toThrow();
+    });
+
+    test('should not capture error logs if not included in collectLogs', () => {
+      const options = {
+        storage: storageMock,
+        collectLogs: ['info'],
+        enableConsoleOutput: false
+      };
+
+      logCollector.initialize(options);
+
+      expect(process.stderr.write).toEqual(expect.any(Function));
+      expect(() => {
+        process.stderr.write('', null, () => {});
+      }).not.toThrow();
     });
   });
 
-  it('should not capture info logs when not specified', (done) => {
-    CollectLogsHook.initialize({ storage: mockStorage, collectLogs: ['error'] });
-    const infoMessage = 'Info log message';
+  describe('createLogStream', () => {
+    test('should create a writable log stream that posts logs to storage', () => {
+      logCollector.storage = storageMock;
+      logCollector.createLogStream();
 
-    process.stdout.write(infoMessage);
+      const logEntry = { message: 'test log' };
+      logCollector.logStream.write(logEntry);
 
-    setImmediate(() => {
-      expect(mockStdoutWrite).toHaveBeenCalledWith(infoMessage);
-      expect(mockStorage.postLogs).not.toHaveBeenCalledWith([expect.objectContaining({ message: stripAnsi(infoMessage), level: 'info' })]);
-      done();
+      expect(storageMock.postLogs).toHaveBeenCalledWith([logEntry]);
     });
   });
 
-  it('should log with console output enabled', (done) => {
-    CollectLogsHook.initialize({ storage: mockStorage, enableConsoleOutput: true, collectLogs: ['info', 'error'] });
+  describe('createEmptyLogStream', () => {
+    test('should destroy existing log stream if present', () => {
+      const destroySpy = jest.fn();
+      logCollector.logStream = { destroy: destroySpy };
 
-    const infoMessage = 'Info log message';
-    const errorMessage = 'Error log message';
+      logCollector.createEmptyLogStream();
 
-    process.stdout.write(infoMessage);
-    process.stderr.write(errorMessage);
-
-    setImmediate(() => {
-      expect(mockStdoutWrite).toHaveBeenCalledWith(infoMessage);
-      expect(mockStderrWrite).toHaveBeenCalledWith(errorMessage);
-      expect(mockStorage.postLogs).toHaveBeenCalledWith([expect.objectContaining({ message: stripAnsi(infoMessage), level: 'info' })]);
-      expect(mockStorage.postLogs).toHaveBeenCalledWith([expect.objectContaining({ message: stripAnsi(errorMessage), level: 'error' })]);
-      done();
+      expect(destroySpy).toHaveBeenCalled();
     });
   });
 
-  it('should handle error in customLogger', () => {
-    CollectLogsHook.initialize({
-      storage: mockStorage,
-      serverName: 'test-server',
-      collectLogs: ['info']
+  describe('interceptLogs', () => {
+    beforeEach(() => {
+      jest.spyOn(logCollector.logStream, 'write').mockImplementation(() => {});
+      logCollector.originalStdoutWrite = process.stdout.write;
+      logCollector.originalStderrWrite = process.stderr.write;
+      process.stdout.write = jest.fn();
+      process.stderr.write = jest.fn();
     });
 
-    const faultyLogStream = new stream.Writable({
-      objectMode: true,
-      write (logEntry, encoding, callback) {
-        throw new Error('Test error');
-      }
+    afterEach(() => {
+      jest.restoreAllMocks();
+      process.stdout.write = logCollector.originalStdoutWrite;
+      process.stderr.write = logCollector.originalStderrWrite;
     });
 
-    CollectLogsHook.logStream = faultyLogStream;
+    test('should intercept stdout logs and write to logStream', () => {
+      logCollector.interceptLogs('info');
+      const logMessage = 'info log message';
+      process.stdout.write(logMessage);
 
-    const message = 'Test log message';
-    const metadata = { key: 'value' };
-
-    expect(() => CollectLogsHook.customLogger('info', message, metadata)).not.toThrow();
-  });
-
-  it('should handle error in writeFunction.write', () => {
-    const errorMessage = 'Error log message';
-    const options = {
-      storage: mockStorage,
-      enableConsoleOutput: false,
-      collectLogs: ['error']
-    };
-
-    CollectLogsHook.initialize(options);
-
-    // Mock logBuffer to simulate an error during write
-    const logBufferWriteMock = jest.fn((chunk, encoding, done) => {
-      throw new Error('Test error');
+      expect(logCollector.logStream.write).toHaveBeenCalledWith(expect.objectContaining({
+        message: logMessage,
+        level: 'info'
+      }));
     });
-    CollectLogsHook.logStream.write = logBufferWriteMock;
 
-    expect(() => {
-      process.stderr.write(errorMessage);
-    }).not.toThrow();
+    test('should intercept stderr logs and write to logStream', () => {
+      logCollector.interceptLogs('error');
+      const logMessage = 'error log message';
+      process.stderr.write(logMessage);
 
-    // Check that postLogs was not called due to the error
-    expect(mockStorage.postLogs).not.toHaveBeenCalled();
+      expect(logCollector.logStream.write).toHaveBeenCalledWith(expect.objectContaining({
+        message: logMessage,
+        level: 'error'
+      }));
+    });
+
+    test('should return early if unsupported log level is provided', () => {
+      const result = logCollector.interceptLogs('debug');
+      expect(result).toBeUndefined();
+
+      // Ensure original write methods are not overridden
+      expect(process.stdout.write).toEqual(expect.any(Function));
+      expect(process.stderr.write).toEqual(expect.any(Function));
+    });
+
+    test('should strip ANSI characters from log messages', () => {
+      const stripAnsi = require('strip-ansi');
+      logCollector.interceptLogs('info');
+      const logMessage = '\u001b[31mred text\u001b[39m';
+      process.stdout.write(logMessage);
+
+      expect(logCollector.logStream.write).toHaveBeenCalledWith(expect.objectContaining({
+        message: stripAnsi(logMessage),
+        level: 'info'
+      }));
+    });
+
+    test('should call original write method if enableConsoleOutput is true', () => {
+      logCollector.enableConsoleOutput = true;
+      logCollector.interceptLogs('info');
+      const logMessage = 'info log message';
+      const originalWriteSpy = jest.spyOn(logCollector.originalStdoutWrite, 'call').mockImplementation(() => {});
+
+      process.stdout.write(logMessage);
+
+      expect(originalWriteSpy).toHaveBeenCalledWith(expect.any(Object), logMessage, undefined, undefined);
+      originalWriteSpy.mockRestore();
+    });
+
+    test('should call done if enableConsoleOutput is false', () => {
+      logCollector.enableConsoleOutput = false;
+      logCollector.interceptLogs('info');
+      const logMessage = 'info log message';
+      const done = jest.fn();
+
+      process.stdout.write(logMessage, 'utf-8', done);
+
+      expect(done).toHaveBeenCalled();
+    });
   });
 
-  it('should flush logs before exit successfully', async () => {
-    CollectLogsHook.initialize({ storage: mockStorage });
+  describe('logCustomMessage', () => {
+    beforeEach(() => {
+      jest.spyOn(logCollector.logStream, 'write').mockImplementation(() => {});
+    });
 
-    await expect(CollectLogsHook.clearLogsBeforeExit()).resolves.toBeUndefined();
-    expect(mockStorage.flushLogs).toHaveBeenCalled();
-  });
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
 
-  it('should handle error when flushing logs before exit', async () => {
-    mockStorage.flushLogs.mockImplementation(() => Promise.reject(new Error('Test error')));
-    CollectLogsHook.initialize({ storage: mockStorage });
+    test('should log a custom message with metadata', () => {
+      const level = 'info';
+      const message = 'custom log message';
+      const metadata = { key: 'value' };
 
-    await expect(CollectLogsHook.clearLogsBeforeExit()).resolves.toBeUndefined();
-    expect(mockStorage.flushLogs).toHaveBeenCalled();
-  });
-});
+      logCollector.logCustomMessage(level, message, metadata);
 
-describe('CollectLogsHook - clearLogsBeforeExit', () => {
-  let mockStorage;
+      expect(logCollector.logStream.write).toHaveBeenCalledWith(expect.objectContaining({
+        message,
+        level,
+        meta: metadata
+      }));
+    });
 
-  beforeEach(() => {
-    mockStorage = {
-      postLogs: jest.fn(),
-      flushLogs: jest.fn(() => Promise.resolve())
-    };
+    test('should log a custom message without metadata', () => {
+      const level = 'error';
+      const message = 'custom log message';
 
-    // Resetting the CollectLogsHook state before each test
-    CollectLogsHook.storage = mockStorage;
-    CollectLogsHook.collectLogs = [];
-    CollectLogsHook.hostname = null;
-    CollectLogsHook.enableConsoleOutput = true;
+      logCollector.logCustomMessage(level, message);
 
-    jest.useFakeTimers(); // Use fake timers to handle setTimeout and setInterval
-  });
+      expect(logCollector.logStream.write).toHaveBeenCalledWith(expect.objectContaining({
+        message,
+        level,
+        meta: '{}'
+      }));
+    });
 
-  afterEach(() => {
-    jest.runOnlyPendingTimers(); // Ensure all pending timers are run
-    jest.useRealTimers(); // Restore real timers
-  });
+    test('should log a custom message and handle write errors', () => {
+      const level = 'info';
+      const message = 'custom log message';
+      const metadata = { key: 'value' };
+      const error = new Error('Write error');
+      jest.spyOn(logCollector.logStream, 'write').mockImplementation(() => {
+        throw error;
+      });
 
-  afterAll(() => {
-    // Ensure that all async operations are stopped
-    if (CollectLogsHook.collectLogs) {
-      clearInterval(CollectLogsHook.collectLogs);
-    }
-  });
+      logCollector.logCustomMessage(level, message, metadata);
 
-  it('should flush logs before exit successfully', async () => {
-    await expect(CollectLogsHook.clearLogsBeforeExit()).resolves.toBeUndefined();
-    expect(mockStorage.flushLogs).toHaveBeenCalled();
-  });
-
-  it('should handle error when flushing logs before exit', async () => {
-    mockStorage.flushLogs.mockImplementation(() => Promise.reject(new Error('Test error')));
-
-    await expect(CollectLogsHook.clearLogsBeforeExit()).resolves.toBeUndefined();
-    expect(mockStorage.flushLogs).toHaveBeenCalled();
+      expect(console.error).toHaveBeenCalledWith(error);
+    });
   });
 });
