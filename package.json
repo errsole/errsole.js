@@ -27,7 +27,7 @@
   "main": "lib/errsole.js",
   "types": "types/errsole.d.ts",
   "scripts": {
-    "build:web": "cross-env NODE_OPTIONS=--openssl-legacy-provider webpack --config lib/web/webpack/website.config.js",
+    "build:web": "NODE_OPTIONS=--openssl-legacy-provider webpack --config lib/web/webpack/website.config.js",
     "setup": "npm install && npm install errsole-sequelize sqlite3 --no-save && npm run build:web",
     "dev": "node examples/index.js",
     "test": "jest --coverage",
@@ -35,8 +35,6 @@
   },
   "dependencies": {
     "@hapi/h2o2": "^10.0.4",
-    "ajv": "^8.17.1",
-    "ajv-keywords": "^5.1.0",
     "axios": "^1.6.8",
     "body-parser": "^1.20.2",
     "express": "^4.17.1",
@@ -63,7 +61,6 @@
     "babel-preset-react": "^6.24.1",
     "compression-webpack-plugin": "^11.1.0",
     "coveralls": "^3.1.1",
-    "cross-env": "^7.0.3",
     "css-loader": "^6.10.0",
     "history": "^4.10.1",
     "jest": "^29.7.0",
