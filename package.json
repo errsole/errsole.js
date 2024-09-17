@@ -1,6 +1,6 @@
 {
   "name": "errsole",
-  "version": "2.9.2",
+  "version": "2.10.2",
   "description": "Collect, Store, and Visualize Logs with a Single Module",
   "keywords": [
     "log",
@@ -16,7 +16,8 @@
   "author": "Rishi Kumar <rishi@errsole.com>",
   "contributors": [
     "Rishi Kumar <rishi@errsole.com>",
-    "Venkateswarlu Ganji <venki@errsole.com>"
+    "Venkateswarlu Ganji <venki@errsole.com>",
+    "Sai Kumar <sai@errsole.com"
   ],
   "files": [
     "docs",

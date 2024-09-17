@@ -208,7 +208,7 @@ body {
 }
 
 .sidebar-menu {
-  display: contents !important;
+  display: -webkit-inline-box !important;
 }
 
 .all-users {
