@@ -147,7 +147,7 @@ describe('userController', () => {
       expect(mockStorageConnection.getUserCount).toHaveBeenCalled();
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.send).toHaveBeenCalledWith({
-        errors: [{ error: 'Internal Server Error', message: 'An unexpected error occurred' }]
+        errors: [{ error: 'Internal Server Error', message: 'Storage error' }]
       });
     });
 

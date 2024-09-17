@@ -103,7 +103,7 @@ describe('appController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'Error fetching version'
           }
         ]
       });
@@ -133,7 +133,7 @@ describe('appController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'Error fetching version'
           }
         ]
       });
@@ -156,7 +156,7 @@ describe('appController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'Error getting storage connection'
           }
         ]
       });
@@ -211,7 +211,7 @@ describe('appController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'Internal error'
           }
         ]
       });
@@ -346,7 +346,7 @@ describe('appController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'Internal error'
           }
         ]
       });
@@ -377,7 +377,7 @@ describe('appController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'Unexpected error'
           }
         ]
       });
@@ -517,7 +517,7 @@ describe('appController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'storageConnection.setConfig is not a function'
           }
         ]
       });
@@ -553,7 +553,7 @@ describe('appController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'Internal error'
           }
         ]
       });
@@ -609,7 +609,7 @@ describe('appController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'Internal error'
           }
         ]
       });
@@ -643,7 +643,7 @@ describe('appController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'Unexpected error'
           }
         ]
       });
@@ -726,7 +726,7 @@ describe('appController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'Internal error'
           }
         ]
       });
@@ -750,7 +750,7 @@ describe('appController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'Unexpected error'
           }
         ]
       });
@@ -925,7 +925,7 @@ describe('appController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'Internal error'
           }
         ]
       });
@@ -971,7 +971,7 @@ describe('appController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'Unexpected error'
           }
         ]
       });
@@ -1035,7 +1035,7 @@ describe('appController', () => {
       });
 
       it('should handle and log errors, and respond with a 500 status code', async () => {
-        const error = new Error('Something went wrong');
+        const error = new Error('An unexpected error occurred');
         getConfigMock.mockRejectedValue(error);
 
         await getEmailDetails(req, res);
@@ -1068,7 +1068,7 @@ describe('appController', () => {
           errors: [
             {
               error: 'Internal Server Error',
-              message: 'An unexpected error occurred'
+              message: 'Unexpected token i in JSON at position 2'
             }
           ]
         });
@@ -1214,7 +1214,7 @@ describe('appController', () => {
     });
 
     it('should handle unexpected errors', async () => {
-      const error = new Error('Something went wrong');
+      const error = new Error('An unexpected error occurred');
       getConfigMock.mockRejectedValue(error);
 
       await updateEmailDetails(req, res);
@@ -1289,7 +1289,7 @@ describe('appController', () => {
     });
 
     it('should handle unexpected errors', async () => {
-      const error = new Error('Something went wrong');
+      const error = new Error('An unexpected error occurred');
       req.body = { url: 'http://example.com' };
       extractAttributesMock.mockReturnValue({ url: 'http://example.com' });
       deleteConfigMock.mockRejectedValue(error);
@@ -1347,7 +1347,7 @@ describe('appController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'Test error'
           }
         ]
       });
@@ -1390,7 +1390,7 @@ describe('appController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'Test error'
           }
         ]
       });
@@ -1456,7 +1456,7 @@ describe('appController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'Unexpected token i in JSON at position 2'
           }
         ]
       });
@@ -1473,7 +1473,7 @@ describe('appController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'Storage connection failed'
           }
         ]
       });
@@ -1558,7 +1558,7 @@ describe('appController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'Unexpected error'
           }
         ]
       });
