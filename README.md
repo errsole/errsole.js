@@ -40,10 +40,6 @@ View, filter, and search through your logs using the built-in Web Dashboard. Sec
 
 Get immediate notifications when your app crashes or encounters critical errors. The notification includes the error message, the app name, the environment, the server name, and a direct link to view the error in your logs.
 
-### AI Copilot (Upcoming)
-
-Errsole's AI Copilot analyzes your error logs, pinpoints the exact location in the code where the error occurred, explains the cause of the error, and suggests a fix.
-
 ## Benchmarks
 
 A Node.js app using Errsole Logger can handle 90,000 more requests per minute than when using Elasticsearch and 70,000 more requests per minute than when using Amazon CloudWatch. [Read More](https://github.com/errsole/errsole.js/blob/master/docs/benchmarks.md)
