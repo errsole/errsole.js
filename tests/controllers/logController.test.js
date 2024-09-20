@@ -102,7 +102,7 @@ describe('LogController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'Unexpected token i in JSON at position 0'
           }
         ]
       });
@@ -174,7 +174,7 @@ describe('LogController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'Unexpected error'
           }
         ]
       });
@@ -221,7 +221,7 @@ describe('LogController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'Unexpected token i in JSON at position 0'
           }
         ]
       });
@@ -282,7 +282,7 @@ describe('LogController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'Unexpected error'
           }
         ]
       });
@@ -374,7 +374,7 @@ describe('LogController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'Unexpected error'
           }
         ]
       });
@@ -394,7 +394,7 @@ describe('LogController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'Ensure TTL error'
           }
         ]
       });
@@ -463,7 +463,7 @@ describe('LogController', () => {
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.send).toHaveBeenCalledWith({
         errors: [
-          { error: 'Internal Server Error', message: 'An unexpected error occurred' }
+          { error: 'Internal Server Error', message: 'storage connection error' }
         ]
       });
     });
@@ -541,7 +541,7 @@ describe('LogController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'An unexpected error occurred'
+            message: 'Unexpected error'
           }
         ]
       });
