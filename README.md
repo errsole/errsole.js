@@ -11,7 +11,6 @@
     <img src="https://coveralls.io/repos/github/errsole/errsole.js/badge.svg" alt="Coverage Status" />
   </a>
   </div>
-
 </p>
 
 Errsole is an open-source logger for Node.js. It has a built-in web dashboard to view, filter, and search your app logs.
@@ -48,11 +47,11 @@ A Node.js app using Errsole Logger can handle 90,000 more requests per minute th
 
 ## Setup
 
-### File-based Logging
+#### File-based Logging
 
 * [Errsole with SQLite](https://github.com/errsole/errsole.js/blob/master/docs/sqlite-storage.md)
 
-### Centralized Logging
+#### Centralized Logging
 
 * [Errsole with MongoDB](https://github.com/errsole/errsole.js/blob/master/docs/mongodb-storage.md)
 * [Errsole with MySQL](https://github.com/errsole/errsole.js/blob/master/docs/mysql-storage.md)
@@ -60,7 +59,7 @@ A Node.js app using Errsole Logger can handle 90,000 more requests per minute th
 * [Errsole with MariaDB](https://github.com/errsole/errsole.js/blob/master/docs/mariadb-storage.md)
 * [Errsole with OracleDB](https://github.com/errsole/errsole.js/blob/master/docs/oracledb-storage.md)
 
-### Advanced Configuration
+#### Advanced Configuration
 
 * [Advanced Configuration](https://github.com/errsole/errsole.js/blob/master/docs/advanced-configuration.md)
 
