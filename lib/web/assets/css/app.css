@@ -152,12 +152,13 @@ body {
   margin-left: 10px;
 }
 
-.date-picker-date {
-  width: 120px !important;
+.datetime-picker-date {
+  width: 125px !important;
 }
 
-.date-picker-time {
-  width: 120px !important;
+.datetime-picker-time {
+  width: 125px !important;
+  margin-left: 10px !important;
 }
 
 .log-btn-apply {
@@ -314,7 +315,7 @@ body {
 }
 
 .filter-input-div {
-  width: calc(100% - 440px);
+  width: calc(100% - 445px);
 }
 
 .filter-input {
