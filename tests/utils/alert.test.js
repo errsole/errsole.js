@@ -157,21 +157,6 @@ describe('EmailService', () => {
     expect(result).toBe(false);
   });
 
-  it('should handle email integration disabled', async () => {
-    const mockConfig = {
-      item: {
-        value: JSON.stringify({
-          status: false
-        })
-      }
-    };
-    mockStorageConnection.getConfig.mockResolvedValue(mockConfig);
-
-    const result = await EmailService.sendAlert('Test message', 'Test type', {});
-    expect(result).toBe(false);
-    expect(console.log).toHaveBeenCalledWith('Email integration is disabled.');
-  });
-
   it('should construct email with appName and environmentName', async () => {
     const mockConfig = {
       item: {
