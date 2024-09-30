@@ -21,8 +21,8 @@ describe('Router', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    token = 'Bearer testToken';
-    adminToken = 'Bearer adminTestToken';
+    token = process.env.USER_TOKEN || 'Bearer testToken'; // Replaced with environment variable
+    adminToken = process.env.ADMIN_TOKEN || 'Bearer adminTestToken'; // Replaced with environment variable
 
     auth.authenticateToken.mockImplementation((req, res, next) => {
       req.user = { id: 'userId' };
