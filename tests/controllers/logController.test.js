@@ -3,12 +3,16 @@ const Jsonapi = require('../../lib/main/server/utils/jsonapiUtil');
 const { getStorageConnection } = require('../../lib/main/server/storageConnection');
 const { describe, it } = require('@jest/globals');
 const helpers = require('../../lib/main/server/utils/helpers');
-
+const DOMPurify = require('dompurify');
 /* globals expect, jest, beforeEach, beforeAll, afterAll */
 
 jest.mock('../../lib/main/server/storageConnection');
 jest.mock('../../lib/main/server/utils/jsonapiUtil');
 jest.mock('../../lib/main/server/utils/helpers');
+
+jest.mock('dompurify', () => ({
+  sanitize: jest.fn((input) => input)
+}));
 
 describe('LogController', () => {
   let originalConsoleError;
