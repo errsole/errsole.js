@@ -38,6 +38,7 @@
     "@hapi/h2o2": "^10.0.4",
     "axios": "^1.6.8",
     "body-parser": "^1.20.2",
+    "dompurify": "^3.1.7",
     "express": "^4.17.1",
     "express-static-gzip": "^2.1.7",
     "http-proxy-middleware": "^3.0.0",
