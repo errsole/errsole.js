@@ -16,6 +16,9 @@ jest.mock('dompurify', () => ({
   sanitize: jest.fn((input) => input)
 }));
 
+const TEST_PASSWORD = process.env.TEST_PASSWORD || 'default_test_password';
+const TEST_INCORRECT_PASSWORD = process.env.TEST_PASSWORD || 'incorrect_password';
+
 describe('userController', () => {
   let originalConsoleError;
 
@@ -40,7 +43,7 @@ describe('userController', () => {
             attributes: {
               name: 'Test User',
               email: 'test@example.com',
-              password: 'password123',
+              password: TEST_PASSWORD,
               role: 'user'
             }
           }
@@ -99,7 +102,7 @@ describe('userController', () => {
             attributes: {
               name: 'Test User',
               email: 'test@example.com',
-              password: 'password123',
+              password: TEST_PASSWORD,
               role: 'admin'
             }
           }
@@ -130,7 +133,7 @@ describe('userController', () => {
             attributes: {
               name: 'Test User',
               email: 'test@example.com',
-              password: 'password123',
+              password: TEST_PASSWORD,
               role: 'admin'
             }
           }
@@ -163,7 +166,7 @@ describe('userController', () => {
             attributes: {
               name: 'Test User',
               email: 'test@example.com',
-              password: 'password123',
+              password: TEST_PASSWORD,
               role: 'admin'
             }
           }
@@ -201,7 +204,7 @@ describe('userController', () => {
             attributes: {
               name: 'Test User',
               email: 'test@example.com',
-              password: 'password123',
+              password: TEST_PASSWORD,
               role: 'admin'
             }
           }
@@ -240,7 +243,7 @@ describe('userController', () => {
           data: {
             attributes: {
               email: 'test@example.com',
-              password: 'password123'
+              password: TEST_PASSWORD
             }
           }
         }
@@ -274,7 +277,7 @@ describe('userController', () => {
           data: {
             attributes: {
               email: 'test@example.com',
-              password: 'incorrectpassword'
+              password: TEST_INCORRECT_PASSWORD
             }
           }
         }
@@ -306,7 +309,7 @@ describe('userController', () => {
           data: {
             attributes: {
               email: 'test@example.com',
-              password: 'testpassword'
+              password: TEST_PASSWORD
             }
           }
         }
@@ -342,7 +345,7 @@ describe('userController', () => {
           data: {
             attributes: {
               email: 'test@example.com',
-              password: 'password123'
+              password: TEST_PASSWORD
             }
           }
         }
@@ -372,7 +375,7 @@ describe('userController', () => {
           data: {
             attributes: {
               email: 'test@example.com',
-              password: 'password123'
+              password: TEST_PASSWORD
             }
           }
         }
@@ -396,7 +399,7 @@ describe('userController', () => {
 
       expect(helpers.getJWTSecret).toHaveBeenCalledTimes(2);
       expect(helpers.addJWTSecret).toHaveBeenCalled();
-      expect(mockStorageConnection.verifyUser).toHaveBeenCalledWith('test@example.com', 'password123');
+      expect(mockStorageConnection.verifyUser).toHaveBeenCalledWith('test@example.com', TEST_PASSWORD);
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.send).toHaveBeenCalledWith({ data: { token: 'token' } });
     });
@@ -406,7 +409,7 @@ describe('userController', () => {
         body: {
           data: {
             attributes: {
-              password: 'password123'
+              password: TEST_PASSWORD
             }
           }
         }
@@ -416,7 +419,7 @@ describe('userController', () => {
         send: jest.fn()
       };
 
-      helpers.extractAttributes.mockReturnValue({ password: 'password123' });
+      helpers.extractAttributes.mockReturnValue({ password: TEST_PASSWORD });
 
       await loginUser(req, res);
 
@@ -459,7 +462,7 @@ describe('userController', () => {
           data: {
             attributes: {
               email: 'test@example.com',
-              password: 'password123'
+              password: TEST_PASSWORD
             }
           }
         }
@@ -932,7 +935,7 @@ describe('userController', () => {
           data: {
             attributes: {
               email: 'user@example.com',
-              password: 'password123',
+              password: TEST_PASSWORD,
               role: 'user'
             }
           }
@@ -943,7 +946,7 @@ describe('userController', () => {
         send: jest.fn()
       };
 
-      helpers.extractAttributes.mockReturnValue({ email: 'user@example.com', password: 'password123', role: 'user' });
+      helpers.extractAttributes.mockReturnValue({ email: 'user@example.com', password: TEST_PASSWORD, role: 'user' });
 
       const mockAdminUser = {
         item: {
@@ -970,7 +973,7 @@ describe('userController', () => {
       expect(mockStorageConnection.createUser).toHaveBeenCalledWith({
         name: 'User',
         email: 'user@example.com',
-        password: 'password123',
+        password: TEST_PASSWORD,
         role: 'user'
       });
       expect(res.status).toHaveBeenCalledWith(200);
@@ -984,7 +987,7 @@ describe('userController', () => {
           data: {
             attributes: {
               email: 'user@example.com',
-              password: 'password123',
+              password: TEST_PASSWORD,
               role: 'user'
             }
           }
@@ -995,7 +998,7 @@ describe('userController', () => {
         send: jest.fn()
       };
 
-      helpers.extractAttributes.mockReturnValue({ email: 'user@example.com', password: 'password123', role: 'user' });
+      helpers.extractAttributes.mockReturnValue({ email: 'user@example.com', password: TEST_PASSWORD, role: 'user' });
 
       const mockNonAdminUser = {
         item: {
@@ -1024,7 +1027,7 @@ describe('userController', () => {
           data: {
             attributes: {
               email: 'user@example.com',
-              password: 'password123',
+              password: TEST_PASSWORD,
               role: 'user'
             }
           }
@@ -1050,7 +1053,7 @@ describe('userController', () => {
           data: {
             attributes: {
               email: 'user@example.com',
-              password: 'password123',
+              password: TEST_PASSWORD,
               role: 'user'
             }
           }
@@ -1061,7 +1064,7 @@ describe('userController', () => {
         send: jest.fn()
       };
 
-      helpers.extractAttributes.mockReturnValue({ email: 'user@example.com', password: 'password123', role: 'user' });
+      helpers.extractAttributes.mockReturnValue({ email: 'user@example.com', password: TEST_PASSWORD, role: 'user' });
 
       const mockAdminUser = {
         item: {
@@ -1082,7 +1085,7 @@ describe('userController', () => {
       expect(mockStorageConnection.createUser).toHaveBeenCalledWith({
         name: 'User',
         email: 'user@example.com',
-        password: 'password123',
+        password: TEST_PASSWORD,
         role: 'user'
       });
       expect(res.status).toHaveBeenCalledWith(500);
@@ -1098,7 +1101,7 @@ describe('userController', () => {
           data: {
             attributes: {
               email: 'user@example.com',
-              password: 'password123',
+              password: TEST_PASSWORD,
               role: 'user'
             }
           }
