@@ -296,7 +296,7 @@ describe('appController', () => {
         body: {
           data: {
             attributes: {
-              url: 'https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX'
+              url: process.env.SLACK_WEBHOOK_URL || 'https://mock.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX'
             }
           }
         }
@@ -307,12 +307,33 @@ describe('appController', () => {
       };
       const mockStorageConnection = {
         getConfig: jest.fn().mockResolvedValue({ item: null }),
-        setConfig: jest.fn().mockResolvedValue({ item: { value: JSON.stringify({ url: 'https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX', username: 'Errsole', icon_url: 'https://avatars.githubusercontent.com/u/84983840', status: true }) } })
+        setConfig: jest.fn().mockResolvedValue({
+          item: {
+            value: JSON.stringify({
+              url: process.env.SLACK_WEBHOOK_URL || 'https://mock.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX',
+              username: 'Errsole',
+              icon_url: 'https://avatars.githubusercontent.com/u/84983840',
+              status: true
+            })
+          }
+        })
       };
+
       getStorageConnection.mockReturnValue(mockStorageConnection);
-      helpers.extractAttributes.mockReturnValue({ url: 'https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX' });
+      helpers.extractAttributes.mockReturnValue({
+        url: process.env.SLACK_WEBHOOK_URL || 'https://mock.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX'
+      });
+
       await addSlackDetails(req, res);
-      expect(res.send).toHaveBeenCalledWith(Jsonapi.Serializer.serialize(Jsonapi.AppType, { value: { url: 'https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX', username: 'Errsole', icon_url: 'https://avatars.githubusercontent.com/u/84983840', status: true } }));
+
+      expect(res.send).toHaveBeenCalledWith(Jsonapi.Serializer.serialize(Jsonapi.AppType, {
+        value: {
+          url: process.env.SLACK_WEBHOOK_URL || 'https://mock.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX',
+          username: 'Errsole',
+          icon_url: 'https://avatars.githubusercontent.com/u/84983840',
+          status: true
+        }
+      }));
     });
 
     it('should handle storage connection error when checking existing config', async () => {
