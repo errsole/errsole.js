@@ -445,7 +445,7 @@ describe('testEmailAlert', () => {
           host: 'smtp.test.com',
           port: '587',
           username: 'testuser',
-          password: 'testpass',
+          password: TEST_PASSWORD,
           sender: 'test@test.com',
           receivers: ['receiver@test.com']
         })
@@ -466,7 +466,7 @@ describe('testEmailAlert', () => {
           host: 'smtp.test.com',
           port: '587',
           username: 'testuser',
-          password: 'testpass',
+          password: TEST_PASSWORD,
           sender: 'test@test.com',
           receivers: ['receiver@test.com']
         })
