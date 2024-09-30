@@ -291,7 +291,7 @@ describe('userController', () => {
       };
       getStorageConnection.mockReturnValue(mockStorageConnection);
 
-      helpers.extractAttributes.mockReturnValue({ email: 'test@example.com', password: 'incorrectpassword' });
+      helpers.extractAttributes.mockReturnValue({ email: 'test@example.com', password: TEST_INCORRECT_PASSWORD });
       helpers.getJWTSecret.mockReturnValue('secret');
 
       await loginUser(req, res);
