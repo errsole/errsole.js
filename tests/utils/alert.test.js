@@ -13,6 +13,8 @@ let originalConsoleLog;
 let activeTimeouts = [];
 const originalSetTimeout = global.setTimeout;
 
+const TEST_PASSWORD = process.env.TEST_PASSWORD || 'default_test_password';
+
 beforeAll(() => {
   originalConsoleError = console.error;
   console.error = jest.fn();
@@ -60,7 +62,7 @@ describe('EmailService', () => {
           host: 'smtp.example.com',
           port: '587',
           username: 'user@example.com',
-          password: 'password',
+          password: TEST_PASSWORD,
           sender: 'sender@example.com',
           receivers: 'receiver@example.com',
           status: true
@@ -81,7 +83,7 @@ describe('EmailService', () => {
       port: 587,
       auth: {
         user: 'user@example.com',
-        pass: 'password'
+        pass: TEST_PASSWORD
       }
     }));
     expect(EmailService.transporter).toBe(mockTransporter);
@@ -94,7 +96,7 @@ describe('EmailService', () => {
           host: 'smtp.example.com',
           port: '587',
           username: 'user@example.com',
-          password: 'password',
+          password: TEST_PASSWORD,
           sender: 'sender@example.com',
           receivers: 'receiver@example.com',
           status: true
@@ -164,7 +166,7 @@ describe('EmailService', () => {
           host: 'smtp.example.com',
           port: '587',
           username: 'user@example.com',
-          password: 'password',
+          password: TEST_PASSWORD,
           sender: 'sender@example.com',
           receivers: 'receiver@example.com',
           status: true
@@ -196,7 +198,7 @@ describe('EmailService', () => {
           host: 'smtp.example.com',
           port: '587',
           username: 'user@example.com',
-          password: 'password',
+          password: TEST_PASSWORD,
           sender: 'sender@example.com',
           receivers: 'receiver@example.com',
           status: true
@@ -228,7 +230,7 @@ describe('EmailService', () => {
           host: 'smtp.example.com',
           port: '587',
           username: 'user@example.com',
-          password: 'password',
+          password: TEST_PASSWORD,
           sender: 'sender@example.com',
           receivers: 'receiver@example.com',
           status: true
@@ -260,7 +262,7 @@ describe('EmailService', () => {
           host: 'smtp.example.com',
           port: '587',
           username: 'user@example.com',
-          password: 'password',
+          password: TEST_PASSWORD,
           sender: 'sender@example.com',
           receivers: 'receiver@example.com',
           status: true

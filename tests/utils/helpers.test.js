@@ -46,9 +46,10 @@ describe('Utils Functions', () => {
   });
 
   describe('#SlackUrl', () => {
+    const validSlackWebhookUrl = process.env.SLACK_WEBHOOK_URL || 'https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX';
+
     it('should return true for a valid Slack URL', () => {
-      const url = 'https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX';
-      expect(SlackUrl(url)).toBe(true);
+      expect(SlackUrl(validSlackWebhookUrl)).toBe(true);
     });
 
     it('should return false for an invalid Slack URL', () => {
