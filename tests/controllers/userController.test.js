@@ -3,6 +3,7 @@ const helpers = require('../../lib/main/server/utils/helpers');
 const { getStorageConnection } = require('../../lib/main/server/storageConnection');
 const Jsonapi = require('../../lib/main/server/utils/jsonapiUtil');
 const jwt = require('jsonwebtoken');
+const DOMPurify = require('dompurify');
 
 /* globals expect, jest,  it, beforeAll, afterAll, beforeEach, describe */
 
@@ -10,6 +11,10 @@ jest.mock('../../lib/main/server/utils/helpers');
 jest.mock('../../lib/main/server/storageConnection');
 jest.mock('jsonwebtoken');
 jest.mock('../../lib/main/server/utils/jsonapiUtil');
+
+jest.mock('dompurify', () => ({
+  sanitize: jest.fn((input) => input)
+}));
 
 describe('userController', () => {
   let originalConsoleError;
@@ -1158,6 +1163,7 @@ describe('userController', () => {
       expect(res.send).toHaveBeenCalledWith({ error: 'An error occurred while fetching user count.' });
     });
   });
+
   describe('#removeUser', () => {
     it('should remove a user successfully with valid admin email and user ID', async () => {
       const req = {
@@ -1186,6 +1192,8 @@ describe('userController', () => {
 
       await removeUser(req, res);
 
+      expect(DOMPurify.sanitize).toHaveBeenCalledWith('admin@example.com');
+      expect(DOMPurify.sanitize).toHaveBeenCalledWith('12345');
       expect(mockStorageConnection.getUserByEmail).toHaveBeenCalledWith('admin@example.com');
       expect(mockStorageConnection.deleteUser).toHaveBeenCalledWith('12345');
       expect(res.status).toHaveBeenCalledWith(200);
@@ -1216,6 +1224,8 @@ describe('userController', () => {
 
       await removeUser(req, res);
 
+      expect(DOMPurify.sanitize).toHaveBeenCalledWith('user@example.com');
+      expect(DOMPurify.sanitize).toHaveBeenCalledWith('12345');
       expect(mockStorageConnection.getUserByEmail).toHaveBeenCalledWith('user@example.com');
       expect(res.status).toHaveBeenCalledWith(403);
       expect(res.send).toHaveBeenCalledWith({
@@ -1255,15 +1265,15 @@ describe('userController', () => {
 
       await removeUser(req, res);
 
+      expect(DOMPurify.sanitize).toHaveBeenCalledWith('admin@example.com');
+      expect(DOMPurify.sanitize).toHaveBeenCalledWith('12345');
       expect(mockStorageConnection.getUserByEmail).toHaveBeenCalledWith('admin@example.com');
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.send).toHaveBeenCalledWith({
         errors: [{ error: 'Internal Server Error', message: 'Unexpected error' }]
       });
     });
-  });
 
-  describe('#removeUser', () => {
     it('should handle errors gracefully', async () => {
       const req = {
         email: 'admin@example.com',
@@ -1282,6 +1292,8 @@ describe('userController', () => {
 
       await removeUser(req, res);
 
+      expect(DOMPurify.sanitize).toHaveBeenCalledWith('admin@example.com');
+      expect(DOMPurify.sanitize).toHaveBeenCalledWith('12345');
       expect(mockStorageConnection.getUserByEmail).toHaveBeenCalledWith('admin@example.com');
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.send).toHaveBeenCalledWith({
