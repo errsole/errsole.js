@@ -29,7 +29,7 @@
   "types": "types/errsole.d.ts",
   "scripts": {
     "build:web": "NODE_OPTIONS=--openssl-legacy-provider webpack --config lib/web/webpack/website.config.js",
-    "setup": "npm install && npm install errsole-sequelize sqlite3 --no-save && npm run build:web",
+    "setup": "npm install && npm install errsole-sqlite sqlite3 --no-save && npm run build:web",
     "dev": "node examples/index.js",
     "test": "jest --coverage",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls"

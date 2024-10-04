@@ -5,13 +5,10 @@
 */
 
 const errsole = require('../lib/errsole.js');
-const ErrsoleSequelize = require('errsole-sequelize');
+const ErrsoleSQLite = require('errsole-sqlite');
 
 errsole.initialize({
-  storage: new ErrsoleSequelize({
-    dialect: 'sqlite',
-    storage: 'database.sqlite'
-  })
+  storage: new ErrsoleSQLite('/tmp/logs.sqlite')
 });
 
 const express = require('express');
