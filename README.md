@@ -56,7 +56,7 @@ A Node.js app using Errsole Logger can handle 90,000 more requests per minute th
 * [Advanced Configuration](https://github.com/errsole/errsole.js/blob/master/docs/advanced-configuration.md)
 * [Custom Logging Functions](https://github.com/errsole/errsole.js/blob/master/docs/custom-logging-functions.md)
 * [Web Dashboard Access](https://github.com/errsole/errsole.js/blob/master/docs/web-dashboard-access.md)
-* [Winston with Errsole](https://github.com/errsole/errsole.js/blob/master/docs/winston-with-errsole.md)
+* [Winston with Errsole](https://github.com/errsole/errsole.js/blob/master/docs/winston-errsole.md)
 
 ## Useful Links
 
