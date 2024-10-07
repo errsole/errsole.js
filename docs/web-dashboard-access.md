@@ -14,7 +14,7 @@ If you initialized Errsole with a different port or specified a custom path, adj
 
 `http(s)://YourServerIP:CustomPort/YourCustomPath`
 
-## Proxy Middleware Configuration
+## Proxy Middleware Configuration (Optional)
 
 If you encounter issues accessing port 8001 due to firewall restrictions, or if you prefer to host the Errsole Web Dashboard on your primary domain/port, you can configure the Errsole Proxy Middleware in your app. Here is a step-by-step guide:
 
@@ -26,7 +26,7 @@ Once you have done that, you will be able to access the Errsole Web Dashboard us
 * **Local Setup:** If your local app runs on port 3000, you can access the Errsole Web Dashboard at `http://localhost:3000/errsole`.
 * **Remote Deployment:** If your remote app is hosted at `https://api.example.com`, you can access the Errsole Web Dashboard at `https://api.example.com/errsole`.
 
-## Examples
+### Examples
 
 * [Express](#express)
 * [Fastify](#fastify)
