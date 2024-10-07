@@ -47,15 +47,30 @@ A Node.js app using Errsole Logger can handle 90,000 more requests per minute th
 
 ## Setup
 
-* File-based Logging
-  * [Errsole with SQLite](https://github.com/errsole/errsole.js/blob/master/docs/sqlite-storage.md)
-* Centralized Logging
-  * [Errsole with MongoDB](https://github.com/errsole/errsole.js/blob/master/docs/mongodb-storage.md)
-  * [Errsole with MySQL](https://github.com/errsole/errsole.js/blob/master/docs/mysql-storage.md)
-  * [Errsole with PostgreSQL](https://github.com/errsole/errsole.js/blob/master/docs/postgresql-storage.md)
+#### File-based Logging
+
+* [Errsole with SQLite](https://github.com/errsole/errsole.js/blob/master/docs/sqlite-storage.md)
+
+#### Centralized Logging
+
+* [Errsole with MongoDB](https://github.com/errsole/errsole.js/blob/master/docs/mongodb-storage.md)
+* [Errsole with MySQL](https://github.com/errsole/errsole.js/blob/master/docs/mysql-storage.md)
+* [Errsole with PostgreSQL](https://github.com/errsole/errsole.js/blob/master/docs/postgresql-storage.md)
+
+#### Advanced Configuration
+
 * [Advanced Configuration](https://github.com/errsole/errsole.js/blob/master/docs/advanced-configuration.md)
+
+#### Custom Logging Functions
+
 * [Custom Logging Functions](https://github.com/errsole/errsole.js/blob/master/docs/custom-logging-functions.md)
+
+#### Web Dashboard Access
+
 * [Web Dashboard Access](https://github.com/errsole/errsole.js/blob/master/docs/web-dashboard-access.md)
+
+#### Winston with Errsole
+
 * [Winston with Errsole](https://github.com/errsole/errsole.js/blob/master/docs/winston-errsole.md)
 
 ## Useful Links
