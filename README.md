@@ -57,6 +57,10 @@ A Node.js app using Errsole Logger can handle 90,000 more requests per minute th
 * [Errsole with MySQL](https://github.com/errsole/errsole.js/blob/master/docs/mysql-storage.md)
 * [Errsole with PostgreSQL](https://github.com/errsole/errsole.js/blob/master/docs/postgresql-storage.md)
 
+#### Winston with Errsole
+
+* [Winston with Errsole](https://github.com/errsole/errsole.js/blob/master/docs/winston-with-errsole.md)
+
 #### Advanced Configuration
 
 * [Advanced Configuration](https://github.com/errsole/errsole.js/blob/master/docs/advanced-configuration.md)
@@ -65,25 +69,9 @@ A Node.js app using Errsole Logger can handle 90,000 more requests per minute th
 
 * [Custom Logging Functions](https://github.com/errsole/errsole.js/blob/master/docs/custom-logging-functions.md)
 
-## Web Dashboard Access
+#### Web Dashboard Access
 
-After completing the setup, you can access the Errsole Web Dashboard through the following methods:
-
-1. **Local Environment:** Open your web browser and visit `http://localhost:8001/`.
-2. **Remote Server:** If you have deployed Errsole on a remote server, use the server's IP address or domain name followed by the port number (e.g., YourServerIP:8001 or YourDomain:8001).
-
-#### Note
-
-If you initialized Errsole with a different port or specified a custom path, adjust the URL as follows:
-
-1. Replace 8001 with your chosen port number.
-2. Append your custom path to the end of the URL.
-
-`http(s)://YourServerIP:CustomPort/YourCustomPath`
-
-### Proxy Middleware Configuration
-
-If you encounter issues accessing port 8001 due to firewall restrictions, or if you prefer to host the Errsole Web Dashboard on your primary domain/port, you can configure the Errsole Proxy Middleware in your app. Here is a step-by-step guide: [Proxy Middleware Configuration](https://github.com/errsole/errsole.js/blob/master/docs/proxy-middleware-configuration.md)
+* [Web Dashboard Access](https://github.com/errsole/errsole.js/blob/master/docs/web-dashboard-access.md)
 
 ## Useful Links
 
