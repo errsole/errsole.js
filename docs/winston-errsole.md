@@ -4,21 +4,32 @@ If you are already using Winston for logging in your Node.js project and want to
 
 ## Steps
 
-1. Configure the `winston-errsole` transport in your Winston logger to stream logs to Errsole.
-2. Set up Errsole to receive and store logs from your `winston-errsole` transport.
+1. Add the `winston-errsole` transport in your Winston logger to stream logs to Errsole.
+2. Setup Errsole to receive and store logs from your `winston-errsole` transport.
 
 #### Example
 
+```bash
+npm install winston winston-errsole
+```
+
+```bash
+npm install errsole errsole-sqlite
+```
+
 ```javascript
+// Add `winston-errsole` transport
 const winston = require('winston');
 const WinstonErrsole = require('winston-errsole');
-const errsole = require('errsole');
-const ErrsoleSQLite = require('errsole-sqlite');
 
 const logger = winston.createLogger({
   level: 'debug',
   transports: [new WinstonErrsole()]
 });
+
+// Setup Errsole
+const errsole = require('errsole');
+const ErrsoleSQLite = require('errsole-sqlite');
 
 errsole.initialize({
   storage: new ErrsoleSQLite('/tmp/logs.sqlite')
