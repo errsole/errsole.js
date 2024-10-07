@@ -61,6 +61,10 @@ A Node.js app using Errsole Logger can handle 90,000 more requests per minute th
 
 * [Advanced Configuration](https://github.com/errsole/errsole.js/blob/master/docs/advanced-configuration.md)
 
+#### Custom Logging Functions
+
+* [Custom Logging Functions](https://github.com/errsole/errsole.js/blob/master/docs/custom-logging-functions.md)
+
 ## Web Dashboard Access
 
 After completing the setup, you can access the Errsole Web Dashboard through the following methods:
@@ -80,78 +84,6 @@ If you initialized Errsole with a different port or specified a custom path, adj
 ### Proxy Middleware Configuration
 
 If you encounter issues accessing port 8001 due to firewall restrictions, or if you prefer to host the Errsole Web Dashboard on your primary domain/port, you can configure the Errsole Proxy Middleware in your app. Here is a step-by-step guide: [Proxy Middleware Configuration](https://github.com/errsole/errsole.js/blob/master/docs/proxy-middleware-configuration.md)
-
-## Custom Logging Functions
-
-### log / info
-
-The log function is used to log messages or information. It can accept one or more arguments, which can be strings, numbers, JavaScript objects, or Error objects.
-
-#### Example
-
-```javascript
-errsole.log('Logging a message');
-errsole.log('Multiple', 'arguments', 'are supported');
-errsole.log('Logging with a variable:', var1);
-errsole.log(new Error('An error occurred'));
-errsole.log('Logging with an error object:', errorObject);
-```
-
-### alert
-
-The alert function logs a message and sends a notification to configured channels, such as Email or Slack. It accepts the same types of arguments as the log function.
-
-#### Example
-
-```javascript
-errsole.alert('Alert! Something critical happened');
-```
-
-### error
-
-The error function is specifically designed to log errors. It accepts the same types of arguments as the log function.
-
-#### Example
-
-```javascript
-errsole.error(new Error('An error occurred'));
-```
-
-### warn
-
-The warn function is used to log warning messages. It accepts the same types of arguments as the log function.
-
-#### Example
-
-```javascript
-errsole.warn('This is a warning message');
-```
-
-### debug
-
-The debug function logs debug information, typically used for troubleshooting during development. It accepts the same types of arguments as the log function.
-
-#### Example
-
-```javascript
-errsole.debug('Debugging information');
-```
-### meta
-
-In Errsole's custom logger, you can include metadata with your logs. This metadata can be any contextual information, such as HTTP requests or database query results. In the Errsole Web Dashboard, you can view this metadata in a clean JSON viewer without cluttering the log messages.
-
-To include metadata in your logs, use the `meta` function followed by the appropriate logging function (error, log, etc.).
-
-#### Example
-
-```javascript
-errsole.meta({ reqBody: req.body, queryResults: results }).error(err);
-errsole.meta({ email: req.body.email }).log('User logged in');
-```
-
-#### Note
-
-The `meta` function must be the first function in the chain, followed by the desired logging function.
 
 ## Useful Links
 
