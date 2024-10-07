@@ -42,13 +42,13 @@ module.exports = logger;
 
 #### File-based Logging
 
-* [Errsole with SQLite](https://github.com/errsole/errsole.js/blob/master/docs/sqlite-storage.md)
+* [Errsole with SQLite](/docs/sqlite-storage.md)
 
 #### Centralized Logging
 
-* [Errsole with MongoDB](https://github.com/errsole/errsole.js/blob/master/docs/mongodb-storage.md)
-* [Errsole with MySQL](https://github.com/errsole/errsole.js/blob/master/docs/mysql-storage.md)
-* [Errsole with PostgreSQL](https://github.com/errsole/errsole.js/blob/master/docs/postgresql-storage.md)
+* [Errsole with MongoDB](/docs/mongodb-storage.md)
+* [Errsole with MySQL](/docs/mysql-storage.md)
+* [Errsole with PostgreSQL](/docs/postgresql-storage.md)
 
 ## Main Documentation
 
