@@ -25,7 +25,7 @@ Just include the Errsole package in your code—no need for dedicated servers, s
 
 ### Logger++
 
-Errsole automatically collects all logs from the Node.js console. Additionally, it provides a custom logger with multiple log levels and allows you to include metadata with your logs for better context. [Read More](#custom-logging-functions)
+Errsole automatically collects all logs from the Node.js console. Additionally, it provides a custom logger with multiple log levels and allows you to include metadata with your logs for better context. [Read More](https://github.com/errsole/errsole.js/blob/master/docs/custom-logging-functions.md)
 
 ### Store Anywhere
 
