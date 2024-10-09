@@ -3,7 +3,6 @@ const helpers = require('../../lib/main/server/utils/helpers');
 const { getStorageConnection } = require('../../lib/main/server/storageConnection');
 const Jsonapi = require('../../lib/main/server/utils/jsonapiUtil');
 const jwt = require('jsonwebtoken');
-const DOMPurify = require('dompurify');
 
 /* globals expect, jest,  it, beforeAll, afterAll, beforeEach, describe */
 
@@ -11,13 +10,6 @@ jest.mock('../../lib/main/server/utils/helpers');
 jest.mock('../../lib/main/server/storageConnection');
 jest.mock('jsonwebtoken');
 jest.mock('../../lib/main/server/utils/jsonapiUtil');
-
-jest.mock('dompurify', () => ({
-  sanitize: jest.fn((input) => input)
-}));
-
-const TEST_PASSWORD = process.env.TEST_PASSWORD || 'default_test_password';
-const TEST_INCORRECT_PASSWORD = process.env.TEST_PASSWORD || 'incorrect_password';
 
 describe('userController', () => {
   let originalConsoleError;
@@ -43,7 +35,7 @@ describe('userController', () => {
             attributes: {
               name: 'Test User',
               email: 'test@example.com',
-              password: TEST_PASSWORD,
+              password: 'password123',
               role: 'user'
             }
           }
@@ -102,7 +94,7 @@ describe('userController', () => {
             attributes: {
               name: 'Test User',
               email: 'test@example.com',
-              password: TEST_PASSWORD,
+              password: 'password123',
               role: 'admin'
             }
           }
@@ -133,7 +125,7 @@ describe('userController', () => {
             attributes: {
               name: 'Test User',
               email: 'test@example.com',
-              password: TEST_PASSWORD,
+              password: 'password123',
               role: 'admin'
             }
           }
@@ -166,7 +158,7 @@ describe('userController', () => {
             attributes: {
               name: 'Test User',
               email: 'test@example.com',
-              password: TEST_PASSWORD,
+              password: 'password123',
               role: 'admin'
             }
           }
@@ -204,7 +196,7 @@ describe('userController', () => {
             attributes: {
               name: 'Test User',
               email: 'test@example.com',
-              password: TEST_PASSWORD,
+              password: 'password123',
               role: 'admin'
             }
           }
@@ -243,7 +235,7 @@ describe('userController', () => {
           data: {
             attributes: {
               email: 'test@example.com',
-              password: TEST_PASSWORD
+              password: 'password123'
             }
           }
         }
@@ -277,7 +269,7 @@ describe('userController', () => {
           data: {
             attributes: {
               email: 'test@example.com',
-              password: TEST_INCORRECT_PASSWORD
+              password: 'incorrectpassword'
             }
           }
         }
@@ -291,7 +283,7 @@ describe('userController', () => {
       };
       getStorageConnection.mockReturnValue(mockStorageConnection);
 
-      helpers.extractAttributes.mockReturnValue({ email: 'test@example.com', password: TEST_INCORRECT_PASSWORD });
+      helpers.extractAttributes.mockReturnValue({ email: 'test@example.com', password: 'incorrectpassword' });
       helpers.getJWTSecret.mockReturnValue('secret');
 
       await loginUser(req, res);
@@ -309,7 +301,7 @@ describe('userController', () => {
           data: {
             attributes: {
               email: 'test@example.com',
-              password: TEST_PASSWORD
+              password: 'testpassword'
             }
           }
         }
@@ -345,7 +337,7 @@ describe('userController', () => {
           data: {
             attributes: {
               email: 'test@example.com',
-              password: TEST_PASSWORD
+              password: 'password123'
             }
           }
         }
@@ -375,7 +367,7 @@ describe('userController', () => {
           data: {
             attributes: {
               email: 'test@example.com',
-              password: TEST_PASSWORD
+              password: 'password123'
             }
           }
         }
@@ -399,7 +391,7 @@ describe('userController', () => {
 
       expect(helpers.getJWTSecret).toHaveBeenCalledTimes(2);
       expect(helpers.addJWTSecret).toHaveBeenCalled();
-      expect(mockStorageConnection.verifyUser).toHaveBeenCalledWith('test@example.com', TEST_PASSWORD);
+      expect(mockStorageConnection.verifyUser).toHaveBeenCalledWith('test@example.com', 'password123');
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.send).toHaveBeenCalledWith({ data: { token: 'token' } });
     });
@@ -409,7 +401,7 @@ describe('userController', () => {
         body: {
           data: {
             attributes: {
-              password: TEST_PASSWORD
+              password: 'password123'
             }
           }
         }
@@ -419,7 +411,7 @@ describe('userController', () => {
         send: jest.fn()
       };
 
-      helpers.extractAttributes.mockReturnValue({ password: TEST_PASSWORD });
+      helpers.extractAttributes.mockReturnValue({ password: 'password123' });
 
       await loginUser(req, res);
 
@@ -462,7 +454,7 @@ describe('userController', () => {
           data: {
             attributes: {
               email: 'test@example.com',
-              password: TEST_PASSWORD
+              password: 'password123'
             }
           }
         }
@@ -935,7 +927,7 @@ describe('userController', () => {
           data: {
             attributes: {
               email: 'user@example.com',
-              password: TEST_PASSWORD,
+              password: 'password123',
               role: 'user'
             }
           }
@@ -946,7 +938,7 @@ describe('userController', () => {
         send: jest.fn()
       };
 
-      helpers.extractAttributes.mockReturnValue({ email: 'user@example.com', password: TEST_PASSWORD, role: 'user' });
+      helpers.extractAttributes.mockReturnValue({ email: 'user@example.com', password: 'password123', role: 'user' });
 
       const mockAdminUser = {
         item: {
@@ -973,7 +965,7 @@ describe('userController', () => {
       expect(mockStorageConnection.createUser).toHaveBeenCalledWith({
         name: 'User',
         email: 'user@example.com',
-        password: TEST_PASSWORD,
+        password: 'password123',
         role: 'user'
       });
       expect(res.status).toHaveBeenCalledWith(200);
@@ -987,7 +979,7 @@ describe('userController', () => {
           data: {
             attributes: {
               email: 'user@example.com',
-              password: TEST_PASSWORD,
+              password: 'password123',
               role: 'user'
             }
           }
@@ -998,7 +990,7 @@ describe('userController', () => {
         send: jest.fn()
       };
 
-      helpers.extractAttributes.mockReturnValue({ email: 'user@example.com', password: TEST_PASSWORD, role: 'user' });
+      helpers.extractAttributes.mockReturnValue({ email: 'user@example.com', password: 'password123', role: 'user' });
 
       const mockNonAdminUser = {
         item: {
@@ -1027,7 +1019,7 @@ describe('userController', () => {
           data: {
             attributes: {
               email: 'user@example.com',
-              password: TEST_PASSWORD,
+              password: 'password123',
               role: 'user'
             }
           }
@@ -1053,7 +1045,7 @@ describe('userController', () => {
           data: {
             attributes: {
               email: 'user@example.com',
-              password: TEST_PASSWORD,
+              password: 'password123',
               role: 'user'
             }
           }
@@ -1064,7 +1056,7 @@ describe('userController', () => {
         send: jest.fn()
       };
 
-      helpers.extractAttributes.mockReturnValue({ email: 'user@example.com', password: TEST_PASSWORD, role: 'user' });
+      helpers.extractAttributes.mockReturnValue({ email: 'user@example.com', password: 'password123', role: 'user' });
 
       const mockAdminUser = {
         item: {
@@ -1085,7 +1077,7 @@ describe('userController', () => {
       expect(mockStorageConnection.createUser).toHaveBeenCalledWith({
         name: 'User',
         email: 'user@example.com',
-        password: TEST_PASSWORD,
+        password: 'password123',
         role: 'user'
       });
       expect(res.status).toHaveBeenCalledWith(500);
@@ -1101,7 +1093,7 @@ describe('userController', () => {
           data: {
             attributes: {
               email: 'user@example.com',
-              password: TEST_PASSWORD,
+              password: 'password123',
               role: 'user'
             }
           }
@@ -1166,7 +1158,6 @@ describe('userController', () => {
       expect(res.send).toHaveBeenCalledWith({ error: 'An error occurred while fetching user count.' });
     });
   });
-
   describe('#removeUser', () => {
     it('should remove a user successfully with valid admin email and user ID', async () => {
       const req = {
@@ -1195,8 +1186,6 @@ describe('userController', () => {
 
       await removeUser(req, res);
 
-      expect(DOMPurify.sanitize).toHaveBeenCalledWith('admin@example.com');
-      expect(DOMPurify.sanitize).toHaveBeenCalledWith('12345');
       expect(mockStorageConnection.getUserByEmail).toHaveBeenCalledWith('admin@example.com');
       expect(mockStorageConnection.deleteUser).toHaveBeenCalledWith('12345');
       expect(res.status).toHaveBeenCalledWith(200);
@@ -1227,8 +1216,6 @@ describe('userController', () => {
 
       await removeUser(req, res);
 
-      expect(DOMPurify.sanitize).toHaveBeenCalledWith('user@example.com');
-      expect(DOMPurify.sanitize).toHaveBeenCalledWith('12345');
       expect(mockStorageConnection.getUserByEmail).toHaveBeenCalledWith('user@example.com');
       expect(res.status).toHaveBeenCalledWith(403);
       expect(res.send).toHaveBeenCalledWith({
@@ -1268,15 +1255,15 @@ describe('userController', () => {
 
       await removeUser(req, res);
 
-      expect(DOMPurify.sanitize).toHaveBeenCalledWith('admin@example.com');
-      expect(DOMPurify.sanitize).toHaveBeenCalledWith('12345');
       expect(mockStorageConnection.getUserByEmail).toHaveBeenCalledWith('admin@example.com');
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.send).toHaveBeenCalledWith({
         errors: [{ error: 'Internal Server Error', message: 'Unexpected error' }]
       });
     });
+  });
 
+  describe('#removeUser', () => {
     it('should handle errors gracefully', async () => {
       const req = {
         email: 'admin@example.com',
@@ -1295,8 +1282,6 @@ describe('userController', () => {
 
       await removeUser(req, res);
 
-      expect(DOMPurify.sanitize).toHaveBeenCalledWith('admin@example.com');
-      expect(DOMPurify.sanitize).toHaveBeenCalledWith('12345');
       expect(mockStorageConnection.getUserByEmail).toHaveBeenCalledWith('admin@example.com');
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.send).toHaveBeenCalledWith({

@@ -210,6 +210,7 @@ body {
 
 .sidebar-menu {
   display: -webkit-inline-box !important;
+  margin-left: 8px;
 }
 
 .all-users {
@@ -218,6 +219,11 @@ body {
   margin-top: 70px;
   border: 1px solid #dedede;
   border-radius: 5px;
+}
+.all-users h1 {
+  font-size: 16.38px; 
+  color: #000000D9; 
+  font-weight: 400;
 }
 
 .all-intergrations {
@@ -228,6 +234,16 @@ body {
   border-radius: 5px;
 }
 
+.all-intergrations h1{
+  font-size: 16.38px; 
+  color: #000000D9; 
+  font-weight: 400;
+}
+
+.tab-icon {
+  margin-right: 8px; /* Adjust as needed */
+}
+
 .all-useful-links {
   background: white;
   padding: 25px;
@@ -236,6 +252,11 @@ body {
   border: 1px solid #dedede;
   border-radius: 5px;
 }
+.all-useful-links h1{
+  font-size: 16.38px; 
+  color: #000000D9; 
+  font-weight: 400;
+}
 
 .data-retention {
   background: white;
@@ -243,6 +264,14 @@ body {
   margin-top: 70px;
   border: 1px solid #dedede;
   border-radius: 5px;
+}
+.data-retention h1 {
+  font-size: 16.38px; 
+  color: #000000D9; 
+  font-weight: 400;
+}
+.data-retention b{
+  color: #000000A6;
 }
 
 .submenu ul {
