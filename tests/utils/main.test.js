@@ -325,11 +325,14 @@ describe('EmailService.sendAlert', () => {
 
     const result = await EmailService.sendAlert('Test message', 'Test type', { appName: 'TestApp', environmentName: 'TestEnv' });
 
+    // Updated 'html' expectation using regex
     expect(mockTransporter.sendMail).toHaveBeenCalledWith(expect.objectContaining({
       from: 'sender@example.com',
       to: 'receiver@example.com',
       subject: 'Errsole: Test type (TestApp app, TestEnv environment)',
-      html: expect.stringContaining('<p><b>App Name: TestApp\nEnvironment Name: TestEnv</b></p>')
+      html: expect.stringMatching(
+        /<p><b>App Name:<\/b> TestApp<\/p>\s*<p><b>Environment Name:<\/b> TestEnv<\/p><br\/><pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message<\/pre>/
+      )
     }));
     expect(result).toBe(true);
   });
@@ -369,8 +372,8 @@ describe('EmailService.sendAlert', () => {
     mockStorageConnection.getConfig.mockResolvedValue(mockConfig);
 
     const result = await EmailService.sendAlert('Test message', 'Test type', {});
-    expect(result).toBe(false); // Expect result to be false when email integration is disabled
-    // Removed the console.log expectation since it's not in the function code
+    expect(result).toBe(false); // Expecting result to be false when email integration is disabled.
+    // No need to check console.log as it's not used in the function
   });
 
   it('should construct email with appName and environmentName', async () => {
@@ -400,7 +403,9 @@ describe('EmailService.sendAlert', () => {
       from: 'sender@example.com',
       to: 'receiver@example.com',
       subject: 'Errsole: Test type (TestApp app, TestEnv environment)',
-      html: expect.stringContaining('<p><b>App Name: TestApp\nEnvironment Name: TestEnv</b></p>')
+      html: expect.stringMatching(
+        /<p><b>App Name:<\/b> TestApp<\/p>\s*<p><b>Environment Name:<\/b> TestEnv<\/p><br\/><pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message<\/pre>/
+      )
     }));
     expect(result).toBe(true);
   });
@@ -432,7 +437,9 @@ describe('EmailService.sendAlert', () => {
       from: 'sender@example.com',
       to: 'receiver@example.com',
       subject: 'Errsole: Test type (TestEnv environment)',
-      html: expect.stringContaining('<p><b>Environment Name: TestEnv</b></p>')
+      html: expect.stringMatching(
+        /<p><b>Environment Name:<\/b> TestEnv<\/p><br\/><pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message<\/pre>/
+      )
     }));
     expect(result).toBe(true);
   });
