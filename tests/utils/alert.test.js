@@ -2,7 +2,7 @@ const { getStorageConnection } = require('../../lib/main/server/storageConnectio
 const axios = require('axios');
 const nodemailer = require('nodemailer');
 const { EmailService, SlackService, testSlackAlert, testEmailAlert, clearEmailTransport, customLoggerAlert, handleUncaughtExceptions } = require('../../lib/main/server/utils/alerts'); // Adjust the path as needed
-/* globals expect, jest, beforeEach, describe,  beforeAll, afterAll, it, afterEach */
+/* globals expect, jest, beforeEach, describe, beforeAll, afterAll, it, afterEach */
 
 jest.mock('axios');
 jest.mock('nodemailer');
@@ -110,11 +110,12 @@ describe('EmailService', () => {
 
     const result = await EmailService.sendAlert('Test message', 'Test type', { appName: 'TestApp', environmentName: 'TestEnv' });
 
+    // Use a regular expression to match the 'html' content, allowing for flexible whitespace
     expect(mockTransporter.sendMail).toHaveBeenCalledWith(expect.objectContaining({
       from: 'sender@example.com',
       to: 'receiver@example.com',
       subject: 'Errsole: Test type (TestApp app, TestEnv environment)',
-      html: '<p><b>App Name: TestApp\nEnvironment Name: TestEnv</b></p><br/><pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message</pre>'
+      html: expect.stringMatching(/<p><b>App Name:<\/b> TestApp<\/p>\s*<p><b>Environment Name:<\/b> TestEnv<\/p><br\/><pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message<\/pre>/)
     }));
     expect(result).toBe(true);
   });
@@ -185,7 +186,7 @@ describe('EmailService', () => {
       from: 'sender@example.com',
       to: 'receiver@example.com',
       subject: 'Errsole: Test type (TestApp app, TestEnv environment)',
-      html: '<p><b>App Name: TestApp\nEnvironment Name: TestEnv</b></p><br/><pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message</pre>'
+      html: expect.stringMatching(/<p><b>App Name:<\/b> TestApp<\/p>\s*<p><b>Environment Name:<\/b> TestEnv<\/p><br\/><pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message<\/pre>/)
     }));
   });
 
@@ -217,7 +218,7 @@ describe('EmailService', () => {
       from: 'sender@example.com',
       to: 'receiver@example.com',
       subject: 'Errsole: Test type (TestApp app)',
-      html: '<p><b>App Name: TestApp</b></p><br/><pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message</pre>'
+      html: expect.stringMatching(/<p><b>App Name:<\/b> TestApp<\/p><br\/><pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message<\/pre>/)
     }));
   });
 
@@ -249,7 +250,7 @@ describe('EmailService', () => {
       from: 'sender@example.com',
       to: 'receiver@example.com',
       subject: 'Errsole: Test type (TestEnv environment)',
-      html: '<p><b>Environment Name: TestEnv</b></p><br/><pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message</pre>'
+      html: expect.stringMatching(/<p><b>Environment Name:<\/b> TestEnv<\/p><br\/><pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message<\/pre>/)
     }));
   });
 
@@ -379,6 +380,7 @@ describe('SlackService', () => {
     });
 
     const result = await SlackService.sendAlert('Test message', 'Test type', {});
+
     expect(console.error).toHaveBeenCalledWith('Failed to send slack alert:', expect.any(Error));
     expect(result).toBe(false);
   });
@@ -390,6 +392,7 @@ describe('SlackService', () => {
     mockStorageConnection.getConfig.mockResolvedValue(mockConfig);
 
     const result = await SlackService.sendAlert('Test message', 'Test type', {});
+
     expect(result).toBe(false);
   });
 });
