@@ -392,6 +392,7 @@ body {
 
 .ant-collapse-extra {
   display: none;
+  min-width: 175px;
 }
 
 .ant-collapse-extra button {
@@ -402,16 +403,18 @@ body {
 }
 
 .ant-collapse-item-active .ant-collapse-extra {
-  margin: -27px 0 0 0;
+  margin: 0px;
   display: block;
+  width: fit-content;
+  min-width: fit-content;
 }
 
 .ant-collapse-item-active .panel-details {
-  padding-right: 200px;
+  padding-right: 20px;
 }
 
 .ant-collapse-item-active .panel-details-no-meta {
-  padding-right: 150px;
+  padding-right: 20px;
 }
 
 .log-meta-div {
@@ -428,7 +431,7 @@ body {
 }
 
 .ant-collapse-item-active .meta-log {
-  padding-right: 100px;
+  padding-right: 20px;
 }
 
 .log-details {
@@ -449,4 +452,9 @@ body {
 
 .feedback-message p {
   margin: 0px;
+}
+
+.ant-collapse-header-text {
+  white-space: nowrap;
+  overflow: hidden;
 }
