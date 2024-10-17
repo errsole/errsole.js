@@ -112,12 +112,14 @@ describe('EmailService', () => {
 
     const result = await EmailService.sendAlert('Test message', 'Test type', { appName: 'TestApp', environmentName: 'TestEnv' });
 
-    // Use a regular expression to match the 'html' content, allowing for flexible whitespace
+    // Corrected regex: <pre> comes before <br/>
     expect(mockTransporter.sendMail).toHaveBeenCalledWith(expect.objectContaining({
       from: 'sender@example.com',
       to: 'receiver@example.com',
       subject: 'Errsole: Test type (TestApp app, TestEnv environment)',
-      html: expect.stringMatching(/<p><b>App Name:<\/b> TestApp<\/p>\s*<p><b>Environment Name:<\/b> TestEnv<\/p><br\/><pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message<\/pre>/)
+      html: expect.stringMatching(
+        /<p><b>App Name:<\/b> TestApp<\/p>\s*<p><b>Environment Name:<\/b> TestEnv<\/p><pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message<\/pre><br\/><p style="margin:0px;font-size:small"><i>Note:<ul style="margin:0px;padding:0px 5px;"><li>You will not receive another notification for this error on this server within the current hour\.<\/li><li>Errsole uses the UTC timezone in notifications\.<\/li><\/ul><\/i><\/p>/
+      )
     }));
     expect(result).toBe(true);
   });
@@ -188,7 +190,9 @@ describe('EmailService', () => {
       from: 'sender@example.com',
       to: 'receiver@example.com',
       subject: 'Errsole: Test type (TestApp app, TestEnv environment)',
-      html: expect.stringMatching(/<p><b>App Name:<\/b> TestApp<\/p>\s*<p><b>Environment Name:<\/b> TestEnv<\/p><br\/><pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message<\/pre>/)
+      html: expect.stringMatching(
+        /<p><b>App Name:<\/b> TestApp<\/p>\s*<p><b>Environment Name:<\/b> TestEnv<\/p><pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message<\/pre><br\/><p style="margin:0px;font-size:small"><i>Note:<ul style="margin:0px;padding:0px 5px;"><li>You will not receive another notification for this error on this server within the current hour\.<\/li><li>Errsole uses the UTC timezone in notifications\.<\/li><\/ul><\/i><\/p>/
+      )
     }));
   });
 
@@ -220,7 +224,9 @@ describe('EmailService', () => {
       from: 'sender@example.com',
       to: 'receiver@example.com',
       subject: 'Errsole: Test type (TestApp app)',
-      html: expect.stringMatching(/<p><b>App Name:<\/b> TestApp<\/p><br\/><pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message<\/pre>/)
+      html: expect.stringMatching(
+        /<p><b>App Name:<\/b> TestApp<\/p><pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message<\/pre><br\/><p style="margin:0px;font-size:small"><i>Note:<ul style="margin:0px;padding:0px 5px;"><li>You will not receive another notification for this error on this server within the current hour\.<\/li><li>Errsole uses the UTC timezone in notifications\.<\/li><\/ul><\/i><\/p>/
+      )
     }));
   });
 
@@ -252,7 +258,9 @@ describe('EmailService', () => {
       from: 'sender@example.com',
       to: 'receiver@example.com',
       subject: 'Errsole: Test type (TestEnv environment)',
-      html: expect.stringMatching(/<p><b>Environment Name:<\/b> TestEnv<\/p><br\/><pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message<\/pre>/)
+      html: expect.stringMatching(
+        /<p><b>Environment Name:<\/b> TestEnv<\/p><pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message<\/pre><br\/><p style="margin:0px;font-size:small"><i>Note:<ul style="margin:0px;padding:0px 5px;"><li>You will not receive another notification for this error on this server within the current hour\.<\/li><li>Errsole uses the UTC timezone in notifications\.<\/li><\/ul><\/i><\/p>/
+      )
     }));
   });
 
@@ -284,7 +292,9 @@ describe('EmailService', () => {
       from: 'sender@example.com',
       to: 'receiver@example.com',
       subject: 'Errsole: Test type',
-      html: 'Test message'
+      html: expect.stringMatching(
+        /<pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message<\/pre><br\/><p style="margin:0px;font-size:small"><i>Note:<ul style="margin:0px;padding:0px 5px;"><li>You will not receive another notification for this error on this server within the current hour\.<\/li><li>Errsole uses the UTC timezone in notifications\.<\/li><\/ul><\/i><\/p>/
+      )
     }));
   });
 });
@@ -511,5 +521,200 @@ describe('EmailService.clearEmailTransport', () => {
     const result = await clearEmailTransport();
     expect(result).toBe(true);
     expect(EmailService.transporter).toBe(null);
+  });
+});
+
+describe('customLoggerAlert', () => {
+  beforeEach(() => {
+    // Mock SlackService.sendAlert and EmailService.sendAlert as Jest functions
+    SlackService.sendAlert = jest.fn();
+    EmailService.sendAlert = jest.fn();
+  });
+
+  it('should send both Slack and email alerts successfully and return true', async () => {
+    // Mock successful responses for both alerts
+    SlackService.sendAlert.mockResolvedValue(true);
+    EmailService.sendAlert.mockResolvedValue(true);
+
+    const result = await customLoggerAlert('Test message', { appName: 'TestApp' }, 'logId123');
+
+    expect(SlackService.sendAlert).toHaveBeenCalledWith(
+      'Test message',
+      'Alert',
+      { appName: 'TestApp' },
+      'logId123',
+      expect.any(Number) // Allow any number for todayCount
+    );
+    expect(EmailService.sendAlert).toHaveBeenCalledWith(
+      'Test message',
+      'Alert',
+      { appName: 'TestApp' },
+      'logId123',
+      expect.any(Number) // Allow any number for todayCount
+    );
+    expect(result).toBe(true);
+  });
+
+  it('should return false when email alert fails but Slack alert succeeds', async () => {
+    // Simulate Slack alert succeeding and Email alert failing
+    SlackService.sendAlert.mockResolvedValue(true); // Slack succeeds
+    EmailService.sendAlert.mockRejectedValue(new Error('Email failed')); // Email fails
+
+    const result = await customLoggerAlert('Test message', { appName: 'TestApp' }, 'logId123');
+
+    expect(SlackService.sendAlert).toHaveBeenCalledWith(
+      'Test message',
+      'Alert',
+      { appName: 'TestApp' },
+      'logId123',
+      expect.any(Number)
+    );
+    expect(EmailService.sendAlert).toHaveBeenCalledWith(
+      'Test message',
+      'Alert',
+      { appName: 'TestApp' },
+      'logId123',
+      expect.any(Number)
+    );
+    expect(result).toBe(false);
+    expect(console.error).toHaveBeenCalledWith('Error in customLoggerAlert:', expect.any(Error));
+  });
+
+  it('should return false when Slack alert fails but email alert succeeds', async () => {
+    // Simulate Slack alert failing
+    SlackService.sendAlert.mockRejectedValueOnce(new Error('Slack failed'));
+    // Even if Email alert is set to succeed, it should not be called
+    EmailService.sendAlert.mockResolvedValueOnce(true);
+
+    const result = await customLoggerAlert('Test message', { appName: 'TestApp' }, 'logId123');
+
+    expect(SlackService.sendAlert).toHaveBeenCalledWith(
+      'Test message',
+      'Alert',
+      { appName: 'TestApp' },
+      'logId123',
+      expect.any(Number)
+    );
+    // EmailService.sendAlert should NOT have been called
+    expect(EmailService.sendAlert).not.toHaveBeenCalled();
+    expect(result).toBe(false);
+    expect(console.error).toHaveBeenCalledWith('Error in customLoggerAlert:', expect.any(Error));
+  });
+
+  it('should return false when both Slack and email alerts fail', async () => {
+    // Simulate both alerts failing
+    SlackService.sendAlert.mockRejectedValueOnce(new Error('Slack failed'));
+    EmailService.sendAlert.mockRejectedValueOnce(new Error('Email failed')); // This should NOT be called
+
+    const result = await customLoggerAlert('Test message', { appName: 'TestApp' }, 'logId123');
+
+    expect(SlackService.sendAlert).toHaveBeenCalledWith(
+      'Test message',
+      'Alert',
+      { appName: 'TestApp' },
+      'logId123',
+      expect.any(Number)
+    );
+    // EmailService.sendAlert should NOT have been called
+    expect(EmailService.sendAlert).not.toHaveBeenCalled();
+    expect(result).toBe(false);
+    expect(console.error).toHaveBeenCalledWith('Error in customLoggerAlert:', expect.any(Error));
+  });
+});
+describe('handleUncaughtExceptions', () => {
+  beforeEach(() => {
+    // Mock SlackService.sendAlert and EmailService.sendAlert as Jest functions
+    SlackService.sendAlert = jest.fn();
+    EmailService.sendAlert = jest.fn();
+  });
+
+  it('should send both Slack and email alerts successfully and return true', async () => {
+    // Mock successful responses for both alerts
+    SlackService.sendAlert.mockResolvedValue(true);
+    EmailService.sendAlert.mockResolvedValue(true);
+
+    const result = await handleUncaughtExceptions('Test message', { appName: 'TestApp' }, 'logId123');
+
+    expect(SlackService.sendAlert).toHaveBeenCalledWith(
+      'Test message',
+      'Uncaught Exception',
+      { appName: 'TestApp' },
+      'logId123',
+      expect.any(Number) // Allow any number for todayCount
+    );
+    expect(EmailService.sendAlert).toHaveBeenCalledWith(
+      'Test message',
+      'Uncaught Exception',
+      { appName: 'TestApp' },
+      'logId123',
+      expect.any(Number)
+    );
+    expect(result).toBe(true);
+  });
+
+  it('should return false when email alert fails but Slack alert succeeds', async () => {
+    // Simulate Slack alert succeeding and Email alert failing
+    SlackService.sendAlert.mockResolvedValue(true); // Slack succeeds
+    EmailService.sendAlert.mockRejectedValue(new Error('Email failed')); // Email fails
+
+    const result = await handleUncaughtExceptions('Test message', { appName: 'TestApp' }, 'logId123');
+
+    expect(SlackService.sendAlert).toHaveBeenCalledWith(
+      'Test message',
+      'Uncaught Exception',
+      { appName: 'TestApp' },
+      'logId123',
+      expect.any(Number)
+    );
+    expect(EmailService.sendAlert).toHaveBeenCalledWith(
+      'Test message',
+      'Uncaught Exception',
+      { appName: 'TestApp' },
+      'logId123',
+      expect.any(Number)
+    );
+    expect(result).toBe(false);
+    expect(console.error).toHaveBeenCalledWith('Error in handleUncaughtExceptions:', expect.any(Error));
+  });
+
+  it('should return false when Slack alert fails but email alert succeeds', async () => {
+    // Simulate Slack alert failing
+    SlackService.sendAlert.mockRejectedValueOnce(new Error('Slack failed'));
+    // Even if Email alert is set to succeed, it should not be called
+    EmailService.sendAlert.mockResolvedValueOnce(true);
+
+    const result = await handleUncaughtExceptions('Test message', { appName: 'TestApp' }, 'logId123');
+
+    expect(SlackService.sendAlert).toHaveBeenCalledWith(
+      'Test message',
+      'Uncaught Exception',
+      { appName: 'TestApp' },
+      'logId123',
+      expect.any(Number)
+    );
+    // EmailService.sendAlert should NOT have been called
+    expect(EmailService.sendAlert).not.toHaveBeenCalled();
+    expect(result).toBe(false);
+    expect(console.error).toHaveBeenCalledWith('Error in handleUncaughtExceptions:', expect.any(Error));
+  });
+
+  it('should return false when both Slack and email alerts fail', async () => {
+    // Simulate both alerts failing
+    SlackService.sendAlert.mockRejectedValueOnce(new Error('Slack failed'));
+    EmailService.sendAlert.mockRejectedValueOnce(new Error('Email failed')); // This should NOT be called
+
+    const result = await handleUncaughtExceptions('Test message', { appName: 'TestApp' }, 'logId123');
+
+    expect(SlackService.sendAlert).toHaveBeenCalledWith(
+      'Test message',
+      'Uncaught Exception',
+      { appName: 'TestApp' },
+      'logId123',
+      expect.any(Number)
+    );
+    // EmailService.sendAlert should NOT have been called
+    expect(EmailService.sendAlert).not.toHaveBeenCalled();
+    expect(result).toBe(false);
+    expect(console.error).toHaveBeenCalledWith('Error in handleUncaughtExceptions:', expect.any(Error));
   });
 });

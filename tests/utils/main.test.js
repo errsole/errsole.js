@@ -288,7 +288,7 @@ describe('SlackService.sendAlert', () => {
   });
 });
 
-describe('EmailService.sendAlert', () => {
+describe('EmailService.sendAlert2', () => {
   let mockStorageConnection;
 
   beforeEach(() => {
@@ -331,7 +331,7 @@ describe('EmailService.sendAlert', () => {
       to: 'receiver@example.com',
       subject: 'Errsole: Test type (TestApp app, TestEnv environment)',
       html: expect.stringMatching(
-        /<p><b>App Name:<\/b> TestApp<\/p>\s*<p><b>Environment Name:<\/b> TestEnv<\/p><br\/><pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message<\/pre>/
+        /<p><b>App Name:<\/b> TestApp<\/p>\s*<p><b>Environment Name:<\/b> TestEnv<\/p><pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message<\/pre><br\/><p style="margin:0px;font-size:small"><i>Note:<ul style="margin:0px;padding:0px 5px;"><li>You will not receive another notification for this error on this server within the current hour\.<\/li><li>Errsole uses the UTC timezone in notifications\.<\/li><\/ul><\/i><\/p>/
       )
     }));
     expect(result).toBe(true);
@@ -404,7 +404,7 @@ describe('EmailService.sendAlert', () => {
       to: 'receiver@example.com',
       subject: 'Errsole: Test type (TestApp app, TestEnv environment)',
       html: expect.stringMatching(
-        /<p><b>App Name:<\/b> TestApp<\/p>\s*<p><b>Environment Name:<\/b> TestEnv<\/p><br\/><pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message<\/pre>/
+        /<p><b>App Name:<\/b> TestApp<\/p>\s*<p><b>Environment Name:<\/b> TestEnv<\/p><pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message<\/pre><br\/><p style="margin:0px;font-size:small"><i>Note:<ul style="margin:0px;padding:0px 5px;"><li>You will not receive another notification for this error on this server within the current hour\.<\/li><li>Errsole uses the UTC timezone in notifications\.<\/li><\/ul><\/i><\/p>/
       )
     }));
     expect(result).toBe(true);
@@ -438,7 +438,7 @@ describe('EmailService.sendAlert', () => {
       to: 'receiver@example.com',
       subject: 'Errsole: Test type (TestEnv environment)',
       html: expect.stringMatching(
-        /<p><b>Environment Name:<\/b> TestEnv<\/p><br\/><pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message<\/pre>/
+        /<p><b>Environment Name:<\/b> TestEnv<\/p><pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message<\/pre><br\/><p style="margin:0px;font-size:small"><i>Note:<ul style="margin:0px;padding:0px 5px;"><li>You will not receive another notification for this error on this server within the current hour\.<\/li><li>Errsole uses the UTC timezone in notifications\.<\/li><\/ul><\/i><\/p>/
       )
     }));
     expect(result).toBe(true);
@@ -471,7 +471,9 @@ describe('EmailService.sendAlert', () => {
       from: 'sender@example.com',
       to: 'receiver@example.com',
       subject: 'Errsole: Test type',
-      html: 'Test message'
+      html: expect.stringMatching(
+        /<pre style="border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px;">Test message<\/pre><br\/><p style="margin:0px;font-size:small"><i>Note:<ul style="margin:0px;padding:0px 5px;"><li>You will not receive another notification for this error on this server within the current hour\.<\/li><li>Errsole uses the UTC timezone in notifications\.<\/li><\/ul><\/i><\/p>/
+      )
     }));
     expect(result).toBe(true);
   });
