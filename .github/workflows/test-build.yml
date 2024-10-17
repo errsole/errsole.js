@@ -1,0 +1,29 @@
+name: Test Errsole web build package
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm install
+
+      # Run tests with coverage
+      - run: npm test -- --coverage
+        continue-on-error: false
+      
+      # Build the project
+      - run: npm run build:web
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
+      - run: rm -rf lib/web/src/
+      - run: rm -rf benchmarks/
+      
