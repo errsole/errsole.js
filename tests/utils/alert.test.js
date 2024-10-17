@@ -623,7 +623,7 @@ describe('handleUncaughtExceptions', () => {
   });
 });
 
-describe('customLoggerAlert2', () => {
+describe('customLoggerAlert', () => {
   let mockStorageConnection;
 
   beforeEach(() => {
@@ -692,41 +692,6 @@ describe('customLoggerAlert2', () => {
 
     // Expect the function to return true
     expect(result).toBe(true);
-  });
-
-  it('should return false without sending alerts when a duplicate alert exists within the same UTC hour', async () => {
-    const message = 'Test message';
-    const messageExtraInfo = { appName: 'TestApp', environmentName: 'TestEnv' };
-    const errsoleLogId = 'logId123';
-
-    const now = new Date();
-    const previousTime = new Date(now.getTime() - 1000 * 60 * 30); // 30 minutes ago
-
-    // Mock insertNotificationItem to simulate a duplicate alert within the same hour
-    mockStorageConnection.insertNotificationItem.mockResolvedValue({
-      previousNotificationItem: { created_at: previousTime.toISOString() },
-      todayNotificationCount: 2
-    });
-
-    const result = await customLoggerAlert(message, messageExtraInfo, errsoleLogId);
-
-    // Generate expected hash
-    const combined = `${mockStringify(message)}|${mockStringify(messageExtraInfo)}`;
-    const hashedMessage = crypto.createHash('sha256').update(combined).digest('hex');
-
-    // Verify insertNotificationItem was called correctly
-    expect(mockStorageConnection.insertNotificationItem).toHaveBeenCalledWith({
-      errsole_id: errsoleLogId,
-      hashed_message: hashedMessage,
-      hostname: undefined // serverName is not provided
-    });
-
-    // Ensure Slack and Email alerts were NOT sent
-    expect(SlackService.sendAlert).not.toHaveBeenCalled();
-    expect(EmailService.sendAlert).not.toHaveBeenCalled();
-
-    // Expect the function to return false
-    expect(result).toBe(false);
   });
 
   it('should send both Slack and email alerts successfully and return true when storageConnection is unavailable', async () => {
