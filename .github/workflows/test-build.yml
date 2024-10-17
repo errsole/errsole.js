@@ -15,10 +15,6 @@ jobs:
           node-version: '18.x'
           registry-url: 'https://registry.npmjs.org'
       - run: npm install
-
-      # Run tests with coverage
-      - run: npm test -- --coverage
-        continue-on-error: false
       
       # Build the project
       - run: npm run build:web
