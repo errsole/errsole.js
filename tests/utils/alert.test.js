@@ -3,6 +3,7 @@ const axios = require('axios');
 const nodemailer = require('nodemailer');
 const { EmailService, SlackService, testSlackAlert, testEmailAlert, clearEmailTransport, customLoggerAlert, handleUncaughtExceptions } = require('../../lib/main/server/utils/alerts'); // Adjust the path as needed
 /* globals expect, jest, beforeEach, describe, beforeAll, afterAll, it, afterEach */
+const crypto = require('crypto');
 
 jest.mock('axios');
 jest.mock('nodemailer');
@@ -524,103 +525,6 @@ describe('EmailService.clearEmailTransport', () => {
   });
 });
 
-describe('customLoggerAlert', () => {
-  beforeEach(() => {
-    // Mock SlackService.sendAlert and EmailService.sendAlert as Jest functions
-    SlackService.sendAlert = jest.fn();
-    EmailService.sendAlert = jest.fn();
-  });
-
-  it('should send both Slack and email alerts successfully and return true', async () => {
-    // Mock successful responses for both alerts
-    SlackService.sendAlert.mockResolvedValue(true);
-    EmailService.sendAlert.mockResolvedValue(true);
-
-    const result = await customLoggerAlert('Test message', { appName: 'TestApp' }, 'logId123');
-
-    expect(SlackService.sendAlert).toHaveBeenCalledWith(
-      'Test message',
-      'Alert',
-      { appName: 'TestApp' },
-      'logId123',
-      expect.any(Number) // Allow any number for todayCount
-    );
-    expect(EmailService.sendAlert).toHaveBeenCalledWith(
-      'Test message',
-      'Alert',
-      { appName: 'TestApp' },
-      'logId123',
-      expect.any(Number) // Allow any number for todayCount
-    );
-    expect(result).toBe(true);
-  });
-
-  it('should return false when email alert fails but Slack alert succeeds', async () => {
-    // Simulate Slack alert succeeding and Email alert failing
-    SlackService.sendAlert.mockResolvedValue(true); // Slack succeeds
-    EmailService.sendAlert.mockRejectedValue(new Error('Email failed')); // Email fails
-
-    const result = await customLoggerAlert('Test message', { appName: 'TestApp' }, 'logId123');
-
-    expect(SlackService.sendAlert).toHaveBeenCalledWith(
-      'Test message',
-      'Alert',
-      { appName: 'TestApp' },
-      'logId123',
-      expect.any(Number)
-    );
-    expect(EmailService.sendAlert).toHaveBeenCalledWith(
-      'Test message',
-      'Alert',
-      { appName: 'TestApp' },
-      'logId123',
-      expect.any(Number)
-    );
-    expect(result).toBe(false);
-    expect(console.error).toHaveBeenCalledWith('Error in customLoggerAlert:', expect.any(Error));
-  });
-
-  it('should return false when Slack alert fails but email alert succeeds', async () => {
-    // Simulate Slack alert failing
-    SlackService.sendAlert.mockRejectedValueOnce(new Error('Slack failed'));
-    // Even if Email alert is set to succeed, it should not be called
-    EmailService.sendAlert.mockResolvedValueOnce(true);
-
-    const result = await customLoggerAlert('Test message', { appName: 'TestApp' }, 'logId123');
-
-    expect(SlackService.sendAlert).toHaveBeenCalledWith(
-      'Test message',
-      'Alert',
-      { appName: 'TestApp' },
-      'logId123',
-      expect.any(Number)
-    );
-    // EmailService.sendAlert should NOT have been called
-    expect(EmailService.sendAlert).not.toHaveBeenCalled();
-    expect(result).toBe(false);
-    expect(console.error).toHaveBeenCalledWith('Error in customLoggerAlert:', expect.any(Error));
-  });
-
-  it('should return false when both Slack and email alerts fail', async () => {
-    // Simulate both alerts failing
-    SlackService.sendAlert.mockRejectedValueOnce(new Error('Slack failed'));
-    EmailService.sendAlert.mockRejectedValueOnce(new Error('Email failed')); // This should NOT be called
-
-    const result = await customLoggerAlert('Test message', { appName: 'TestApp' }, 'logId123');
-
-    expect(SlackService.sendAlert).toHaveBeenCalledWith(
-      'Test message',
-      'Alert',
-      { appName: 'TestApp' },
-      'logId123',
-      expect.any(Number)
-    );
-    // EmailService.sendAlert should NOT have been called
-    expect(EmailService.sendAlert).not.toHaveBeenCalled();
-    expect(result).toBe(false);
-    expect(console.error).toHaveBeenCalledWith('Error in customLoggerAlert:', expect.any(Error));
-  });
-});
 describe('handleUncaughtExceptions', () => {
   beforeEach(() => {
     // Mock SlackService.sendAlert and EmailService.sendAlert as Jest functions
@@ -716,5 +620,359 @@ describe('handleUncaughtExceptions', () => {
     expect(EmailService.sendAlert).not.toHaveBeenCalled();
     expect(result).toBe(false);
     expect(console.error).toHaveBeenCalledWith('Error in handleUncaughtExceptions:', expect.any(Error));
+  });
+});
+
+describe('customLoggerAlert2', () => {
+  let mockStorageConnection;
+
+  beforeEach(() => {
+    mockStorageConnection = {
+      insertNotificationItem: jest.fn()
+    };
+    getStorageConnection.mockReturnValue(mockStorageConnection);
+    // Mock SlackService.sendAlert and EmailService.sendAlert
+    SlackService.sendAlert = jest.fn();
+    EmailService.sendAlert = jest.fn();
+    console.error.mockClear(); // Clear previous error logs
+  });
+
+  const mockStringify = (input) => {
+    if (typeof input === 'string') return input;
+    try {
+      return JSON.stringify(input);
+    } catch {
+      return String(input);
+    }
+  };
+
+  it('should send both Slack and email alerts successfully and return true when no duplicate exists', async () => {
+    const message = 'Test message';
+    const messageExtraInfo = { appName: 'TestApp', environmentName: 'TestEnv' };
+    const errsoleLogId = 'logId123';
+
+    // Mock insertNotificationItem to simulate no previous alert
+    mockStorageConnection.insertNotificationItem.mockResolvedValue({
+      previousNotificationItem: null,
+      todayNotificationCount: 1
+    });
+
+    // Mock successful alert sending
+    SlackService.sendAlert.mockResolvedValue(true);
+    EmailService.sendAlert.mockResolvedValue(true);
+
+    const result = await customLoggerAlert(message, messageExtraInfo, errsoleLogId);
+
+    // Generate expected hash
+    const combined = `${mockStringify(message)}|${mockStringify(messageExtraInfo)}`;
+    const hashedMessage = crypto.createHash('sha256').update(combined).digest('hex');
+
+    // Verify insertNotificationItem was called correctly
+    expect(mockStorageConnection.insertNotificationItem).toHaveBeenCalledWith({
+      errsole_id: errsoleLogId,
+      hashed_message: hashedMessage,
+      hostname: undefined // serverName is not provided
+    });
+
+    // Verify Slack and Email alerts were sent
+    expect(SlackService.sendAlert).toHaveBeenCalledWith(
+      message,
+      'Alert',
+      messageExtraInfo,
+      errsoleLogId,
+      1 // todayCount
+    );
+    expect(EmailService.sendAlert).toHaveBeenCalledWith(
+      message,
+      'Alert',
+      messageExtraInfo,
+      errsoleLogId,
+      1 // todayCount
+    );
+
+    // Expect the function to return true
+    expect(result).toBe(true);
+  });
+
+  it('should return false without sending alerts when a duplicate alert exists within the same UTC hour', async () => {
+    const message = 'Test message';
+    const messageExtraInfo = { appName: 'TestApp', environmentName: 'TestEnv' };
+    const errsoleLogId = 'logId123';
+
+    const now = new Date();
+    const previousTime = new Date(now.getTime() - 1000 * 60 * 30); // 30 minutes ago
+
+    // Mock insertNotificationItem to simulate a duplicate alert within the same hour
+    mockStorageConnection.insertNotificationItem.mockResolvedValue({
+      previousNotificationItem: { created_at: previousTime.toISOString() },
+      todayNotificationCount: 2
+    });
+
+    const result = await customLoggerAlert(message, messageExtraInfo, errsoleLogId);
+
+    // Generate expected hash
+    const combined = `${mockStringify(message)}|${mockStringify(messageExtraInfo)}`;
+    const hashedMessage = crypto.createHash('sha256').update(combined).digest('hex');
+
+    // Verify insertNotificationItem was called correctly
+    expect(mockStorageConnection.insertNotificationItem).toHaveBeenCalledWith({
+      errsole_id: errsoleLogId,
+      hashed_message: hashedMessage,
+      hostname: undefined // serverName is not provided
+    });
+
+    // Ensure Slack and Email alerts were NOT sent
+    expect(SlackService.sendAlert).not.toHaveBeenCalled();
+    expect(EmailService.sendAlert).not.toHaveBeenCalled();
+
+    // Expect the function to return false
+    expect(result).toBe(false);
+  });
+
+  it('should send both Slack and email alerts successfully and return true when storageConnection is unavailable', async () => {
+    const message = 'Test message';
+    const messageExtraInfo = { appName: 'TestApp', environmentName: 'TestEnv' };
+    const errsoleLogId = 'logId123';
+
+    // Simulate storageConnection being unavailable
+    getStorageConnection.mockReturnValue(null);
+
+    // Mock successful alert sending
+    SlackService.sendAlert.mockResolvedValue(true);
+    EmailService.sendAlert.mockResolvedValue(true);
+
+    const result = await customLoggerAlert(message, messageExtraInfo, errsoleLogId);
+
+    // Generate expected hash using fallback stringification
+    const combined = `${mockStringify(message)}|${mockStringify(messageExtraInfo)}`;
+    const hashedMessage = crypto.createHash('sha256').update(combined).digest('hex');
+
+    // Verify insertNotificationItem was NOT called since storageConnection is unavailable
+    expect(mockStorageConnection.insertNotificationItem).not.toHaveBeenCalled();
+
+    // Verify Slack and Email alerts were sent with todayCount as 0
+    expect(SlackService.sendAlert).toHaveBeenCalledWith(
+      message,
+      'Alert',
+      messageExtraInfo,
+      errsoleLogId,
+      0 // todayCount
+    );
+    expect(EmailService.sendAlert).toHaveBeenCalledWith(
+      message,
+      'Alert',
+      messageExtraInfo,
+      errsoleLogId,
+      0 // todayCount
+    );
+
+    // Expect the function to return true
+    expect(result).toBe(true);
+  });
+
+  it('should correctly handle non-string inputs by stringifying them and return true', async () => {
+    const message = { text: 'Test message' };
+    const messageExtraInfo = { appName: 'TestApp', environmentName: 'TestEnv', serverName: 'TestServer' };
+    const errsoleLogId = 'logId123';
+
+    // Mock insertNotificationItem to simulate no previous alert
+    mockStorageConnection.insertNotificationItem.mockResolvedValue({
+      previousNotificationItem: null,
+      todayNotificationCount: 1
+    });
+
+    // Mock successful alert sending
+    SlackService.sendAlert.mockResolvedValue(true);
+    EmailService.sendAlert.mockResolvedValue(true);
+
+    const result = await customLoggerAlert(message, messageExtraInfo, errsoleLogId);
+
+    // Generate expected hash
+    const combined = `${mockStringify(message)}|${mockStringify(messageExtraInfo)}`;
+    const hashedMessage = crypto.createHash('sha256').update(combined).digest('hex');
+
+    // Verify insertNotificationItem was called correctly
+    expect(mockStorageConnection.insertNotificationItem).toHaveBeenCalledWith({
+      errsole_id: errsoleLogId,
+      hashed_message: hashedMessage,
+      hostname: 'TestServer'
+    });
+
+    // Verify Slack and Email alerts were sent
+    expect(SlackService.sendAlert).toHaveBeenCalledWith(
+      message,
+      'Alert',
+      messageExtraInfo,
+      errsoleLogId,
+      1 // todayCount
+    );
+    expect(EmailService.sendAlert).toHaveBeenCalledWith(
+      message,
+      'Alert',
+      messageExtraInfo,
+      errsoleLogId,
+      1 // todayCount
+    );
+
+    // Expect the function to return true
+    expect(result).toBe(true);
+  });
+
+  it('should handle missing serverName in messageExtraInfo gracefully and return true', async () => {
+    const message = 'Test message';
+    const messageExtraInfo = { appName: 'TestApp', environmentName: 'TestEnv' }; // serverName missing
+    const errsoleLogId = 'logId123';
+
+    // Mock insertNotificationItem to simulate no previous alert
+    mockStorageConnection.insertNotificationItem.mockResolvedValue({
+      previousNotificationItem: null,
+      todayNotificationCount: 1
+    });
+
+    // Mock successful alert sending
+    SlackService.sendAlert.mockResolvedValue(true);
+    EmailService.sendAlert.mockResolvedValue(true);
+
+    const result = await customLoggerAlert(message, messageExtraInfo, errsoleLogId);
+
+    // Generate expected hash
+    const combined = `${mockStringify(message)}|${mockStringify(messageExtraInfo)}`;
+    const hashedMessage = crypto.createHash('sha256').update(combined).digest('hex');
+
+    // Verify insertNotificationItem was called correctly
+    expect(mockStorageConnection.insertNotificationItem).toHaveBeenCalledWith({
+      errsole_id: errsoleLogId,
+      hashed_message: hashedMessage,
+      hostname: undefined // serverName is undefined
+    });
+
+    // Verify Slack and Email alerts were sent
+    expect(SlackService.sendAlert).toHaveBeenCalledWith(
+      message,
+      'Alert',
+      messageExtraInfo,
+      errsoleLogId,
+      1 // todayCount
+    );
+    expect(EmailService.sendAlert).toHaveBeenCalledWith(
+      message,
+      'Alert',
+      messageExtraInfo,
+      errsoleLogId,
+      1 // todayCount
+    );
+
+    // Expect the function to return true
+    expect(result).toBe(true);
+  });
+
+  it('should handle unexpected data from insertNotificationItem and return true', async () => {
+    const message = 'Test message';
+    const messageExtraInfo = { appName: 'TestApp', environmentName: 'TestEnv', serverName: 'TestServer' };
+    const errsoleLogId = 'logId123';
+
+    // Mock insertNotificationItem to return unexpected data structure
+    mockStorageConnection.insertNotificationItem.mockResolvedValue({
+      // Missing previousNotificationItem and todayNotificationCount
+    });
+
+    const result = await customLoggerAlert(message, messageExtraInfo, errsoleLogId);
+
+    // Generate expected hash
+    const combined = `${mockStringify(message)}|${mockStringify(messageExtraInfo)}`;
+    const hashedMessage = crypto.createHash('sha256').update(combined).digest('hex');
+
+    // Verify insertNotificationItem was called correctly
+    expect(mockStorageConnection.insertNotificationItem).toHaveBeenCalledWith({
+      errsole_id: errsoleLogId,
+      hashed_message: hashedMessage,
+      hostname: 'TestServer'
+    });
+
+    // Since todayNotificationCount is undefined, adjust expectations based on implementation
+    // Here, assuming todayCount defaults to 0
+    expect(SlackService.sendAlert).toHaveBeenCalledWith(
+      message,
+      'Alert',
+      messageExtraInfo,
+      errsoleLogId,
+      undefined // todayCount is undefined
+    );
+    expect(EmailService.sendAlert).toHaveBeenCalledWith(
+      message,
+      'Alert',
+      messageExtraInfo,
+      errsoleLogId,
+      undefined // todayCount is undefined
+    );
+
+    // Expect the function to return true
+    expect(result).toBe(true);
+  });
+
+  it('should return false when email alert fails but Slack alert succeeds', async () => {
+    // Simulate Slack alert succeeding and Email alert failing
+    SlackService.sendAlert.mockResolvedValue(true); // Slack succeeds
+    EmailService.sendAlert.mockRejectedValue(new Error('Email failed')); // Email fails
+
+    const result = await customLoggerAlert('Test message', { appName: 'TestApp' }, 'logId123');
+
+    expect(SlackService.sendAlert).toHaveBeenCalledWith(
+      'Test message',
+      'Alert',
+      { appName: 'TestApp' },
+      'logId123',
+      expect.any(Number)
+    );
+    expect(EmailService.sendAlert).toHaveBeenCalledWith(
+      'Test message',
+      'Alert',
+      { appName: 'TestApp' },
+      'logId123',
+      expect.any(Number)
+    );
+    expect(result).toBe(false);
+    expect(console.error).toHaveBeenCalledWith('Error in customLoggerAlert:', expect.any(Error));
+  });
+
+  it('should return false when Slack alert fails but email alert succeeds', async () => {
+    // Simulate Slack alert failing
+    SlackService.sendAlert.mockRejectedValueOnce(new Error('Slack failed'));
+    // Even if Email alert is set to succeed, it should not be called
+    EmailService.sendAlert.mockResolvedValueOnce(true);
+
+    const result = await customLoggerAlert('Test message', { appName: 'TestApp' }, 'logId123');
+
+    expect(SlackService.sendAlert).toHaveBeenCalledWith(
+      'Test message',
+      'Alert',
+      { appName: 'TestApp' },
+      'logId123',
+      expect.any(Number)
+    );
+    // EmailService.sendAlert should NOT have been called
+    expect(EmailService.sendAlert).not.toHaveBeenCalled();
+    expect(result).toBe(false);
+    expect(console.error).toHaveBeenCalledWith('Error in customLoggerAlert:', expect.any(Error));
+  });
+
+  it('should return false when both Slack and email alerts fail', async () => {
+    // Simulate both alerts failing
+    SlackService.sendAlert.mockRejectedValueOnce(new Error('Slack failed'));
+    EmailService.sendAlert.mockRejectedValueOnce(new Error('Email failed')); // This should NOT be called
+
+    const result = await customLoggerAlert('Test message', { appName: 'TestApp' }, 'logId123');
+
+    expect(SlackService.sendAlert).toHaveBeenCalledWith(
+      'Test message',
+      'Alert',
+      { appName: 'TestApp' },
+      'logId123',
+      expect.any(Number)
+    );
+    // EmailService.sendAlert should NOT have been called
+    expect(EmailService.sendAlert).not.toHaveBeenCalled();
+    expect(result).toBe(false);
+    expect(console.error).toHaveBeenCalledWith('Error in customLoggerAlert:', expect.any(Error));
   });
 });
