@@ -57,6 +57,9 @@ A Node.js app using Errsole Logger can handle 90,000 more requests per minute th
 * [Errsole with MySQL](https://github.com/errsole/errsole.js/blob/master/docs/mysql-storage.md)
 * [Errsole with PostgreSQL](https://github.com/errsole/errsole.js/blob/master/docs/postgresql-storage.md)
 
+#### AWS
+* Errsole with CloudWatch (Upcoming)
+
 #### Advanced Configuration
 
 * [Advanced Configuration](https://github.com/errsole/errsole.js/blob/master/docs/advanced-configuration.md)
@@ -72,6 +75,8 @@ A Node.js app using Errsole Logger can handle 90,000 more requests per minute th
 #### Winston with Errsole
 
 * [Winston with Errsole](https://github.com/errsole/errsole.js/blob/master/docs/winston-errsole.md)
+
+#### Pino with Errsole (Upcoming)
 
 ## Useful Links
 
