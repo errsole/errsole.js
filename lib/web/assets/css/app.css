@@ -467,3 +467,33 @@ body {
 .ant-empty-description{
   color:#00000040;
 }
+
+.login-page .login-form {
+  border: 1px solid #efefef !important;
+  border-radius: 8px !important;
+  margin-top: 50px !important;
+  padding: 30px !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 1px 30px 0 rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .login-page .login-form {
+    margin-top: 20px !important;
+    padding: 15px !important;
+    width: 90% !important;
+    box-shadow: none;
+  }
+
+  .login-page .ant-form-item {
+    margin-bottom: 15px !important;
+  }
+
+  .login-page h1 {
+    font-size: 24px !important;
+  }
+
+  .login-page button {
+    font-size: 16px !important;
+  }
+}
