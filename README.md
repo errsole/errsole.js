@@ -78,9 +78,12 @@ A Node.js app using Errsole Logger can handle 90,000 more requests per minute th
 
 #### Pino with Errsole (Upcoming)
 
-## Useful Links
+## FAQs
 
-* [FAQs](https://github.com/errsole/errsole.js/discussions/categories/faqs)
+* [How can I resolve the "Error: listen EADDRINUSE: address already in use :::8001" error?](https://github.com/errsole/errsole.js/discussions/91)
+* [How can I run the Errsole Dashboard on a separate server from my app?](https://github.com/errsole/errsole.js/discussions/113)
+
+## Useful Links
 
 * **Encountering issues?** [Open an issue](https://github.com/errsole/errsole.js/issues/new) on our GitHub repository.
 
