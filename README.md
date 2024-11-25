@@ -47,36 +47,34 @@ A Node.js app using Errsole Logger can handle 90,000 more requests per minute th
 
 ## Setup
 
-#### File-based Logging
+### Development Environment
+If you are using Errsole in your local environment or prefer to store logs directly on the server, you can integrate Errsole with SQLite. SQLite stores databases as files. So, if you use SQLite to store logs, those logs will be stored as a file on the storage system.
 
 * [Errsole with SQLite](https://github.com/errsole/errsole.js/blob/master/docs/sqlite-storage.md)
 
-#### Centralized Logging
+### Production Environment
 
 * [Errsole with MongoDB](https://github.com/errsole/errsole.js/blob/master/docs/mongodb-storage.md)
 * [Errsole with MySQL](https://github.com/errsole/errsole.js/blob/master/docs/mysql-storage.md)
 * [Errsole with PostgreSQL](https://github.com/errsole/errsole.js/blob/master/docs/postgresql-storage.md)
+* Errsole with AWS CloudWatch (Upcoming)
 
-#### AWS
-* Errsole with CloudWatch (Upcoming)
-
-#### Advanced Configuration
+### Advanced Configuration
 
 * [Advanced Configuration](https://github.com/errsole/errsole.js/blob/master/docs/advanced-configuration.md)
 
-#### Custom Logging Functions
+### Custom Logging Functions
 
 * [Custom Logging Functions](https://github.com/errsole/errsole.js/blob/master/docs/custom-logging-functions.md)
 
-#### Web Dashboard Access
+### Web Dashboard Access
 
 * [Web Dashboard Access](https://github.com/errsole/errsole.js/blob/master/docs/web-dashboard-access.md)
 
-#### Winston with Errsole
+### Integrations
 
 * [Winston with Errsole](https://github.com/errsole/errsole.js/blob/master/docs/winston-errsole.md)
-
-#### Pino with Errsole (Upcoming)
+* Pino with Errsole (Upcoming)
 
 ## FAQs
 
