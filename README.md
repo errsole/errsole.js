@@ -47,18 +47,19 @@ A Node.js app using Errsole Logger can handle 90,000 more requests per minute th
 
 ## Setup
 
-#### File-based Logging
+#### Development Environment
+For local development or scenarios where you prefer storing logs directly on the server, you can integrate Errsole with SQLite. When using SQLite, logs will be stored in a file on your machine.
 
 * [Errsole with SQLite](https://github.com/errsole/errsole.js/blob/master/docs/sqlite-storage.md)
 
-#### Centralized Logging
+#### Production Environment
+
+In production environments, where centralized log storage is critical, Errsole offers multiple storage options to fit your needs:
 
 * [Errsole with MongoDB](https://github.com/errsole/errsole.js/blob/master/docs/mongodb-storage.md)
 * [Errsole with MySQL](https://github.com/errsole/errsole.js/blob/master/docs/mysql-storage.md)
 * [Errsole with PostgreSQL](https://github.com/errsole/errsole.js/blob/master/docs/postgresql-storage.md)
-
-#### AWS
-* Errsole with CloudWatch (Upcoming)
+* Errsole with AWS CloudWatch (Upcoming)
 
 #### Advanced Configuration
 
@@ -72,15 +73,17 @@ A Node.js app using Errsole Logger can handle 90,000 more requests per minute th
 
 * [Web Dashboard Access](https://github.com/errsole/errsole.js/blob/master/docs/web-dashboard-access.md)
 
-#### Winston with Errsole
+#### Integrations
 
 * [Winston with Errsole](https://github.com/errsole/errsole.js/blob/master/docs/winston-errsole.md)
+* Pino with Errsole (Upcoming)
 
-#### Pino with Errsole (Upcoming)
+## FAQs
+
+* [How can I resolve the "Error: listen EADDRINUSE: address already in use :::8001" error?](https://github.com/errsole/errsole.js/discussions/91)
+* [How can I run the Errsole Dashboard on a separate server from my app?](https://github.com/errsole/errsole.js/discussions/113)
 
 ## Useful Links
-
-* [FAQs](https://github.com/errsole/errsole.js/discussions/categories/faqs)
 
 * **Encountering issues?** [Open an issue](https://github.com/errsole/errsole.js/issues/new) on our GitHub repository.
 

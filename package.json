@@ -1,6 +1,6 @@
 {
   "name": "errsole",
-  "version": "2.11.2",
+  "version": "2.11.4",
   "description": "Collect, Store, and Visualize Logs with a Single Module",
   "keywords": [
     "log",
