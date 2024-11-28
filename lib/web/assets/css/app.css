@@ -497,3 +497,78 @@ body {
     font-size: 16px !important;
   }
 }
+/* General Sidebar Styling */
+.ant-layout-sider {
+  transition: width 0.3s ease, visibility 0.3s ease;
+  z-index: 1000; /* Ensure it stays above other elements */
+}
+
+/* Hidden Checkbox */
+.menu-checkbox {
+  display: none;
+}
+
+/* Toggle Button for Menu (Only for Mobile) */
+.menu-toggle {
+  display: none; /* Hide toggle button by default */
+  position: absolute;
+  top: 10px;
+  left: 10px; /* Position the toggle button */
+  background: white;
+  color: #001529;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  text-align: center;
+  z-index: 2000; /* Ensure it is above other elements */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile-Specific Behavior */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex; /* Show toggle button in mobile view */
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Sidebar Collapsed State */
+  .menu-checkbox:not(:checked) ~ .ant-layout-sider {
+    display: none; /* Hide the sidebar in mobile view */
+    width: 0; /* Ensure no width is occupied */
+  }
+
+  /* Sidebar Expanded State */
+  .menu-checkbox:checked ~ .ant-layout-sider {
+    display: block; /* Show the sidebar */
+    width: 40%; /* Expand sidebar to 80% of the screen width */
+    position: absolute; /* Position it over the main content */
+    left: 0;
+    height: 100vh; /* Full height for the sidebar */
+    background: #001529; /* Background color */
+    z-index: 1000; /* Place it above other elements */
+  }
+
+  /* Hide the Menu Toggle Button When Sidebar is Expanded */
+  .menu-checkbox:checked + .menu-toggle {
+    display: none; /* Hide the menu icon */
+  }
+}
+
+/* Desktop View (No Changes) */
+@media (min-width: 769px) {
+  .menu-checkbox {
+    display: none; /* Ensure checkbox is hidden */
+  }
+
+  .menu-toggle {
+    display: none; /* Hide toggle button in desktop view */
+  }
+
+  .ant-layout-sider {
+    display: block; /* Sidebar visible by default in desktop view */
+    width: 200px; /* Fixed width for desktop */
+    position: relative;
+  }
+}
