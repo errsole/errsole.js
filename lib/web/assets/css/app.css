@@ -531,6 +531,9 @@ body {
     display: flex; /* Show toggle button in mobile view */
     justify-content: center;
     align-items: center;
+    height: 30px;
+    width: 25px;
+    margin-bottom: 8px;
   }
 
   /* Sidebar Collapsed State */
@@ -571,4 +574,39 @@ body {
     width: 200px; /* Fixed width for desktop */
     position: relative;
   }
+}
+
+@media (max-width: 768px) {
+  .hidden{
+    display: none; 
+  }
+
+  .github-star-button button {
+    width: 33px; /* Make the button square */
+    height: 33px;
+    border-radius: 50%; /* Make the button circular */
+    align-items: center;
+    justify-content: center;
+    font-size: 18px; /* Adjust the icon size */
+    padding: 0; /* Remove default padding */
+    background-color: whitesmoke;
+    border: 1px solid #ccc;
+    color: #000000;
+    margin-top: 10px;
+  }
+  .github-button{
+    margin-right: 8px;
+  }
+
+
+
+  .github-issue-button {
+    margin-right: 8px; /* Reduce margin for mobile alignment */
+  }
+
+  .github-star-button {
+    padding-right: 0; /* Adjust padding for better spacing */
+  }
+
+
 }
