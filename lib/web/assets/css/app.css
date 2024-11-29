@@ -628,7 +628,7 @@ body {
 
   .data-retention .ant-form-item {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     align-items: center;
     width: 100%; 
   }
@@ -638,15 +638,21 @@ body {
     display: block;
   }
 
+  .data-retention .centered-container {
+    display: flex;
+    flex-direction: column; /* Stack input and button vertically */
+    align-items: center;
+    gap: 15px; /* Add spacing between input and button */
+    width: 100%; /* Make the container responsive */
+  }
+
   .data-retention .ant-input {
     width: 80%; /* Restrict input field width */
     max-width: 300px; 
-    margin-bottom: 8px;
   }
 
   .data-retention .DRU-button {
-    width: 25%;
-    margin:10px;
+    width: 30%; /* Adjust button width for better appearance */
+    max-width: 150px; /* Ensure the button doesn't stretch too much */
   }
 }
-
