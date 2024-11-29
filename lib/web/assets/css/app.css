@@ -610,3 +610,43 @@ body {
 
 
 }
+
+@media (max-width: 768px) {
+  .data-retention {
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .data-retention h1 {
+    text-align: center;
+    font-size: 18px;
+  }
+
+  .data-retention .ant-form-item {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    width: 100%; 
+  }
+
+  .data-retention .ant-form-item b {
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .data-retention .ant-input {
+    width: 80%; /* Restrict input field width */
+    max-width: 300px; 
+    margin-bottom: 8px;
+  }
+
+  .data-retention .DRU-button {
+    width: 25%;
+    margin:10px;
+  }
+}
+
