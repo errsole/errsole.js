@@ -274,6 +274,10 @@ body {
   color: #000000A6;
 }
 
+.DRU-button{
+  margin-left: 20px;
+}
+
 .submenu ul {
   background: #001628 !important;
   box-shadow: none !important;
@@ -620,25 +624,36 @@ body {
     flex-direction: column;
     align-items: center;
   }
-
   .data-retention h1 {
     text-align: center;
     font-size: 18px;
   }
-
+  .data-retention .ant-form-item {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    width: 100%; 
+  }
   .data-retention .ant-form-item b {
     margin-bottom: 10px;
     display: block;
   }
-  .button-class{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-
+  .data-retention .ant-input {
+    width: 80%; 
+    max-width: 300px; 
+    margin-bottom: 8px;
   }
-  .button-class Button{
-    margin-top: 10px;
 
+  .data-retention Button{
+    display: flex;
+    flex-direction: co;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .DRU-button{
+    margin-left: 0px;
   }
 }
 
