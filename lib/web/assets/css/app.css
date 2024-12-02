@@ -601,11 +601,11 @@ body {
 
 
   .github-issue-button {
-    margin-right: 8px; /* Reduce margin for mobile alignment */
+    margin-right: 8px; 
   }
 
   .github-star-button {
-    padding-right: 0; /* Adjust padding for better spacing */
+    padding-right: 0; 
   }
 
 
@@ -626,33 +626,18 @@ body {
     font-size: 18px;
   }
 
-  .data-retention .ant-form-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%; 
-  }
-
   .data-retention .ant-form-item b {
     margin-bottom: 10px;
     display: block;
   }
-
-  .data-retention .centered-container {
+  .button-class{
     display: flex;
-    flex-direction: column; /* Stack input and button vertically */
-    align-items: center;
-    gap: 15px; /* Add spacing between input and button */
-    width: 100%; /* Make the container responsive */
-  }
+    flex-direction: row;
+    justify-content: center;
 
-  .data-retention .ant-input {
-    width: 80%; /* Restrict input field width */
-    max-width: 300px; 
   }
+  .button-class Button{
+    margin-top: 10px;
 
-  .data-retention .DRU-button {
-    width: 30%; /* Adjust button width for better appearance */
-    max-width: 150px; /* Ensure the button doesn't stretch too much */
   }
 }
