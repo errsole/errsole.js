@@ -662,33 +662,48 @@ body {
     display: flex;
     flex-direction: column;
   }
+
   .all-users h1 {
     text-align: center;
     font-size: 18px;
     margin-bottom: 16px;
   }
+
   .all-users Form {
     display: flex;
     flex-direction: column;
+  
   }
-   .all-users Form .ant-form-item {
-    width: 100%; 
-    display: flex;
-  } 
-  .all-users Form .ant-btn {
-    margin-top: 16px;
+
+  .all-users Form .ant-form-item {
     width: 100%;
-  }
-  .align-center{
+    max-width: 300px; 
     display: flex;
     flex-direction: column;
-    align-items: center;  
+    align-items: center; 
   }
+
   .developer-input{
     margin-left: 15px;
     margin-bottom: 8px;
   }
   .password-input{
     margin-right: 12px;
+  }
+
+
+  .ant-btn {
+    width: 100%; 
+    max-width: 300px;  
+    margin-top: 8px; 
+    text-align: center; 
+  }
+}
+
+
+@media (max-width: 768px) {
+  .all-intergrations h1{
+    text-align: center;
+    font-size: 18px;
   }
 }
