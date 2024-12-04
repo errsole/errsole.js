@@ -702,8 +702,32 @@ body {
 
 
 @media (max-width: 768px) {
-  .all-intergrations h1{
+  .all-intergrations h1 {
     text-align: center;
     font-size: 18px;
+  }
+   .integrations {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  } 
+  .integrations .ant-tabs-nav {
+    border-bottom: none; 
+  }
+  .integrations .ant-tabs-ink-bar {
+    display: none; 
+  }
+  .integrations .ant-tabs-tab {
+    text-align: center; 
+  }
+  .integrations .ant-tabs-content-holder {
+    margin-top: 10px; 
+    padding: 10px; 
+  }
+  .Int-button{
+    margin-left: 0px;
+    margin-bottom: 10px;
+    width: 50%;
   }
 }
