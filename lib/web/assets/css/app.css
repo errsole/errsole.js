@@ -501,23 +501,20 @@ body {
     font-size: 16px !important;
   }
 }
-/* General Sidebar Styling */
+
+
 .ant-layout-sider {
   transition: width 0.3s ease, visibility 0.3s ease;
-  z-index: 1000; /* Ensure it stays above other elements */
+  z-index: 1000; 
 }
-
-/* Hidden Checkbox */
 .menu-checkbox {
   display: none;
 }
-
-/* Toggle Button for Menu (Only for Mobile) */
 .menu-toggle {
-  display: none; /* Hide toggle button by default */
+  display: none; 
   position: absolute;
   top: 10px;
-  left: 10px; /* Position the toggle button */
+  left: 10px; 
   background: white;
   color: #001529;
   font-size: 20px;
@@ -525,45 +522,49 @@ body {
   cursor: pointer;
   padding: 10px;
   text-align: center;
-  z-index: 2000; /* Ensure it is above other elements */
+  z-index: 2000; 
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-
-/* Mobile-Specific Behavior */
 @media (max-width: 768px) {
   .menu-toggle {
-    display: flex; /* Show toggle button in mobile view */
+    display: flex; 
     justify-content: center;
     align-items: center;
     height: 30px;
     width: 25px;
     margin-bottom: 8px;
   }
-
-  /* Sidebar Collapsed State */
   .menu-checkbox:not(:checked) ~ .ant-layout-sider {
-    display: none; /* Hide the sidebar in mobile view */
-    width: 0; /* Ensure no width is occupied */
+    display: none; 
+    width: 0; 
   }
-
-  /* Sidebar Expanded State */
   .menu-checkbox:checked ~ .ant-layout-sider {
-    display: block; /* Show the sidebar */
-    width: 40%; /* Expand sidebar to 80% of the screen width */
-    position: absolute; /* Position it over the main content */
+    display: block; 
+    width: 40%; 
+    position: absolute;
     left: 0;
-    height: 100vh; /* Full height for the sidebar */
-    background: #001529; /* Background color */
-    z-index: 1000; /* Place it above other elements */
+    height: 100vh; 
+    background: #001529; 
+    z-index: 1000;
   }
-
-  /* Hide the Menu Toggle Button When Sidebar is Expanded */
   .menu-checkbox:checked + .menu-toggle {
-    display: none; /* Hide the menu icon */
+    display: none; 
+  }
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); 
+    z-index: 998; 
+    display: none; 
+  }
+  .menu-checkbox:checked ~ .overlay {
+    display: block;
   }
 }
 
-/* Desktop View (No Changes) */
 @media (min-width: 769px) {
   .menu-checkbox {
     display: none; /* Ensure checkbox is hidden */
