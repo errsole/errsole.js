@@ -622,7 +622,7 @@ body {
     border-radius: 8px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center
   }
   .data-retention h1 {
     text-align: center;
@@ -640,16 +640,15 @@ body {
   }
   .data-retention .ant-input {
     width: 80%; 
-    max-width: 300px; 
+    max-width: 300px;
     margin-bottom: 8px;
   }
 
   .data-retention Button{
     display: flex;
-    flex-direction: co;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    margin-top: 10px;
+    width: 28%;
   }
 
   .DRU-button{
