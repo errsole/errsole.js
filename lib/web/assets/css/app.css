@@ -776,7 +776,7 @@ body {
   }
   .ant-select-selector {
     width: 100% !important;
-  }y
+  }
 
   .slack-submit-button,
   .email-submit-button {
@@ -805,14 +805,21 @@ body {
       list-style-position: inside; 
       margin: 0 auto; 
     }
-
     .ant-divider {
-      display: none; 
+      display: none;
     }
-  
     .des-class a {
       color: #108ee9; 
       word-break: break-word; 
       text-decoration: underline; 
     }
+
+    .responsive-break {
+      display: block;
+      margin: 10px auto;
+      width: 100%; 
+      border-top: 1px solid #e8e8e8; 
+      padding-top: 14px;
+    }
+  
 }  
