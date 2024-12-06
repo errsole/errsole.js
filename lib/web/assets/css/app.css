@@ -240,6 +240,15 @@ body {
   font-weight: 400;
 }
 
+.input-class-margin
+{
+  margin-bottom: 8px;
+}
+
+.password-class{
+  margin-bottom: 8px;
+}
+
 .tab-icon {
   margin-right: 8px; /* Adjust as needed */
 }
@@ -695,15 +704,6 @@ body {
   .password-input{
     margin-right: 12px;
   }
-
-
- /* .ant-btn {
-    width: 100%; 
-    max-width: 300px;  
-    margin-top: 8px; 
-    text-align: center; 
-  } */
-
   .all-users Button{
     width: 100%; 
     max-width: 300px;  
@@ -741,7 +741,7 @@ body {
 
   .Domain-button {
     margin-left: 0px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     margin-top: 8px;
     width: 60%;
   }
@@ -757,11 +757,15 @@ body {
      display: block;
    }
 
+  .input-class-margin{
+    margin-bottom: 2px;
+  }
    .password-class{
     width: 100%; 
     max-width: 60%; 
     margin: 0 auto; 
     display: block;
+    margin-bottom: 2px;
    }
 
    .ant-select {
@@ -772,7 +776,7 @@ body {
   }
   .ant-select-selector {
     width: 100% !important;
-  }
+  }y
 
   .slack-submit-button,
   .email-submit-button {
