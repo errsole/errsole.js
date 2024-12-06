@@ -376,6 +376,10 @@ body {
   display: none !important;
 }
 
+.slack-submit-button{
+  margin-left: 10px;
+}
+
 .ant-collapse-extra {
   display: none;
   min-width: 175px;
@@ -497,7 +501,7 @@ body {
     font-size: 24px !important;
   }
 
-  .login-page button {
+  .login-page Button {
     font-size: 16px !important;
   }
 }
@@ -654,6 +658,7 @@ body {
 
   .DRU-button{
     margin-left: 0px;
+    margin-top: 8px;
   }
 }
 
@@ -692,11 +697,19 @@ body {
   }
 
 
-  .ant-btn {
+ /* .ant-btn {
     width: 100%; 
     max-width: 300px;  
     margin-top: 8px; 
     text-align: center; 
+  } */
+
+  .all-users Button{
+    width: 100%; 
+    max-width: 300px;  
+    margin-top: 8px; 
+    text-align: center;
+    
   }
 }
 
@@ -725,9 +738,77 @@ body {
     margin-top: 10px; 
     padding: 10px; 
   }
-  .Int-button{
+
+  .Domain-button {
     margin-left: 0px;
     margin-bottom: 10px;
-    width: 50%;
+    margin-top: 8px;
+    width: 60%;
   }
-}
+
+   input[name='slackWebhookURL'], 
+   input[name='host'], 
+   input[name='port'], 
+   input[name='username'], 
+   input[name='sender'] {
+     width: 100%; 
+     max-width: 60%; 
+     margin: 0 auto; 
+     display: block;
+   }
+
+   .password-class{
+    width: 100%; 
+    max-width: 60%; 
+    margin: 0 auto; 
+    display: block;
+   }
+
+   .ant-select {
+    width: 100%;
+    max-width: 60%;
+    margin: 0 auto;
+    display: block;
+  }
+  .ant-select-selector {
+    width: 100% !important;
+  }
+
+  .slack-submit-button,
+  .email-submit-button {
+    margin-left: 10px; 
+    margin-top: 10px; 
+    width: 25%; 
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    align-items: center;
+  }
+    .des-class {
+      text-align: center;
+      word-wrap: break-word; 
+      overflow-wrap: break-word;
+      white-space: normal; 
+      margin: 0 auto; 
+      padding: 10px; 
+      max-width: 60%; 
+      font-size: 11px; 
+      line-height: 1.5; 
+    }
+  
+    .des-class ol {
+      padding-left: 0; 
+      list-style-position: inside; 
+      margin: 0 auto; 
+    }
+
+    .ant-divider {
+      display: none; 
+    }
+  
+    .des-class a {
+      color: #108ee9; 
+      word-break: break-word; 
+      text-decoration: underline; 
+    }
+}  
