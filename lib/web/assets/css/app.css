@@ -827,19 +827,19 @@ body {
   .search-input{
     max-width: 100%;
   }
-
+  .filter-div {
+    margin-bottom: 0px !important;
+  }
   .filter-input-div {
     display: flex;
     flex-direction: column;
     width: 100%;
   }
-  
   .filter-input{
     max-width: 95%;
     margin-right: 20px;
     margin-bottom: 20px;
   }
-
   .datetime-picker-date{
     width: 355px !important;
     margin-bottom: 10px;
@@ -851,16 +851,13 @@ body {
     width: 100%; 
     margin-top: 6px;
   }
-
   .log-btn-apply,
   .log-btn-reset {
     max-width: 35%;
   }
-
   .log-btn-apply button,
   .log-btn-reset button {
     width: 100%;
   }
- 
 }
 
