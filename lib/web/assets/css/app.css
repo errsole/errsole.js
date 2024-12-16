@@ -821,5 +821,46 @@ body {
       border-top: 1px solid #e8e8e8; 
       padding-top: 14px;
     }
+}
+
+@media (max-width: 768px) {
+  .search-input{
+    max-width: 100%;
+  }
+
+  .filter-input-div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
   
-}  
+  .filter-input{
+    max-width: 95%;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+
+  .datetime-picker-date{
+    width: 355px !important;
+    margin-bottom: 10px;
+ }
+  .button-row {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    width: 100%; 
+    margin-top: 6px;
+  }
+
+  .log-btn-apply,
+  .log-btn-reset {
+    max-width: 35%;
+  }
+
+  .log-btn-apply button,
+  .log-btn-reset button {
+    width: 100%;
+  }
+ 
+}
+
