@@ -899,3 +899,31 @@ body {
 }
 
 
+
+@media (max-width: 768px) {
+  .console_log_content .log_panel_header {
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start; 
+  }
+
+  .console_log_content .log_timestamp,
+  .console_log_content .log_message_top,
+  .console_log_content .log_timezone {
+    width: 100%;
+    margin-bottom: 10px; 
+    font-size: 14px; 
+    word-wrap: break-word; 
+    white-space: normal; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .console_log_content .log_message_top {
+    overflow-wrap: break-word; 
+    text-overflow: ellipsis; 
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+}
