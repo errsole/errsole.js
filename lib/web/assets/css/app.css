@@ -861,3 +861,41 @@ body {
   }
 }
 
+@media (max-width: 768px) {
+  .console_log_content .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px; 
+  }
+
+  .console_log_content .header_col_1 {
+    margin-left: 2px; 
+    font-weight: bold;
+  }
+
+  .console_log_content .header_col_2 {
+    padding-left: 0;
+    margin-top: 22px;
+    flex: 1;
+    text-align: center; 
+  }
+
+  .console_log_content .filter {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .console_log_content .filter span {
+    font-size: 14px; 
+    margin-right: 8px;
+  }
+
+  .console_log_content .filter .ant-switch {
+    transform: scale(0.7); 
+  }
+
+}
+
+
