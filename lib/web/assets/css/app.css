@@ -287,6 +287,10 @@ body {
   margin-left: 20px;
 }
 
+.hide-message{
+  display: none;
+}
+
 .submenu ul {
   background: #001628 !important;
   box-shadow: none !important;
@@ -862,41 +866,37 @@ body {
 }
 
 @media (max-width: 768px) {
-  .console_log_content .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px; 
+
+  .header_col_1 {
+    display: none; 
   }
 
-  .console_log_content .header_col_1 {
-    margin-left: 2px; 
-    font-weight: bold;
+  .header_col_2 {
+    display: none; 
   }
-
-  .console_log_content .header_col_2 {
-    padding-left: 0;
-    margin-top: 22px;
-    flex: 1;
-    text-align: center; 
+  .hide-message {
+    display: inline-flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin: 0; 
+    padding: 0; 
   }
-
-  .console_log_content .filter {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+  .filter.float-r {
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 0; 
+    margin: 0;
   }
-
-  .console_log_content .filter span {
+  .hide-message .ant-switch {
+    transform: scale(0.9); 
+  }
+  .hide-message span {
+    margin-right: 5px; 
     font-size: 14px; 
-    margin-right: 8px;
   }
-
-  .console_log_content .filter .ant-switch {
-    transform: scale(0.7); 
-  }
-
 }
+
 
 
 
