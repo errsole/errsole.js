@@ -291,6 +291,10 @@ body {
   display: none;
 }
 
+.Auto-Refresh{
+  margin-left: 10px !important;
+}
+
 .submenu ul {
   background: #001628 !important;
   box-shadow: none !important;
