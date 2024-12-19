@@ -880,29 +880,24 @@ body {
   }
   .hide-message {
     display: inline-flex; 
-    justify-content: center; 
-    align-items: center; 
-    margin: 0; 
-    padding: 0; 
+    justify-content: right;
+    align-items: center;
+    padding: 0;
   }
-  .filter.float-r {
-    display: inline-flex; 
-    align-items: center; 
-    justify-content: center; 
-    padding: 0; 
-    margin: 0;
+  .divide-container{
+    display: flex;
   }
+
   .hide-message .ant-switch {
-    transform: scale(0.9); 
+    transform: scale(0.8); 
   }
   .hide-message span {
-    margin-right: 5px; 
-    font-size: 14px; 
+    font-size: 13px; 
   }
-}
-
-
-
+  .Auto-Refresh{
+    margin-left: 5px !important;
+  }
+} 
 
 @media (max-width: 768px) {
   .console_log_content .log_panel_header {
