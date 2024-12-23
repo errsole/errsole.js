@@ -848,8 +848,11 @@ body {
     margin-right: 20px;
     margin-bottom: 20px;
   }
+  .date-picker {
+    width: 100%;
+  }
   .datetime-picker-date{
-    width: 355px !important;
+    width: 95% !important;
     margin-bottom: 10px;
  }
   .button-row {
@@ -880,7 +883,7 @@ body {
   }
   .hide-message {
     display: inline-flex; 
-    justify-content: right;
+    justify-content: center;
     align-items: center;
     padding: 0;
   }
