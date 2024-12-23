@@ -785,7 +785,9 @@ body {
   .ant-select-selector {
     width: 100% !important;
   }
-
+  .test-notifcation{
+    margin-top: 8px !important;
+  }
   .slack-submit-button,
   .email-submit-button {
     margin-left: 10px; 
