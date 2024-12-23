@@ -926,3 +926,18 @@ body {
     -webkit-box-orient: vertical;
   }
 }
+
+@media (max-width: 768px) {
+  .ant-picker-datetime-panel-container {
+    width: 100% !important;
+  }
+  .ant-picker-date-panel {
+    width: auto !important;
+  }
+  .ant-picker-dropdown {
+    width: 95% !important;
+    max-width: 95vw !important;
+    left: 2.5% !important;
+    right: 2.5% !important;
+  }
+}
