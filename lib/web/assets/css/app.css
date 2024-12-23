@@ -240,6 +240,15 @@ body {
   font-weight: 400;
 }
 
+.input-class-margin
+{
+  margin-bottom: 8px;
+}
+
+.password-class{
+  margin-bottom: 8px;
+}
+
 .tab-icon {
   margin-right: 8px; /* Adjust as needed */
 }
@@ -272,6 +281,18 @@ body {
 }
 .data-retention b{
   color: #000000A6;
+}
+
+.DRU-button{
+  margin-left: 20px;
+}
+
+.hide-message{
+  display: none;
+}
+
+.Auto-Refresh{
+  margin-left: 10px !important;
 }
 
 .submenu ul {
@@ -372,6 +393,10 @@ body {
   display: none !important;
 }
 
+.slack-submit-button{
+  margin-left: 10px;
+}
+
 .ant-collapse-extra {
   display: none;
   min-width: 175px;
@@ -466,4 +491,458 @@ body {
 }
 .ant-empty-description{
   color:#00000040;
+}
+
+.login-page .login-form {
+  border: 1px solid #efefef !important;
+  border-radius: 8px !important;
+  margin-top: 50px !important;
+  padding: 30px !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 1px 30px 0 rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .login-page .login-form {
+    margin-top: 20px !important;
+    padding: 15px !important;
+    width: 90% !important;
+    box-shadow: none;
+  }
+
+  .login-page .ant-form-item {
+    margin-bottom: 15px !important;
+  }
+
+  .login-page h1 {
+    font-size: 24px !important;
+  }
+
+  .login-page Button {
+    font-size: 16px !important;
+  }
+}
+
+
+.ant-layout-sider {
+  transition: width 0.3s ease, visibility 0.3s ease;
+  z-index: 1000; 
+}
+.menu-checkbox {
+  display: none;
+}
+.menu-toggle {
+  display: none; 
+  position: absolute;
+  top: 10px;
+  left: 10px; 
+  background: white;
+  color: #001529;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  text-align: center;
+  z-index: 2000; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 25px;
+    margin-bottom: 8px;
+  }
+  .menu-checkbox:not(:checked) ~ .ant-layout-sider {
+    display: none; 
+    width: 0; 
+  }
+  .menu-checkbox:checked ~ .ant-layout-sider {
+    display: block; 
+    width: 40%; 
+    position: absolute;
+    left: 0;
+    height: 100vh; 
+    background: #001529; 
+    z-index: 1000;
+  }
+  .menu-checkbox:checked + .menu-toggle {
+    display: none; 
+  }
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); 
+    z-index: 998; 
+    display: none; 
+  }
+  .menu-checkbox:checked ~ .overlay {
+    display: block;
+  }
+}
+
+@media (min-width: 769px) {
+  .menu-checkbox {
+    display: none; /* Ensure checkbox is hidden */
+  }
+
+  .menu-toggle {
+    display: none; /* Hide toggle button in desktop view */
+  }
+
+  .ant-layout-sider {
+    display: block; /* Sidebar visible by default in desktop view */
+    width: 200px; /* Fixed width for desktop */
+    position: relative;
+  }
+}
+
+@media (max-width: 768px) {
+  .hidden{
+    display: none; 
+  }
+
+  .github-star-button button {
+    width: 33px; /* Make the button square */
+    height: 33px;
+    border-radius: 50%; /* Make the button circular */
+    align-items: center;
+    justify-content: center;
+    font-size: 18px; /* Adjust the icon size */
+    padding: 0; /* Remove default padding */
+    background-color: whitesmoke;
+    border: 1px solid #ccc;
+    color: #000000;
+    margin-top: 10px;
+  }
+  .github-button{
+    margin-right: 8px;
+  }
+
+
+
+  .github-issue-button {
+    margin-right: 8px; 
+  }
+
+  .github-star-button {
+    padding-right: 0; 
+  }
+
+
+}
+
+@media (max-width: 768px) {
+  .data-retention {
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center
+  }
+  .data-retention h1 {
+    text-align: center;
+    font-size: 18px;
+  }
+  .data-retention .ant-form-item {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    width: 100%; 
+  }
+  .data-retention .ant-form-item b {
+    margin-bottom: 10px;
+    display: block;
+  }
+  .data-retention .ant-input {
+    width: 80%; 
+    max-width: 300px;
+    margin-bottom: 8px;
+  }
+
+  .data-retention Button{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 28%;
+  }
+
+  .DRU-button{
+    margin-left: 0px;
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .all-users {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .all-users h1 {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .all-users Form {
+    display: flex;
+    flex-direction: column;
+  
+  }
+
+  .all-users Form .ant-form-item {
+    width: 100%;
+    max-width: 300px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+  }
+
+  .developer-input{
+    margin-left: 15px;
+    margin-bottom: 8px;
+  }
+  .password-input{
+    margin-right: 12px;
+  }
+  .all-users Button{
+    width: 100%; 
+    max-width: 300px;  
+    margin-top: 8px; 
+    text-align: center;
+    
+  }
+}
+
+
+@media (max-width: 768px) {
+  .all-intergrations h1 {
+    text-align: center;
+    font-size: 18px;
+  }
+   .integrations {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  } 
+  .integrations .ant-tabs-nav {
+    border-bottom: none; 
+  }
+  .integrations .ant-tabs-ink-bar {
+    display: none; 
+  }
+  .integrations .ant-tabs-tab {
+    text-align: center; 
+  }
+  .integrations .ant-tabs-content-holder {
+    margin-top: 10px; 
+    padding: 10px; 
+  }
+
+  .Domain-button {
+    margin-left: 0px;
+    margin-bottom: 8px;
+    margin-top: 8px;
+    width: 60%;
+  }
+
+   input[name='slackWebhookURL'], 
+   input[name='host'], 
+   input[name='port'], 
+   input[name='username'], 
+   input[name='sender'] {
+     width: 100%; 
+     max-width: 60%; 
+     margin: 0 auto; 
+     display: block;
+   }
+
+  .input-class-margin{
+    margin-bottom: 2px;
+  }
+   .password-class{
+    width: 100%; 
+    max-width: 60%; 
+    margin: 0 auto; 
+    display: block;
+    margin-bottom: 2px;
+   }
+
+   .ant-select {
+    width: 100%;
+    max-width: 60%;
+    margin: 0 auto;
+    display: block;
+  }
+  .ant-select-selector {
+    width: 100% !important;
+  }
+  .test-notifcation{
+    margin-top: 8px !important;
+  }
+  .slack-submit-button,
+  .email-submit-button {
+    margin-left: 10px; 
+    margin-top: 10px; 
+    width: 25%; 
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    align-items: center;
+  }
+    .des-class {
+      text-align: center;
+      word-wrap: break-word; 
+      overflow-wrap: break-word;
+      white-space: normal; 
+      margin: 0 auto; 
+      padding: 10px; 
+      max-width: 60%; 
+      font-size: 11px; 
+      line-height: 1.5; 
+    }
+  
+    .des-class ol {
+      padding-left: 0; 
+      list-style-position: inside; 
+      margin: 0 auto; 
+    }
+    .ant-divider {
+      display: none;
+    }
+    .des-class a {
+      color: #108ee9; 
+      word-break: break-word; 
+      text-decoration: underline; 
+    }
+
+    .responsive-break {
+      display: block;
+      margin: 10px auto;
+      width: 100%; 
+      border-top: 1px solid #e8e8e8; 
+      padding-top: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+  .search-input{
+    max-width: 100%;
+  }
+  .filter-div {
+    margin-bottom: 0px !important;
+  }
+  .filter-input-div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .filter-input{
+    max-width: 95%;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+  .date-picker {
+    width: 100%;
+  }
+  .datetime-picker-date{
+    width: 95% !important;
+    margin-bottom: 10px;
+ }
+  .button-row {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    width: 100%; 
+    margin-top: 6px;
+  }
+  .log-btn-apply,
+  .log-btn-reset {
+    max-width: 35%;
+  }
+  .log-btn-apply button,
+  .log-btn-reset button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .header_col_1 {
+    display: none; 
+  }
+
+  .header_col_2 {
+    display: none; 
+  }
+  .hide-message {
+    display: inline-flex; 
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+  }
+  .divide-container{
+    display: flex;
+  }
+
+  .hide-message .ant-switch {
+    transform: scale(0.8); 
+  }
+  .hide-message span {
+    font-size: 13px; 
+  }
+  .Auto-Refresh{
+    margin-left: 5px !important;
+  }
+} 
+
+@media (max-width: 768px) {
+  .console_log_content .log_panel_header {
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start; 
+  }
+
+  .console_log_content .log_timestamp,
+  .console_log_content .log_message_top,
+  .console_log_content .log_timezone {
+    width: 100%;
+    margin-bottom: 10px; 
+    font-size: 14px; 
+    word-wrap: break-word; 
+    white-space: normal; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .console_log_content .log_message_top {
+    overflow-wrap: break-word; 
+    text-overflow: ellipsis; 
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+}
+
+@media (max-width: 768px) {
+  .ant-picker-datetime-panel-container {
+    width: 100% !important;
+  }
+  .ant-picker-date-panel {
+    width: auto !important;
+  }
+  .ant-picker-dropdown {
+    width: 95% !important;
+    max-width: 95vw !important;
+    left: 2.5% !important;
+    right: 2.5% !important;
+  }
 }
