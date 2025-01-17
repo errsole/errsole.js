@@ -550,4 +550,49 @@ describe('LogController', () => {
       });
     });
   });
+
+  describe('#deleteAllLogs', () => {
+    let req, res, mockStorageConnection;
+
+    beforeEach(() => {
+      req = {}; // No body or query needed for this function
+      res = {
+        send: jest.fn(),
+        status: jest.fn().mockReturnThis()
+      };
+      mockStorageConnection = {
+        deleteAllLogs: jest.fn()
+      };
+      getStorageConnection.mockReturnValue(mockStorageConnection);
+    });
+
+    it('should delete all logs and return success message', async () => {
+      mockStorageConnection.deleteAllLogs.mockResolvedValue(null);
+
+      await deleteAllLogs(req, res);
+
+      expect(mockStorageConnection.deleteAllLogs).toHaveBeenCalled();
+      expect(res.send).toHaveBeenCalledWith({
+        message: 'All logs have been successfully deleted.'
+      });
+    });
+
+    it('should handle errors gracefully', async () => {
+      const errorMessage = 'Database connection error';
+      mockStorageConnection.deleteAllLogs.mockRejectedValue(new Error(errorMessage));
+
+      await deleteAllLogs(req, res);
+
+      expect(mockStorageConnection.deleteAllLogs).toHaveBeenCalled();
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Internal Server Error',
+            message: errorMessage
+          }
+        ]
+      });
+    });
+  });
 });
