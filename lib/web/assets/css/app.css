@@ -811,7 +811,7 @@ body {
   
     .des-class ol {
       padding-left: 0; 
-      list-style-position: inside;     /* width: 28%; */
+      list-style-position: inside;     
       margin: 0 auto; 
     }
     .ant-divider {
