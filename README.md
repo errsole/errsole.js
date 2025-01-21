@@ -4,19 +4,19 @@
   <h3 align="center">Collect, Store, and Visualize Logs with a Single Module</h3>
 
   <p align="center">
-    <a href="#setup">Setup</a> |
+    <a href="#setup">Installation</a> |
     <a href="https://github.com/errsole/errsole.js/blob/master/docs/advanced-configuration.md">Advanced Configuration</a> |
-    <a href="https://github.com/errsole/errsole.js/blob/master/docs/custom-logging-functions.md">Log Function</a>
+    <a href="https://github.com/errsole/errsole.js/blob/master/docs/custom-logging-functions.md">Log Functions</a>
   </p>
 
-  <div align="center">
-  <img src="https://img.shields.io/github/v/release/errsole/errsole.js" alt="Release Version" />
-  <img src="https://img.shields.io/github/last-commit/errsole/errsole.js" alt="Last Commit" />
-  <img src="https://img.shields.io/github/license/errsole/errsole.js" alt="License" />
-  <a href="https://coveralls.io/github/errsole/errsole.js">
-    <img src="https://coveralls.io/repos/github/errsole/errsole.js/badge.svg" alt="Coverage Status" />
-  </a>
-  </div>
+  <p align="center">
+    <img src="https://img.shields.io/github/v/release/errsole/errsole.js" alt="Release Version" />
+    <img src="https://img.shields.io/github/last-commit/errsole/errsole.js" alt="Last Commit" />
+    <img src="https://img.shields.io/github/license/errsole/errsole.js" alt="License" />
+    <a href="https://coveralls.io/github/errsole/errsole.js">
+      <img src="https://coveralls.io/repos/github/errsole/errsole.js/badge.svg" alt="Coverage Status" />
+    </a>
+  </p>
 </p>
 
 Errsole is an open-source logger for Node.js apps. It comes with a built-in log viewer to view, filter, and search your app logs.
