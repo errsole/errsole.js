@@ -1,4 +1,6 @@
-# Custom Logging Functions
+# Custom Log Functions
+
+Errsole automatically collects all logs from the Node.js console. Additionally, it provides custom log functions to support multiple log levels.
 
 ### log / info
 
