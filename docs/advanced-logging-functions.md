@@ -4,7 +4,7 @@ Errsole automatically collects all logs from the Node.js console. Additionally, 
 
 ### log / info
 
-The log function is used to log messages or information. It can accept one or more arguments, which can be strings, numbers, JavaScript objects, or Error objects.
+The `log` function is used to log messages or information. It can accept one or more arguments, which can be strings, numbers, JavaScript objects, or Error objects.
 
 #### Example
 
@@ -18,7 +18,7 @@ errsole.log('Logging with an error object:', errorObject);
 
 ### alert
 
-The alert function logs a message and sends a notification to configured channels, such as Email or Slack. It accepts the same types of arguments as the log function.
+The `alert` function logs a message and sends a notification to configured channels, such as Email or Slack. It accepts the same types of arguments as the `log` function.
 
 #### Example
 
@@ -28,7 +28,7 @@ errsole.alert('Alert! Something critical happened');
 
 ### error
 
-The error function is specifically designed to log errors. It accepts the same types of arguments as the log function.
+The `error` function is specifically designed to log errors. It accepts the same types of arguments as the `log` function.
 
 #### Example
 
@@ -38,7 +38,7 @@ errsole.error(new Error('An error occurred'));
 
 ### warn
 
-The warn function is used to log warning messages. It accepts the same types of arguments as the log function.
+The `warn` function is used to log warning messages. It accepts the same types of arguments as the `log` function.
 
 #### Example
 
@@ -48,7 +48,7 @@ errsole.warn('This is a warning message');
 
 ### debug
 
-The debug function logs debug information, typically used for troubleshooting during development. It accepts the same types of arguments as the log function.
+The `debug` function logs debug information, typically used for troubleshooting during development. It accepts the same types of arguments as the `log` function.
 
 #### Example
 
