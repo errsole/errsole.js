@@ -62,22 +62,18 @@ For local development or scenarios where you prefer storing logs directly on the
 
 In production environments, where centralized log storage is critical, Errsole offers multiple storage options to fit your needs:
 
-* [Errsole with MongoDB](https://github.com/errsole/errsole.js/blob/master/docs/mongodb-storage.md)
 * [Errsole with MySQL](https://github.com/errsole/errsole.js/blob/master/docs/mysql-storage.md)
 * [Errsole with PostgreSQL](https://github.com/errsole/errsole.js/blob/master/docs/postgresql-storage.md)
-* Errsole with AWS CloudWatch (Upcoming)
+* [Errsole with MongoDB](https://github.com/errsole/errsole.js/blob/master/docs/mongodb-storage.md)
+* Errsole with AWS DynamoDB (Upcoming)
 
 #### Advanced Configuration
 
 * [Advanced Configuration](https://github.com/errsole/errsole.js/blob/master/docs/advanced-configuration.md)
 
-#### Custom Logging Functions
+#### Advanced Logging
 
-* [Custom Logging Functions](https://github.com/errsole/errsole.js/blob/master/docs/custom-logging-functions.md)
-
-#### Web Dashboard Access
-
-* [Web Dashboard Access](https://github.com/errsole/errsole.js/blob/master/docs/web-dashboard-access.md)
+* [Advanced Logging Functions](https://github.com/errsole/errsole.js/blob/master/docs/advanced-logging-functions.md)
 
 #### Integrations
 
