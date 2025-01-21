@@ -3,6 +3,12 @@
 
   <h3 align="center">Collect, Store, and Visualize Logs with a Single Module</h3>
 
+  <p align="center">
+    <a href="#setup">Setup</a> |
+    <a href="https://github.com/errsole/errsole.js/blob/master/docs/advanced-configuration.md">Advanced Configuration</a> |
+    <a href="https://github.com/errsole/errsole.js/blob/master/docs/custom-logging-functions.md">Log Function</a>
+  </p>
+
   <div align="center">
   <img src="https://img.shields.io/github/v/release/errsole/errsole.js" alt="Release Version" />
   <img src="https://img.shields.io/github/last-commit/errsole/errsole.js" alt="Last Commit" />
@@ -13,7 +19,7 @@
   </div>
 </p>
 
-Errsole is an open-source logger for Node.js. It has a built-in web dashboard to view, filter, and search your app logs.
+Errsole is an open-source logger for Node.js apps. It comes with a built-in log viewer to view, filter, and search your app logs.
 
 https://github.com/errsole/errsole.js/assets/3775513/b59424fa-c3b3-4a65-b603-e35499fe4263
 
