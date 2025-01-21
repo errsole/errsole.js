@@ -12,10 +12,11 @@ npm install errsole errsole-sqlite
 
 ### 2. Configure your logger
 
-Create a `logger.js` file to configure Errsole for your app:
+Create a `logger.js` file to configure Errsole with SQLite for your app.
+
+#### For CommonJS:
 
 ```javascript
-// CommonJS
 const errsole = require('errsole');
 const ErrsoleSQLite = require('errsole-sqlite');
 
@@ -26,8 +27,9 @@ errsole.initialize({
 module.exports = errsole;
 ```
 
+#### For ES Modules and TypeScript:
+
 ```javascript
-// ESM and TypeScript
 import errsole from 'errsole';
 import ErrsoleSQLite from 'errsole-sqlite';
 
@@ -39,6 +41,9 @@ export default errsole;
 ```
 
 #### Example
+
+Here is a full example that stores logs in a temporary directory:
+
 ```javascript
 import errsole from 'errsole';
 import ErrsoleSQLite from 'errsole-sqlite';
@@ -56,7 +61,7 @@ export default errsole;
 
 ### 3. Include the logger in your app code
 
-To start logging, include the logger in your app code. Here is an example using Express:
+Include the logger in your app code to start logging. Here is an example using Express:
 
 ```javascript
 import express from 'express';
@@ -76,16 +81,14 @@ app.listen(port, () => {
 
 After completing the setup, start your app and access the Errsole Web Dashboard to view and manage your logs:
 
-**Local Development:** Open your web browser and go to http://localhost:8001/
-
-**Remote Deployment:** Use the server's IP address or domain followed by the port number. For example:
-
+* Local Development: Open your web browser and go to http://localhost:8001/
+* Remote Deployment: Replace `YourServerIP` or `YourDomain` with your server details:
 ```
 http://YourServerIP:8001/
 http://YourDomain:8001/
 ```
 
-### 4. NGINX Configuration
+### 4. Configure NGINX
 
 If your app is behind an NGINX reverse proxy, you can configure access to the Errsole Web Dashboard by adding the following lines to your NGINX configuration file:
 
@@ -101,7 +104,7 @@ location /helloworld/logs/ {
 }
 ```
 
-Once configured, reload NGINX to apply the changes:
+After updating the configuration, reload NGINX:
 
 ```
 sudo nginx -s reload
