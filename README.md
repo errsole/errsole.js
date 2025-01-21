@@ -6,7 +6,7 @@
   <p align="center">
     <a href="#setup">Installation</a> |
     <a href="https://github.com/errsole/errsole.js/blob/master/docs/advanced-configuration.md">Advanced Configuration</a> |
-    <a href="https://github.com/errsole/errsole.js/blob/master/docs/custom-logging-functions.md">Log Functions</a>
+    <a href="https://github.com/errsole/errsole.js/blob/master/docs/advanced-logging-functions.md">Advanced Logging Functions</a>
   </p>
 
   <p align="center">
@@ -31,13 +31,13 @@ Just include the Errsole package in your code—no need for dedicated servers, s
 
 ### Logger++
 
-Errsole automatically collects all logs from the Node.js console. Additionally, it provides a custom logger with multiple log levels and allows you to include metadata with your logs for better context. [Read More](https://github.com/errsole/errsole.js/blob/master/docs/custom-logging-functions.md)
+Errsole automatically collects all logs from the Node.js console. Additionally, it provides advanced logging functions that support multiple log levels and the ability to attach metadata to logs. [Read More](https://github.com/errsole/errsole.js/blob/master/docs/advanced-logging-functions.md)
 
 ### Store Anywhere
 
 Store your logs wherever you want—whether in a file or any database of your choice. You can also configure log rotation to specify how long logs should be retained.
 
-### Web Dashboard
+### Log Viewer
 
 View, filter, and search through your logs using the built-in Web Dashboard. Secure authentication and team management features ensure that only you and your team can access the logs.
 
