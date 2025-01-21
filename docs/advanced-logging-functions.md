@@ -57,9 +57,9 @@ errsole.debug('Debugging information');
 ```
 ### meta
 
-In Errsole's custom logger, you can include metadata with your logs. This metadata can be any contextual information, such as HTTP requests or database query results. In the Errsole Web Dashboard, you can view this metadata in a clean JSON viewer without cluttering the log messages.
+With Errsole, you can attach metadata to your logs. This metadata can be any contextual information, such as HTTP requests or database query results. In the Errsole Web Dashboard, you can view this metadata in a clean JSON viewer without cluttering the log messages.
 
-To include metadata in your logs, use the `meta` function followed by the appropriate logging function (error, log, etc.).
+To attach metadata to your logs, use the `meta` function followed by the appropriate logging function (error, log, etc.).
 
 #### Example
 
