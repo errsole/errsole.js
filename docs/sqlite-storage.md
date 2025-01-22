@@ -65,7 +65,7 @@ Include the logger in your app code to start logging. Here is an example using E
 
 ```javascript
 import express from 'express';
-import errsole from './logger';
+import errsole from './logger.js';
 
 const app = express();
 
