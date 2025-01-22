@@ -132,9 +132,9 @@ You can now access the Errsole Web Dashboard through your domain:
 | environmentName     	| String                                                                                                                                                                             	| **Optional.** Default: `process.env.NODE_ENV`. Specify the deployment environment.                                                                                                                                            	|
 | serverName          	| String                                                                                                                                                                             	| **Optional.** Default: the hostname of the machine. Specify the name of the server.                                                                                                                                           	|
 
-### Web Dashboard Access
+### Errsole Proxy Middleware
 
-[Web Dashboard Access](/docs/web-dashboard-access.md)
+To integrate the Errsole Web Dashboard as a route within your main app, use the Errsole Proxy Middleware. This middleware maps a specified route in your app to the Errsole Web Dashboard. [READ MORE](/docs/proxy-middleware.md)
 
 ### Main Documentation
 
