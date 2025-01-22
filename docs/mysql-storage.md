@@ -23,8 +23,10 @@ errsole.initialize({
     host: 'mysql-host', // Replace with your actual MySQL host
     user: 'database-user', // Replace with your actual MySQL user
     password: 'database-password', // Replace with your actual MySQL password
-    database: 'database-name' // Replace with the name of your MySQL database
-  })
+    database: 'database-name', // Replace with the name of your MySQL database
+    tablePrefix: 'app-name', // Replace with the name of your app
+  }),
+  appName: 'app-name' // Replace with the name of your app
 });
 
 module.exports = errsole;
@@ -41,14 +43,16 @@ errsole.initialize({
     host: 'mysql-host', // Replace with your actual MySQL host
     user: 'database-user', // Replace with your actual MySQL user
     password: 'database-password', // Replace with your actual MySQL password
-    database: 'database-name' // Replace with the name of your MySQL database
-  })
+    database: 'database-name', // Replace with the name of your MySQL database
+    tablePrefix: 'app-name', // Replace with the name of your app
+  }),
+  appName: 'app-name' // Replace with the name of your app
 });
 
 export default errsole;
 ```
 
-### Include the logger in your app code
+### 3. Include the logger in your app code
 
 Include the logger in your app code to start logging. Here is an example using Express:
 
