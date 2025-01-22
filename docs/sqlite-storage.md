@@ -21,7 +21,8 @@ const errsole = require('errsole');
 const ErrsoleSQLite = require('errsole-sqlite');
 
 errsole.initialize({
-  storage: new ErrsoleSQLite('path/to/database.sqlite')
+  storage: new ErrsoleSQLite('path/to/database.sqlite'),
+  appName: 'your-app-name'
 });
 
 module.exports = errsole;
@@ -34,7 +35,8 @@ import errsole from 'errsole';
 import ErrsoleSQLite from 'errsole-sqlite';
 
 errsole.initialize({
-  storage: new ErrsoleSQLite('path/to/database.sqlite')
+  storage: new ErrsoleSQLite('path/to/database.sqlite'),
+  appName: 'your-app-name'
 });
 
 export default errsole;
@@ -53,7 +55,8 @@ import path from 'path';
 const logsFile = path.join(os.tmpdir(), 'helloworld.log.sqlite');
 
 errsole.initialize({
-  storage: new ErrsoleSQLite(logsFile)
+  storage: new ErrsoleSQLite(logsFile),
+  appName: 'helloworld'
 });
 
 export default errsole;
