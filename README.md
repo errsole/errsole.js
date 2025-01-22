@@ -4,7 +4,7 @@
   <h3 align="center">Collect, Store, and Visualize Logs with a Single Module</h3>
 
   <p align="center">
-    <a href="#setup">Installation</a> |
+    <a href="#setup">Setup</a> |
     <a href="https://github.com/errsole/errsole.js/blob/master/docs/advanced-configuration.md">Advanced Configuration</a> |
     <a href="https://github.com/errsole/errsole.js/blob/master/docs/advanced-logging-functions.md">Advanced Logging Functions</a>
   </p>
