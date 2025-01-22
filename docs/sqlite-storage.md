@@ -1,6 +1,6 @@
 # Errsole with SQLite
 
-SQLite stores databases as files. So, your app logs will be stored as a file on your server.
+SQLite stores databases as files, so your app logs will be stored in a file on your server.
 
 ### 1. Install the modules
 
@@ -14,7 +14,7 @@ npm install errsole errsole-sqlite
 
 Create a `logger.js` file to configure Errsole with SQLite for your app.
 
-#### For CommonJS:
+#### CommonJS:
 
 ```javascript
 const errsole = require('errsole');
@@ -27,7 +27,7 @@ errsole.initialize({
 module.exports = errsole;
 ```
 
-#### For ES Modules and TypeScript:
+#### ESM and TypeScript:
 
 ```javascript
 import errsole from 'errsole';
@@ -42,7 +42,7 @@ export default errsole;
 
 #### Example
 
-Here is a full example that stores logs in a temporary directory:
+Here is a full example that stores logs in the temporary directory:
 
 ```javascript
 import errsole from 'errsole';
@@ -80,8 +80,7 @@ app.listen(port, () => {
 ```
 
 After completing the setup, start your app and access the Errsole Web Dashboard to view and manage your logs:
-
-* Local Development: Open your web browser and go to http://localhost:8001/
+* Local Development: Open your web browser and go to `http://localhost:8001/`
 * Remote Deployment: Replace `YourServerIP` or `YourDomain` with your server details:
 ```
 http://YourServerIP:8001/
@@ -110,10 +109,10 @@ After updating the configuration, reload NGINX:
 sudo nginx -s reload
 ```
 
-You can now access the dashboard through your domain:
+You can now access the Errsole Web Dashboard through your domain:
 
-* For HTTP: http://YourDomain/helloworld/logs/
-* For HTTPS: https://YourDomain/helloworld/logs/
+* For HTTP: `http://YourDomain/helloworld/logs/`
+* For HTTPS: `https://YourDomain/helloworld/logs/`
 
 **Note:** Replace `/helloworld/logs` with your desired log path.
 
