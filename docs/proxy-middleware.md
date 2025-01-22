@@ -1,22 +1,6 @@
-# Web Dashboard Access
+## Errsole Proxy Middleware
 
-After completing the setup, you can access the Errsole Web Dashboard through the following methods:
-
-1. **Local Environment:** Open your web browser and visit `http://localhost:8001/`.
-2. **Remote Server:** If you have deployed Errsole on a remote server, use the server's IP address or domain name followed by the port number (e.g., YourServerIP:8001 or YourDomain:8001).
-
-#### Note
-
-If you initialized Errsole with a different port or specified a custom path, adjust the URL as follows:
-
-1. Replace 8001 with your chosen port number.
-2. Append your custom path to the end of the URL.
-
-`http(s)://YourServerIP:CustomPort/YourCustomPath`
-
-## Proxy Middleware Configuration (Optional)
-
-If you encounter issues accessing port 8001 due to firewall restrictions, or if you prefer to host the Errsole Web Dashboard on your primary domain/port, you can configure the Errsole Proxy Middleware in your app. Here is a step-by-step guide:
+To integrate the Errsole Web Dashboard as a route within your main app, use the Errsole Proxy Middleware. This middleware maps a specified route in your app to the Errsole Web Dashboard. Here is a step-by-step guide:
 
 * **Include Errsole Proxy Middleware:** Include the Errsole Proxy Middleware in your app. Make sure to specify a path where the Errsole Web Dashboard will be accessible. This path is mandatory.
 * **Order of Middleware:** Ensure the Errsole Proxy Middleware is the first middleware in your app. Any other middleware should be placed after it.
