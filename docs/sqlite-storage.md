@@ -132,7 +132,20 @@ You can now access the Errsole Web Dashboard through your domain:
 | environmentName     	| String                                                                                                                                                                             	| **Optional.** Default: `process.env.NODE_ENV`. Specify the deployment environment.                                                                                                                                            	|
 | serverName          	| String                                                                                                                                                                             	| **Optional.** Default: the hostname of the machine. Specify the name of the server.                                                                                                                                           	|
 
-## Errsole Proxy Middleware
+## Advanced Logging Functions
+
+Errsole automatically collects all logs from the Node.js console. Additionally, it provides advanced logging functions that support multiple log levels. [Read More](/docs/advanced-logging-functions.md)
+
+```javascript
+errsole.log('Logging a message');
+errsole.alert('Alert! Something critical happened');
+errsole.error(new Error('An error occurred'));
+errsole.warn('This is a warning message');
+errsole.debug('Debugging information');
+errsole.meta({ reqBody: req.body, queryResults: results }).error(err);
+```
+
+## Errsole Proxy Middleware (Optional)
 
 To integrate the Errsole Web Dashboard as a route within your main app, use the Errsole Proxy Middleware. This middleware maps a specified route in your app to the Errsole Web Dashboard. [Read More](/docs/proxy-middleware.md)
 
