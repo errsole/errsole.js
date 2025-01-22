@@ -116,7 +116,7 @@ You can now access the Errsole Web Dashboard through your domain:
 
 **Note:** Replace `/helloworld/logs` with your desired log path.
 
-### Advanced Configuration
+## Advanced Configuration
 
 
 | **Option**          	| **Type**                                                                                                                                                                           	| **Description**                                                                                                                                                                                                               	|
@@ -132,10 +132,10 @@ You can now access the Errsole Web Dashboard through your domain:
 | environmentName     	| String                                                                                                                                                                             	| **Optional.** Default: `process.env.NODE_ENV`. Specify the deployment environment.                                                                                                                                            	|
 | serverName          	| String                                                                                                                                                                             	| **Optional.** Default: the hostname of the machine. Specify the name of the server.                                                                                                                                           	|
 
-### Errsole Proxy Middleware
+## Errsole Proxy Middleware
 
-To integrate the Errsole Web Dashboard as a route within your main app, use the Errsole Proxy Middleware. This middleware maps a specified route in your app to the Errsole Web Dashboard. [READ MORE](/docs/proxy-middleware.md)
+To integrate the Errsole Web Dashboard as a route within your main app, use the Errsole Proxy Middleware. This middleware maps a specified route in your app to the Errsole Web Dashboard. [Read More](/docs/proxy-middleware.md)
 
-### Main Documentation
+## Main Documentation
 
 [Main Documentation](/README.md)
