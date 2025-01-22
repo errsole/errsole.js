@@ -24,9 +24,9 @@ errsole.initialize({
     user: 'database-user', // Replace with your actual MySQL user
     password: 'database-password', // Replace with your actual MySQL password
     database: 'database-name', // Replace with the name of your MySQL database
-    tablePrefix: 'app-name', // Replace with the name of your app
+    tablePrefix: 'app-name', // Replace with your actual app name
   }),
-  appName: 'app-name' // Replace with the name of your app
+  appName: 'app-name' // Replace with your actual app name
 });
 
 module.exports = errsole;
@@ -44,9 +44,9 @@ errsole.initialize({
     user: 'database-user', // Replace with your actual MySQL user
     password: 'database-password', // Replace with your actual MySQL password
     database: 'database-name', // Replace with the name of your MySQL database
-    tablePrefix: 'app-name', // Replace with the name of your app
+    tablePrefix: 'app-name', // Replace with your actual app name
   }),
-  appName: 'app-name' // Replace with the name of your app
+  appName: 'app-name' // Replace with your actual app name
 });
 
 export default errsole;
