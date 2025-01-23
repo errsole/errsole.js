@@ -12,9 +12,9 @@ npm install errsole errsole-mongodb
 
 Create a `logger.js` file to configure Errsole with MongoDB for your app.
 
-```javascript
+```
 errsole.initialize({
-  storage: new ErrsoleMongoDB('<MongoDB Connection URL>', '<Optional: Database Name>', '<Optional: MongoDB Client Options>')
+  storage: new ErrsoleMongoDB('<MongoDB Connection URL>', '<Optional: Database Name>', {<Optional: MongoDB Client Options>})
 });
 ```
 
@@ -25,7 +25,7 @@ const errsole = require('errsole');
 const ErrsoleMongoDB = require('errsole-mongodb');
 
 errsole.initialize({
-  storage: new ErrsoleMongoDB('<MongoDB Connection URL>', '<Optional: Database Name>', { collectionPrefix: 'your-app-name' }),
+  storage: new ErrsoleMongoDB('mongodb-connection-url', 'optional-database-name', { collectionPrefix: 'your-app-name' }),
   appName: 'your-app-name'
 });
 
@@ -40,7 +40,7 @@ import errsole from 'errsole';
 import ErrsoleMongoDB from 'errsole-mongodb';
 
 errsole.initialize({
-  storage: new ErrsoleMongoDB('<MongoDB Connection URL>', '<Optional: Database Name>', { collectionPrefix: 'your-app-name' }),
+  storage: new ErrsoleMongoDB('mongodb-connection-url', 'optional-database-name', { collectionPrefix: 'your-app-name' }),
   appName: 'your-app-name'
 });
 
