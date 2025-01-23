@@ -46,9 +46,9 @@ module.exports = logger;
 
 #### Centralized Logging
 
-* [Errsole with MongoDB](/docs/mongodb-storage.md)
 * [Errsole with MySQL](/docs/mysql-storage.md)
 * [Errsole with PostgreSQL](/docs/postgresql-storage.md)
+* [Errsole with MongoDB](/docs/mongodb-storage.md)
 
 ## Main Documentation
 
