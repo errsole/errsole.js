@@ -10,7 +10,7 @@ npm install errsole errsole-mysql
 
 ### 2. Configure your logger
 
-Create a logger.js file to configure Errsole with MySQL for your app.
+Create a `logger.js` file to configure Errsole with MySQL for your app.
 
 #### CommonJS:
 
