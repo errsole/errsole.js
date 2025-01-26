@@ -24,7 +24,7 @@ errsole.initialize({
     user: 'database-user', // Replace with your actual MySQL user
     password: 'database-password', // Replace with your actual MySQL password
     database: 'database-name', // Replace with the name of your MySQL database
-    tablePrefix: 'app-name', // Replace with your actual app name
+    tablePrefix: 'app-name' // Replace with your actual app name
   }),
   appName: 'app-name' // Replace with your actual app name
 });
@@ -44,7 +44,7 @@ errsole.initialize({
     user: 'database-user', // Replace with your actual MySQL user
     password: 'database-password', // Replace with your actual MySQL password
     database: 'database-name', // Replace with the name of your MySQL database
-    tablePrefix: 'app-name', // Replace with your actual app name
+    tablePrefix: 'app-name' // Replace with your actual app name
   }),
   appName: 'app-name' // Replace with your actual app name
 });
