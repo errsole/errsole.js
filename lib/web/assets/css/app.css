@@ -946,3 +946,11 @@ body {
     right: 2.5% !important;
   }
 }
+@media (max-width: 768px) {
+  .responsive-alert {
+    margin-left: 15%;  
+    width: 70% !important;
+    padding: 10px; 
+    font-size: 14px; 
+  }
+}
