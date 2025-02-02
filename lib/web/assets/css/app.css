@@ -670,7 +670,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 28%;
   }
 
   .DRU-button{
@@ -812,7 +811,7 @@ body {
   
     .des-class ol {
       padding-left: 0; 
-      list-style-position: inside; 
+      list-style-position: inside;     
       margin: 0 auto; 
     }
     .ant-divider {

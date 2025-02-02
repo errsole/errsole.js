@@ -1,9 +1,8 @@
-const { getLogs, getLogsTTL, updateLogsTTL, getLogMeta, getHostnames } = require('../../lib/main/server/controllers/logController');
+const { getLogs, getLogsTTL, updateLogsTTL, getLogMeta, getHostnames, deleteAllLogs } = require('../../lib/main/server/controllers/logController');
 const Jsonapi = require('../../lib/main/server/utils/jsonapiUtil');
 const { getStorageConnection } = require('../../lib/main/server/storageConnection');
 const { describe, it } = require('@jest/globals');
 const helpers = require('../../lib/main/server/utils/helpers');
-const DOMPurify = require('dompurify');
 /* globals expect, jest, beforeEach, beforeAll, afterAll */
 
 jest.mock('../../lib/main/server/storageConnection');
@@ -546,6 +545,51 @@ describe('LogController', () => {
           {
             error: 'Internal Server Error',
             message: 'Unexpected error'
+          }
+        ]
+      });
+    });
+  });
+
+  describe('#deleteAllLogs', () => {
+    let req, res, mockStorageConnection;
+
+    beforeEach(() => {
+      req = {}; // No body or query needed for this function
+      res = {
+        send: jest.fn(),
+        status: jest.fn().mockReturnThis()
+      };
+      mockStorageConnection = {
+        deleteAllLogs: jest.fn()
+      };
+      getStorageConnection.mockReturnValue(mockStorageConnection);
+    });
+
+    it('should delete all logs and return success message', async () => {
+      mockStorageConnection.deleteAllLogs.mockResolvedValue(null);
+
+      await deleteAllLogs(req, res);
+
+      expect(mockStorageConnection.deleteAllLogs).toHaveBeenCalled();
+      expect(res.send).toHaveBeenCalledWith({
+        message: 'All logs have been successfully deleted.'
+      });
+    });
+
+    it('should handle errors gracefully', async () => {
+      const errorMessage = 'Database connection error';
+      mockStorageConnection.deleteAllLogs.mockRejectedValue(new Error(errorMessage));
+
+      await deleteAllLogs(req, res);
+
+      expect(mockStorageConnection.deleteAllLogs).toHaveBeenCalled();
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Internal Server Error',
+            message: errorMessage
           }
         ]
       });
