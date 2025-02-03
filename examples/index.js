@@ -8,7 +8,7 @@ const errsole = require('../lib/errsole.js');
 const ErrsoleSQLite = require('errsole-sqlite');
 
 errsole.initialize({
-  storage: new ErrsoleSQLite('/tmp/logs.sqlite')
+  storage: new ErrsoleSQLite('logs.sqlite')
 });
 
 const express = require('express');
