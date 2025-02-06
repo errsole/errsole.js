@@ -493,6 +493,10 @@ body {
   color:#00000040;
 }
 
+.Alert-class{
+  margin-bottom: 20px;
+}
+
 .login-page .login-form {
   border: 1px solid #efefef !important;
   border-radius: 8px !important;
