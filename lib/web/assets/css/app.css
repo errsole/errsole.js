@@ -493,10 +493,6 @@ body {
   color:#00000040;
 }
 
-.Alert-class{
-  margin-bottom: 20px;
-}
-
 .login-page .login-form {
   border: 1px solid #efefef !important;
   border-radius: 8px !important;
@@ -948,14 +944,5 @@ body {
     max-width: 95vw !important;
     left: 2.5% !important;
     right: 2.5% !important;
-  }
-}
-
-@media (max-width: 768px) {
-  .responsive-alert {
-    margin-left: 15%;  
-    width: 70% !important;
-    padding: 10px; 
-    font-size: 14px; 
   }
 }
