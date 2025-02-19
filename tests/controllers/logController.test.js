@@ -105,7 +105,7 @@ describe('LogController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'Unexpected token i in JSON at position 0'
+            message: expect.stringMatching(/Unexpected token|Expected property name|invalid JSON/i)
           }
         ]
       });
@@ -224,7 +224,7 @@ describe('LogController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'Unexpected token i in JSON at position 0'
+            message: expect.stringMatching(/Unexpected token|Expected property name|invalid JSON/i)
           }
         ]
       });

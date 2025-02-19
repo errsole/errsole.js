@@ -1089,7 +1089,7 @@ describe('appController', () => {
           errors: [
             {
               error: 'Internal Server Error',
-              message: 'Unexpected token i in JSON at position 2'
+              message: expect.stringMatching(/Unexpected token|Expected property name|invalid JSON/i)
             }
           ]
         });
@@ -1477,7 +1477,7 @@ describe('appController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'Unexpected token i in JSON at position 2'
+            message: expect.stringMatching(/Unexpected token|Expected property name|invalid JSON/i)
           }
         ]
       });

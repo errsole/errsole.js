@@ -743,34 +743,6 @@ describe('EmailService.sendAlert', () => {
     consoleErrorSpy.mockRestore();
   });
 
-  // it('should log error and return false when sending email fails', async () => {
-  //   const mockStorageConnection = {
-  //     getConfig: jest.fn().mockResolvedValue(mockConfig)
-  //   };
-  //   getStorageConnection.mockReturnValue(mockStorageConnection);
-
-  //   // Mock transporter and sendMail to reject
-  //   const mockTransporter = {
-  //     sendMail: jest.fn().mockRejectedValue(new Error('Email send failed'))
-  //   };
-  //   nodemailer.createTransport.mockReturnValue(mockTransporter);
-
-  //   // Spy on console.error
-  //   const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
-
-  //   const result = await EmailService.sendAlert('Test message', 'Test type', {});
-
-  //   expect(mockTransporter.sendMail).toHaveBeenCalled();
-  //   expect(consoleErrorSpy).toHaveBeenCalledWith(
-  //     'Failed to send email alert:',
-  //     expect.any(Error)
-  //   );
-  //   expect(result).toBe(false);
-
-  //   // Restore the spy
-  //   consoleErrorSpy.mockRestore();
-  // });
-
   it('should log error and return false when retrieving configuration fails', async () => {
     const mockStorageConnection = {
       getConfig: jest.fn().mockRejectedValue(new Error('Configuration retrieval failed'))
