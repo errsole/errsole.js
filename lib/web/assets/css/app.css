@@ -316,6 +316,9 @@ body {
   float: right;
   padding-right: 50px;
 }
+.github-star-button p{
+  margin: inherit;
+}
 
 .github-star-button button {
   background: whitesmoke;
@@ -891,11 +894,14 @@ body {
   }
   .divide-container{
     display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .hide-message .ant-switch {
     transform: scale(0.8); 
   }
+
   .hide-message span {
     font-size: 13px; 
   }
