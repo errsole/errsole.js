@@ -895,10 +895,10 @@ body {
   .divide-container{
     display: flex;
     justify-content: center;
-    align-items: center;
   }
 
   .hide-message .ant-switch {
+    min-width: 110px !important;
     transform: scale(0.8); 
   }
 
@@ -906,7 +906,7 @@ body {
     font-size: 13px; 
   }
   .Auto-Refresh{
-    margin-left: 5px !important;
+    margin-left: 19px !important;
   }
 } 
 
