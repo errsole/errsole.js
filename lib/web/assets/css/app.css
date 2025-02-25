@@ -152,6 +152,18 @@ body {
   margin-left: 10px;
 }
 
+.ant-picker-footer {
+  display: flex;
+  flex-direction: column-reverse; 
+  align-items: center;
+}
+
+.date-picker-message{
+  text-align: center; 
+  font-size: 15px;
+  color: #0D0D0D;
+}
+
 .datetime-picker-date {
   width: 260px !important;
 }
@@ -955,5 +967,11 @@ body {
     width: 70% !important;
     padding: 10px; 
     font-size: 14px; 
+  }
+}
+
+@media (max-width: 768px) {
+  .date-picker-message{
+    font-size: 13px;
   }
 }
