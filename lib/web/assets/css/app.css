@@ -328,6 +328,9 @@ body {
   float: right;
   padding-right: 50px;
 }
+.github-star-button p{
+  margin: inherit;
+}
 
 .github-star-button button {
   background: whitesmoke;
@@ -906,16 +909,19 @@ body {
   }
   .divide-container{
     display: flex;
+    justify-content: center;
   }
 
   .hide-message .ant-switch {
+    min-width: 110px !important;
     transform: scale(0.8); 
   }
+
   .hide-message span {
     font-size: 13px; 
   }
   .Auto-Refresh{
-    margin-left: 5px !important;
+    margin-left: 19px !important;
   }
 } 
 
