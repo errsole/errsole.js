@@ -1,4 +1,4 @@
-const { createUser, loginUser, getUserProfile, updateUserProfile, updateUserPassword, getAllUsers, addUser, removeUser, getTotalUsers } = require('../../lib/main/server/controllers/userController');
+const { createUser, loginUser, getUserProfile, updateUserProfile, updateUserPassword, getAllUsers, addUser, removeUser, getTotalUsers, getAdminName } = require('../../lib/main/server/controllers/userController');
 const helpers = require('../../lib/main/server/utils/helpers');
 const { getStorageConnection } = require('../../lib/main/server/storageConnection');
 const Jsonapi = require('../../lib/main/server/utils/jsonapiUtil');
@@ -1113,6 +1113,65 @@ describe('userController', () => {
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.send).toHaveBeenCalledWith({
         errors: [{ error: 'Internal Server Error', message: 'Unexpected error' }]
+      });
+    });
+  });
+
+  describe('#getAdminName', () => {
+    it('should return the admin name successfully when getAdminName function exists', async () => {
+      const req = {};
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        send: jest.fn()
+      };
+
+      const mockStorageConnection = {
+        getAdminName: jest.fn().mockResolvedValue('Admin User')
+      };
+      getStorageConnection.mockReturnValue(mockStorageConnection);
+      Jsonapi.Serializer.serialize.mockReturnValue({ data: { name: 'Admin User' } });
+
+      await getAdminName(req, res);
+
+      expect(mockStorageConnection.getAdminName).toHaveBeenCalled();
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.send).toHaveBeenCalledWith({ data: { name: 'Admin User' } });
+    });
+
+    it('should return 200 status with empty response when getAdminName function is not defined', async () => {
+      const req = {};
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        send: jest.fn()
+      };
+
+      const mockStorageConnection = {};
+      getStorageConnection.mockReturnValue(mockStorageConnection);
+
+      await getAdminName(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.send).toHaveBeenCalledWith();
+    });
+
+    it('should handle errors gracefully and return a 500 status code', async () => {
+      const req = {};
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        send: jest.fn()
+      };
+
+      const mockStorageConnection = {
+        getAdminName: jest.fn().mockRejectedValue(new Error('Database error'))
+      };
+      getStorageConnection.mockReturnValue(mockStorageConnection);
+
+      await getAdminName(req, res);
+
+      expect(mockStorageConnection.getAdminName).toHaveBeenCalled();
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [{ error: 'Internal Server Error', message: 'Database error' }]
       });
     });
   });
