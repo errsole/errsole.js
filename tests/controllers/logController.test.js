@@ -3,7 +3,7 @@ const Jsonapi = require('../../lib/main/server/utils/jsonapiUtil');
 const { getStorageConnection } = require('../../lib/main/server/storageConnection');
 const { describe, it } = require('@jest/globals');
 const helpers = require('../../lib/main/server/utils/helpers');
-/* globals expect, jest, beforeEach, beforeAll, afterAll */
+/* globals expect, jest, beforeEach, beforeAll, afterAll, afterEach */
 
 jest.mock('../../lib/main/server/storageConnection');
 jest.mock('../../lib/main/server/utils/jsonapiUtil');
@@ -24,6 +24,7 @@ describe('LogController', () => {
   afterAll(() => {
     console.error = originalConsoleError;
   });
+
   describe('#getLogs', () => {
     let req, res, mockStorageConnection;
 
@@ -183,6 +184,41 @@ describe('LogController', () => {
       });
     });
 
+    it('should return 400 with default error message when logs is empty (no items, no error field)', async () => {
+      req.query.search_terms = 'error';
+      // Simulate logs object without items and without an error field
+      mockStorageConnection.searchLogs.mockResolvedValue({});
+
+      await getLogs(req, res);
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Bad Request',
+            message: 'invalid request'
+          }
+        ]
+      });
+    });
+
+    it('should return 400 with logs.error message when logs does not contain items but has error field', async () => {
+      req.query.search_terms = 'error';
+      const errorMessage = 'Specific error message';
+      // Simulate logs object with an error field
+      mockStorageConnection.searchLogs.mockResolvedValue({ error: errorMessage });
+
+      await getLogs(req, res);
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Bad Request',
+            message: errorMessage
+          }
+        ]
+      });
+    });
+
     it('should handle empty hostnames array', async () => {
       req.query.hostnames = '[]';
       req.query.limit = '10';
@@ -290,88 +326,34 @@ describe('LogController', () => {
         ]
       });
     });
-  });
 
-  describe('#updateLogsTTL', () => {
-    let req, res, mockStorageConnection;
+    it('should return 400 with result.error message when logsTTL configuration is missing but error is provided', async () => {
+      const errorMessage = 'Configuration not found';
+      // Simulate a response where getConfig returns an object with an error field
+      mockStorageConnection.getConfig.mockResolvedValue({ error: errorMessage });
 
-    beforeEach(() => {
-      req = {
-        body: {
-          data: {
-            attributes: {
-              ttl: 30
-            }
-          }
-        }
-      };
-      res = {
-        send: jest.fn(),
-        status: jest.fn().mockReturnThis()
-      };
-      mockStorageConnection = {
-        setConfig: jest.fn(),
-        ensureLogsTTL: jest.fn()
-      };
-      getStorageConnection.mockReturnValue(mockStorageConnection);
-      Jsonapi.Serializer.serialize.mockImplementation((type, item) => ({ data: { type, item } }));
-      helpers.extractAttributes.mockReturnValue({ ttl: 30 });
-    });
+      await getLogsTTL(req, res);
 
-    it('should update logs TTL successfully', async () => {
-      const mockResult = { item: { id: 1, ttl: 30 } };
-      mockStorageConnection.setConfig.mockResolvedValue(mockResult);
-      mockStorageConnection.ensureLogsTTL.mockResolvedValue(null);
-
-      await updateLogsTTL(req, res);
-
-      expect(mockStorageConnection.setConfig).toHaveBeenCalledWith('logsTTL', 30);
-      expect(mockStorageConnection.ensureLogsTTL).toHaveBeenCalled();
-      expect(res.status).not.toHaveBeenCalledWith(400);
-      expect(res.status).not.toHaveBeenCalledWith(500);
-      expect(res.send).toHaveBeenCalledWith(Jsonapi.Serializer.serialize(Jsonapi.LogType, { id: 1, ttl: 30 }));
-    });
-
-    it('should return 400 if TTL is not provided', async () => {
-      helpers.extractAttributes.mockReturnValue({});
-      req.body.data.attributes = {};
-
-      await updateLogsTTL(req, res);
-
+      expect(mockStorageConnection.getConfig).toHaveBeenCalledWith('logsTTL');
       expect(res.status).toHaveBeenCalledWith(400);
       expect(res.send).toHaveBeenCalledWith({
         errors: [
           {
             error: 'Bad Request',
-            message: 'invalid request'
+            message: errorMessage
           }
         ]
       });
     });
 
-    it('should return 400 if setConfig result does not contain item', async () => {
-      const mockResult = {};
-      mockStorageConnection.setConfig.mockResolvedValue(mockResult);
+    it('should handle unexpected errors gracefully by returning 500 with proper error message', async () => {
+      // Create an error with a message
+      const error = new Error('Unexpected error');
+      mockStorageConnection.getConfig.mockRejectedValue(error);
 
-      await updateLogsTTL(req, res);
+      await getLogsTTL(req, res);
 
-      expect(mockStorageConnection.setConfig).toHaveBeenCalledWith('logsTTL', 30);
-      expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.send).toHaveBeenCalledWith({
-        errors: [
-          {
-            error: 'Bad Request',
-            message: 'invalid request'
-          }
-        ]
-      });
-    });
-
-    it('should handle errors gracefully', async () => {
-      mockStorageConnection.setConfig.mockRejectedValue(new Error('Unexpected error'));
-
-      await updateLogsTTL(req, res);
-
+      expect(mockStorageConnection.getConfig).toHaveBeenCalledWith('logsTTL');
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.send).toHaveBeenCalledWith({
         errors: [
@@ -382,22 +364,127 @@ describe('LogController', () => {
         ]
       });
     });
+  });
 
-    it('should handle errors from ensureLogsTTL gracefully', async () => {
-      const mockResult = { item: { id: 1, ttl: 30 } };
-      mockStorageConnection.setConfig.mockResolvedValue(mockResult);
-      mockStorageConnection.ensureLogsTTL.mockRejectedValue(new Error('Ensure TTL error'));
+  describe('#updateLogsTTL', () => {
+    let req, res, mockStorageConnection;
+
+    beforeEach(() => {
+      req = { body: {} };
+      res = {
+        send: jest.fn(),
+        status: jest.fn().mockReturnThis()
+      };
+      mockStorageConnection = {
+        setConfig: jest.fn(),
+        ensureLogsTTL: jest.fn()
+      };
+      // Ensure that getStorageConnection returns our mocked storage connection
+      getStorageConnection.mockReturnValue(mockStorageConnection);
+      // Default: extractAttributes returns an empty object
+      helpers.extractAttributes.mockReturnValue({});
+      // Default: Jsonapi.Serializer.serialize returns a placeholder value
+      Jsonapi.Serializer.serialize.mockReturnValue({ data: 'serialized data' });
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('should return 400 error when ttl is not provided', async () => {
+      // extractAttributes returns an empty object (i.e. no ttl)
+      helpers.extractAttributes.mockReturnValue({});
 
       await updateLogsTTL(req, res);
 
-      expect(mockStorageConnection.setConfig).toHaveBeenCalledWith('logsTTL', 30);
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Bad Request',
+            message: 'invalid request'
+          }
+        ]
+      });
+    });
+
+    it('should update logs TTL successfully when ttl is provided and setConfig returns valid result', async () => {
+      const ttlValue = 3600;
+      // Simulate extraction returning a valid ttl
+      helpers.extractAttributes.mockReturnValue({ ttl: ttlValue });
+      const result = { item: { ttl: ttlValue } };
+      mockStorageConnection.setConfig.mockResolvedValue(result);
+      // ensureLogsTTL resolves successfully
+      mockStorageConnection.ensureLogsTTL.mockResolvedValue();
+
+      await updateLogsTTL(req, res);
+
+      // Verify that setConfig was called with the correct parameters
+      expect(mockStorageConnection.setConfig).toHaveBeenCalledWith('logsTTL', ttlValue);
+      // Verify that ensureLogsTTL was called
       expect(mockStorageConnection.ensureLogsTTL).toHaveBeenCalled();
+      // Verify that the response is serialized correctly
+      expect(Jsonapi.Serializer.serialize).toHaveBeenCalledWith(Jsonapi.LogType, result.item);
+      expect(res.send).toHaveBeenCalledWith({ data: 'serialized data' });
+    });
+
+    it('should return 400 error when ttl is provided but setConfig returns an invalid result (empty object)', async () => {
+      const ttlValue = 3600;
+      helpers.extractAttributes.mockReturnValue({ ttl: ttlValue });
+      // Simulate an invalid result from setConfig (no item property)
+      const invalidResult = {};
+      mockStorageConnection.setConfig.mockResolvedValue(invalidResult);
+
+      await updateLogsTTL(req, res);
+
+      expect(mockStorageConnection.setConfig).toHaveBeenCalledWith('logsTTL', ttlValue);
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Bad Request',
+            message: 'invalid request'
+          }
+        ]
+      });
+    });
+
+    it('should return 400 error with error message when ttl is provided but setConfig returns invalid result with an error property', async () => {
+      const ttlValue = 3600;
+      helpers.extractAttributes.mockReturnValue({ ttl: ttlValue });
+      // Simulate an invalid result with an error property
+      const invalidResult = { error: 'Configuration update failed' };
+      mockStorageConnection.setConfig.mockResolvedValue(invalidResult);
+
+      await updateLogsTTL(req, res);
+
+      expect(mockStorageConnection.setConfig).toHaveBeenCalledWith('logsTTL', ttlValue);
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Bad Request',
+            message: 'Configuration update failed'
+          }
+        ]
+      });
+    });
+
+    it('should handle unexpected errors gracefully', async () => {
+      const ttlValue = 3600;
+      helpers.extractAttributes.mockReturnValue({ ttl: ttlValue });
+      const error = new Error('Unexpected error');
+      // Simulate setConfig throwing an error
+      mockStorageConnection.setConfig.mockRejectedValue(error);
+
+      await updateLogsTTL(req, res);
+
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.send).toHaveBeenCalledWith({
         errors: [
           {
             error: 'Internal Server Error',
-            message: 'Ensure TTL error'
+            message: 'Unexpected error'
           }
         ]
       });
@@ -555,7 +642,7 @@ describe('LogController', () => {
     let req, res, mockStorageConnection;
 
     beforeEach(() => {
-      req = {}; // No body or query needed for this function
+      req = {}; // No request parameters needed
       res = {
         send: jest.fn(),
         status: jest.fn().mockReturnThis()
@@ -566,8 +653,13 @@ describe('LogController', () => {
       getStorageConnection.mockReturnValue(mockStorageConnection);
     });
 
-    it('should delete all logs and return success message', async () => {
-      mockStorageConnection.deleteAllLogs.mockResolvedValue(null);
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('should delete all logs successfully and send success message', async () => {
+      // Simulate successful deletion
+      mockStorageConnection.deleteAllLogs.mockResolvedValue();
 
       await deleteAllLogs(req, res);
 
@@ -577,9 +669,10 @@ describe('LogController', () => {
       });
     });
 
-    it('should handle errors gracefully', async () => {
-      const errorMessage = 'Database connection error';
-      mockStorageConnection.deleteAllLogs.mockRejectedValue(new Error(errorMessage));
+    it('should handle errors and send error response when deletion fails', async () => {
+      // Simulate an error thrown by deleteAllLogs
+      const error = new Error('Deletion error');
+      mockStorageConnection.deleteAllLogs.mockRejectedValue(error);
 
       await deleteAllLogs(req, res);
 
@@ -589,7 +682,26 @@ describe('LogController', () => {
         errors: [
           {
             error: 'Internal Server Error',
-            message: errorMessage
+            message: 'Deletion error'
+          }
+        ]
+      });
+    });
+
+    it('should handle errors with no message and send default error message', async () => {
+      // Simulate an error with no message property
+      const error = {}; // error.message is undefined
+      mockStorageConnection.deleteAllLogs.mockRejectedValue(error);
+
+      await deleteAllLogs(req, res);
+
+      expect(mockStorageConnection.deleteAllLogs).toHaveBeenCalled();
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [
+          {
+            error: 'Internal Server Error',
+            message: 'An unexpected error occurred while deleting logs.'
           }
         ]
       });
