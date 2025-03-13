@@ -4,7 +4,7 @@ const { getStorageConnection } = require('../../lib/main/server/storageConnectio
 const Jsonapi = require('../../lib/main/server/utils/jsonapiUtil');
 const jwt = require('jsonwebtoken');
 
-/* globals expect, jest,  it, beforeAll, afterAll, beforeEach, describe */
+/* globals expect, jest,  it, beforeAll, afterAll, beforeEach, describe, afterEach */
 
 jest.mock('../../lib/main/server/utils/helpers');
 jest.mock('../../lib/main/server/storageConnection');
@@ -1323,30 +1323,137 @@ describe('userController', () => {
   });
 
   describe('#removeUser', () => {
-    it('should handle errors gracefully', async () => {
-      const req = {
-        email: 'admin@example.com',
-        params: { userId: '12345' }
+    let req, res, mockStorageConnection;
+
+    beforeEach(() => {
+      req = {
+        email: 'admin@example.com', // default to admin user
+        params: { userId: 'user123' }
       };
-      const res = {
+      res = {
         status: jest.fn().mockReturnThis(),
         send: jest.fn()
       };
-
-      const mockStorageConnection = {
-        getUserByEmail: jest.fn().mockRejectedValue(new Error('Unexpected error')),
-        deleteUser: jest.fn() // This won't be called because getUserByEmail will throw
+      mockStorageConnection = {
+        getUserByEmail: jest.fn(),
+        deleteUser: jest.fn()
       };
       getStorageConnection.mockReturnValue(mockStorageConnection);
+      // Default serializer return value
+      Jsonapi.Serializer.serialize.mockReturnValue({ data: 'serialized result' });
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    // Case: Missing email in request
+    it('should return 400 error if email is missing', async () => {
+      req.email = undefined; // Missing email
+      await removeUser(req, res);
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [{ error: 'Bad Request', message: 'invalid request' }]
+      });
+    });
+
+    // Case: Missing userId in request parameters
+    it('should return 400 error if userId is missing', async () => {
+      req.params.userId = undefined; // Missing userId
+      await removeUser(req, res);
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [{ error: 'Bad Request', message: 'invalid request' }]
+      });
+    });
+
+    // Case: Valid email and userId, but the requesting user is not admin
+    it('should return 403 if user is not admin (default message)', async () => {
+      req.email = 'nonadmin@example.com';
+      req.params.userId = 'user123';
+      // Simulate getUserByEmail returning a non-admin user
+      mockStorageConnection.getUserByEmail.mockResolvedValue({ item: { role: 'user' } });
+      await removeUser(req, res);
+      expect(mockStorageConnection.getUserByEmail).toHaveBeenCalledWith('nonadmin@example.com');
+      expect(res.status).toHaveBeenCalledWith(403);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [{ error: 'Forbidden', message: 'Not allowed' }]
+      });
+    });
+
+    // Case: Valid email and userId, non-admin with custom error message
+    it('should return 403 if user is not admin (custom error message)', async () => {
+      req.email = 'nonadmin@example.com';
+      req.params.userId = 'user123';
+      // Simulate getUserByEmail returning an error message
+      mockStorageConnection.getUserByEmail.mockResolvedValue({ error: 'Custom forbidden message' });
+      await removeUser(req, res);
+      expect(mockStorageConnection.getUserByEmail).toHaveBeenCalledWith('nonadmin@example.com');
+      expect(res.status).toHaveBeenCalledWith(403);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [{ error: 'Forbidden', message: 'Custom forbidden message' }]
+      });
+    });
+
+    it('should successfully delete user if admin and deletion returns a result', async () => {
+      req.email = 'admin@example.com';
+      req.params.userId = 'user123';
+      // Simulate admin user details
+      mockStorageConnection.getUserByEmail.mockResolvedValue({ item: { role: 'admin' } });
+      const deletionResult = { id: 'user123', email: 'user@example.com' };
+      mockStorageConnection.deleteUser.mockResolvedValue(deletionResult);
+
+      // Option 1: Force the serializer to return a fixed string
+      // Jsonapi.Serializer.serialize.mockReturnValue({ data: 'serialized result' });
+
+      // Option 2 (if you want to return the deletionResult instead):
+      Jsonapi.Serializer.serialize.mockReturnValue({ data: deletionResult });
 
       await removeUser(req, res);
 
       expect(mockStorageConnection.getUserByEmail).toHaveBeenCalledWith('admin@example.com');
+      expect(mockStorageConnection.deleteUser).toHaveBeenCalledWith('user123');
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(Jsonapi.Serializer.serialize).toHaveBeenCalledWith(Jsonapi.UserType, deletionResult);
+      // Update expectation to match the actual returned object
+      expect(res.send).toHaveBeenCalledWith({ data: deletionResult });
+    });
+
+    // Case: Valid admin request but deletion fails (result is falsy)
+    it('should return 500 error if deletion fails (falsy result)', async () => {
+      req.email = 'admin@example.com';
+      req.params.userId = 'user123';
+      mockStorageConnection.getUserByEmail.mockResolvedValue({ item: { role: 'admin' } });
+      // Simulate deletion failure by returning a falsy value (e.g., false)
+      mockStorageConnection.deleteUser.mockResolvedValue(false);
+
+      await removeUser(req, res);
+
+      expect(mockStorageConnection.getUserByEmail).toHaveBeenCalledWith('admin@example.com');
+      expect(mockStorageConnection.deleteUser).toHaveBeenCalledWith('user123');
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.send).toHaveBeenCalledWith({
         errors: [{
           error: 'Internal Server Error',
-          message: 'Unexpected error'
+          message: 'An internal server error occurred'
+        }]
+      });
+    });
+
+    // Case: Exception is thrown during processing (e.g., in getUserByEmail)
+    it('should handle exceptions gracefully and return 500 error', async () => {
+      req.email = 'admin@example.com';
+      req.params.userId = 'user123';
+      // Force an exception
+      mockStorageConnection.getUserByEmail.mockRejectedValue(new Error('Database error'));
+
+      await removeUser(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [{
+          error: 'Internal Server Error',
+          message: 'Database error'
         }]
       });
     });
