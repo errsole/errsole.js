@@ -1118,57 +1118,79 @@ describe('userController', () => {
   });
 
   describe('#getAdminName', () => {
-    it('should return the admin name successfully when getAdminName function exists', async () => {
-      const req = {};
-      const res = {
+    let req, res, mockStorageConnection;
+
+    beforeEach(() => {
+      req = {};
+      res = {
         status: jest.fn().mockReturnThis(),
         send: jest.fn()
       };
-
-      const mockStorageConnection = {
-        getAdminName: jest.fn().mockResolvedValue('Admin User')
+      mockStorageConnection = {
+        getAllUsers: jest.fn()
       };
+      // Ensure our storage connection is used by the controller
       getStorageConnection.mockReturnValue(mockStorageConnection);
+      // Default serializer mock – can be overridden per test
       Jsonapi.Serializer.serialize.mockReturnValue({ data: { name: 'Admin User' } });
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('should return admin name if an admin user is found', async () => {
+      const adminUser = { role: 'admin', name: 'Admin User' };
+      const allUsersDetails = {
+        items: [
+          { role: 'user', name: 'User One' },
+          adminUser,
+          { role: 'user', name: 'User Two' }
+        ]
+      };
+      mockStorageConnection.getAllUsers.mockResolvedValue(allUsersDetails);
 
       await getAdminName(req, res);
 
-      expect(mockStorageConnection.getAdminName).toHaveBeenCalled();
       expect(res.status).toHaveBeenCalledWith(200);
+      expect(Jsonapi.Serializer.serialize).toHaveBeenCalledWith(Jsonapi.UserType, { name: adminUser.name });
       expect(res.send).toHaveBeenCalledWith({ data: { name: 'Admin User' } });
     });
 
-    it('should return 200 status with empty response when getAdminName function is not defined', async () => {
-      const req = {};
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        send: jest.fn()
+    it('should return 200 with empty response if no admin user is found', async () => {
+      const allUsersDetails = {
+        items: [
+          { role: 'user', name: 'User One' },
+          { role: 'user', name: 'User Two' }
+        ]
       };
-
-      const mockStorageConnection = {};
-      getStorageConnection.mockReturnValue(mockStorageConnection);
+      mockStorageConnection.getAllUsers.mockResolvedValue(allUsersDetails);
 
       await getAdminName(req, res);
 
       expect(res.status).toHaveBeenCalledWith(200);
+      // When no admin user is found, send() is called with no arguments
       expect(res.send).toHaveBeenCalledWith();
     });
 
-    it('should handle errors gracefully and return a 500 status code', async () => {
-      const req = {};
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        send: jest.fn()
-      };
-
-      const mockStorageConnection = {
-        getAdminName: jest.fn().mockRejectedValue(new Error('Database error'))
-      };
-      getStorageConnection.mockReturnValue(mockStorageConnection);
+    it('should return 400 error when getAllUsers does not return items', async () => {
+      // Simulate a response without an "items" property
+      mockStorageConnection.getAllUsers.mockResolvedValue({});
 
       await getAdminName(req, res);
 
-      expect(mockStorageConnection.getAdminName).toHaveBeenCalled();
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.send).toHaveBeenCalledWith({
+        errors: [{ error: 'Bad Request', message: 'invalid request' }]
+      });
+    });
+
+    it('should return 500 error when an exception is thrown', async () => {
+      const error = new Error('Database error');
+      mockStorageConnection.getAllUsers.mockRejectedValue(error);
+
+      await getAdminName(req, res);
+
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.send).toHaveBeenCalledWith({
         errors: [{ error: 'Internal Server Error', message: 'Database error' }]
