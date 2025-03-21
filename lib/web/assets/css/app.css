@@ -250,6 +250,33 @@ body {
   border-radius: 5px;
 }
 
+.email-integration-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.email-field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; 
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.recipient-tags {
+  display: flex;
+  justify-content: center;
+  gap: 2px; 
+  flex-wrap: wrap;
+}
+
+.email-tag, .recipient-tag {
+  font-size: 14px;
+  padding: 4px 8px;
+  border-radius: 5px;
+}
+
 .all-intergrations h1{
   font-size: 16.38px; 
   color: #000000D9; 
@@ -266,7 +293,7 @@ body {
 }
 
 .tab-icon {
-  margin-right: 8px; /* Adjust as needed */
+  margin-right: 8px; 
 }
 
 .all-useful-links {
