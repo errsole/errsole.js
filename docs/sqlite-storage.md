@@ -84,10 +84,10 @@ app.listen(port, () => {
 
 After completing the setup, start your app and access the Errsole Web Dashboard to view and manage your logs:
 * Local Development: Open your web browser and go to `http://localhost:8001/`
-* Remote Deployment: Replace `YourServerIP` or `YourDomain` with your server details:
+* Remote Deployment: Replace `your-server-ip` or `your-domain` with your server details:
 ```
-http://YourServerIP:8001/
-http://YourDomain:8001/
+http://your-server-ip:8001/
+http://your-domain:8001/
 ```
 
 ### 4. Configure NGINX
@@ -114,8 +114,8 @@ sudo nginx -s reload
 
 You can now access the Errsole Web Dashboard through your domain:
 
-* For HTTP: `http://YourDomain/your-app-name/logs/`
-* For HTTPS: `https://YourDomain/your-app-name/logs/`
+* For HTTP: `http://your-domain/your-app-name/logs/`
+* For HTTPS: `https://your-domain/your-app-name/logs/`
 
 **Note:** Replace `/your-app-name/logs` with your desired log path.
 
