@@ -24,8 +24,8 @@ errsole.initialize({
   collectLogs: ['error', 'info'],
   enableConsoleOutput: true,
   enableDashboard: true,
-  port: 8080,
-  path: '/logs',
+  port: 8001,
+  path: '/',
   appName: 'helloworld',
   environmentName: 'development',
   serverName: 'dev-server-1'
