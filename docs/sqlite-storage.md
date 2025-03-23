@@ -95,10 +95,10 @@ http://YourDomain:8001/
 If your app is behind an NGINX reverse proxy, you can configure access to the Errsole Web Dashboard by adding the following lines to your NGINX configuration file:
 
 ```
-location = /helloworld/logs {
-  return 301 /helloworld/logs/;
+location = /your-app-name/logs {
+  return 301 /your-app-name/logs/;
 }
-location /helloworld/logs/ {
+location /your-app-name/logs/ {
   proxy_pass http://localhost:8001/;
   proxy_http_version 1.1;
   proxy_set_header Upgrade $http_upgrade;
@@ -114,10 +114,10 @@ sudo nginx -s reload
 
 You can now access the Errsole Web Dashboard through your domain:
 
-* For HTTP: `http://YourDomain/helloworld/logs/`
-* For HTTPS: `https://YourDomain/helloworld/logs/`
+* For HTTP: `http://YourDomain/your-app-name/logs/`
+* For HTTPS: `https://YourDomain/your-app-name/logs/`
 
-**Note:** Replace `/helloworld/logs` with your desired log path.
+**Note:** Replace `/your-app-name/logs` with your desired log path.
 
 ## Advanced Configuration
 
