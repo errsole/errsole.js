@@ -17,15 +17,15 @@
 
 ## Email Integration (For Critical Error Notifications)
 
-| **Option**                  	| **Type** 	| **Description**                                                          	|
-|-----------------------------	|----------	|--------------------------------------------------------------------------	|
-| integrations.email          	| Object   	| **Optional.** SMTP configuration object for sending email notifications. 	|
-| integrations.email.host     	| string   	| **Required.** SMTP host or IP address.                                   	|
-| integrations.email.port     	| number   	| **Required.** SMTP port number.                                          	|
-| integrations.email.username 	| string   	| **Required.** SMTP username.                                             	|
-| password                    	| string   	| **Required.** SMTP password.                                             	|
-| sender                      	| string   	| **Required.** Email address from which notifications are sent.           	|
-| recipients                  	| string[] 	| **Required.** List of email addresses to receive notifications.          	|
+| **Option**                    	| **Type** 	| **Description**                                                          	|
+|-------------------------------	|----------	|--------------------------------------------------------------------------	|
+| integrations.email            	| Object   	| **Optional.** SMTP configuration object for sending email notifications. 	|
+| integrations.email.host       	| string   	| **Required.** SMTP host or IP address.                                   	|
+| integrations.email.port       	| number   	| **Required.** SMTP port number.                                          	|
+| integrations.email.username   	| string   	| **Required.** SMTP username.                                             	|
+| integrations.email.password   	| string   	| **Required.** SMTP password.                                             	|
+| integrations.email.sender     	| string   	| **Required.** Email address from which notifications are sent.           	|
+| integrations.email.recipients 	| string[] 	| **Required.** List of email addresses to receive notifications.          	|
 
 ## Slack Integration (For Critical Error Notifications)
 
