@@ -15,7 +15,7 @@
 | environmentName     	| string                                                                                                                                                                             	| **Optional.** Default: `process.env.NODE_ENV`. Specify the deployment environment.                                                                                                                                            	|
 | serverName          	| string                                                                                                                                                                             	| **Optional.** Default: the hostname of the machine. Specify the name of the server.                                                                                                                                           	|
 
-### Example
+#### Example
 
 ```javascript
 errsole.initialize({
@@ -44,7 +44,7 @@ errsole.initialize({
 | integrations.email.sender     	| string   	| **Required.** Email address from which notifications are sent.           	|
 | integrations.email.recipients 	| string[] 	| **Required.** List of email addresses to receive notifications.          	|
 
-### Example
+#### Example
 
 ```javascript
 errsole.initialize({
@@ -70,7 +70,7 @@ errsole.initialize({
 | integrations.slack     	| Object   	| **Optional.** Slack configuration object.                  	|
 | integrations.slack.url 	| string   	| **Required.** Slack Webhook URL for sending notifications. 	|
 
-### Example
+#### Example
 
 ```javascript
 errsole.initialize({
