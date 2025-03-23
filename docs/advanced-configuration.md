@@ -15,6 +15,23 @@
 | environmentName     	| string                                                                                                                                                                             	| **Optional.** Default: `process.env.NODE_ENV`. Specify the deployment environment.                                                                                                                                            	|
 | serverName          	| string                                                                                                                                                                             	| **Optional.** Default: the hostname of the machine. Specify the name of the server.                                                                                                                                           	|
 
+### Example
+
+```javascript
+errsole.initialize({
+  storage: new ErrsoleSQLite(logsFile),
+  exitOnException: true,
+  collectLogs: ['error', 'info'],
+  enableConsoleOutput: true,
+  enableDashboard: true,
+  port: 8080,
+  path: '/logs',
+  appName: 'helloworld',
+  environmentName: 'development',
+  serverName: 'dev-server-1'
+});
+```
+
 ## Email Integration (For Critical Error Notifications)
 
 | **Option**                    	| **Type** 	| **Description**                                                          	|
@@ -27,12 +44,43 @@
 | integrations.email.sender     	| string   	| **Required.** Email address from which notifications are sent.           	|
 | integrations.email.recipients 	| string[] 	| **Required.** List of email addresses to receive notifications.          	|
 
+### Example
+
+```javascript
+errsole.initialize({
+  storage: new ErrsoleSQLite(logsFile),
+  appName: 'helloworld',
+  integrations: {
+    email: {
+      host: 'smtp.example.com',
+      port: 587,
+      username: 'your-smtp-username',
+      password: 'your-smtp-password',
+      sender: 'alerts@example.com',
+      recipients: ['devteam@example.com', 'ops@example.com']
+    }
+  }
+});
+```
+
 ## Slack Integration (For Critical Error Notifications)
 
 | **Option**             	| **Type** 	| **Description**                                            	|
 |------------------------	|----------	|------------------------------------------------------------	|
 | integrations.slack     	| Object   	| **Optional.** Slack configuration object.                  	|
 | integrations.slack.url 	| string   	| **Required.** Slack Webhook URL for sending notifications. 	|
+
+```javascript
+errsole.initialize({
+  storage: new ErrsoleSQLite(logsFile),
+  appName: 'helloworld',
+  integrations: {
+    slack: {
+      url: 'https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX'
+    }
+  }
+});
+```
 
 ## Main Documentation
 
