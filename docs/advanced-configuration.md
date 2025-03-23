@@ -26,9 +26,9 @@ errsole.initialize({
   enableDashboard: true,
   port: 8001,
   path: '/',
-  appName: 'helloworld',
-  environmentName: 'development',
-  serverName: 'dev-server-1'
+  appName: 'your-app-name',
+  environmentName: 'your-environment-name',
+  serverName: 'your-server-name'
 });
 ```
 
@@ -49,15 +49,15 @@ errsole.initialize({
 ```javascript
 errsole.initialize({
   storage: new ErrsoleSQLite(logsFile),
-  appName: 'helloworld',
+  appName: 'your-app-name',
   integrations: {
     email: {
       host: 'smtp.example.com',
       port: 587,
       username: 'your-smtp-username',
       password: 'your-smtp-password',
-      sender: 'alerts@example.com',
-      recipients: ['devteam@example.com', 'ops@example.com']
+      sender: 'notifications@example.com',
+      recipients: ['dev1@example.com', 'dev2@example.com']
     }
   }
 });
@@ -70,10 +70,12 @@ errsole.initialize({
 | integrations.slack     	| Object   	| **Optional.** Slack configuration object.                  	|
 | integrations.slack.url 	| string   	| **Required.** Slack Webhook URL for sending notifications. 	|
 
+### Example
+
 ```javascript
 errsole.initialize({
   storage: new ErrsoleSQLite(logsFile),
-  appName: 'helloworld',
+  appName: 'your-app-name',
   integrations: {
     slack: {
       url: 'https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX'
