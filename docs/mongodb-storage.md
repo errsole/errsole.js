@@ -18,7 +18,7 @@ errsole.initialize({
 });
 ```
 
-#### CommonJS:
+#### CommonJS
 
 ```javascript
 const errsole = require('errsole');
@@ -32,7 +32,7 @@ errsole.initialize({
 module.exports = errsole;
 ```
 
-#### ESM and TypeScript:
+#### ESM and TypeScript
 
 ```javascript
 // ESM and TypeScript

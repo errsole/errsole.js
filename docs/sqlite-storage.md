@@ -14,7 +14,7 @@ npm install errsole errsole-sqlite
 
 Create a `logger.js` file to configure Errsole with SQLite for your app.
 
-#### CommonJS:
+#### CommonJS
 
 ```javascript
 const errsole = require('errsole');
@@ -28,7 +28,7 @@ errsole.initialize({
 module.exports = errsole;
 ```
 
-#### ESM and TypeScript:
+#### ESM and TypeScript
 
 ```javascript
 import errsole from 'errsole';
