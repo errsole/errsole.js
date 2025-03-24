@@ -52,10 +52,10 @@ import ErrsoleSQLite from 'errsole-sqlite';
 import os from 'os';
 import path from 'path';
 
-const logsFile = path.join(os.tmpdir(), 'helloworld.log.sqlite');
+const logFile = path.join(os.tmpdir(), 'helloworld.log.sqlite');
 
 errsole.initialize({
-  storage: new ErrsoleSQLite(logsFile),
+  storage: new ErrsoleSQLite(logFile),
   appName: 'helloworld'
 });
 
