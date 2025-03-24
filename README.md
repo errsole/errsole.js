@@ -54,7 +54,7 @@ A Node.js app using Errsole Logger can handle 90,000 more requests per minute th
 ## Setup
 
 #### Development Environment
-For local development or scenarios where you prefer storing logs directly on the server, you can integrate Errsole with SQLite. When using SQLite, logs will be stored in a file on your machine.
+For local development or scenarios where you prefer storing logs directly on the server, you can integrate Errsole with SQLite. When using SQLite, logs will be stored in a file on your server.
 
 * [Errsole with SQLite](https://github.com/errsole/errsole.js/blob/master/docs/sqlite-storage.md)
 
