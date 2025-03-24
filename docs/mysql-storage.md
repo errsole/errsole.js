@@ -174,12 +174,16 @@ errsole.initialize({
 });
 ```
 
+**Note:** You can configure the SMTP email settings either in the code or directly in the Errsole Web Dashboard.
+
 ### Slack Integration (For Critical Error Notifications)
 
 | **Option**             	| **Type** 	| **Description**                                            	|
 |------------------------	|----------	|------------------------------------------------------------	|
 | integrations.slack     	| Object   	| **Optional.** Slack configuration object.                  	|
 | integrations.slack.url 	| string   	| **Required.** Slack Webhook URL for sending notifications. 	|
+
+**Note:** You can configure the Slack Webhook URL either in the code or directly in the Errsole Web Dashboard.
 
 #### Example
 
