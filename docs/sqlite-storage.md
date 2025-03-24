@@ -140,7 +140,7 @@ You can now access the Errsole Web Dashboard through your domain:
 
 ```javascript
 errsole.initialize({
-  storage: new ErrsoleSQLite(logsFile),
+  storage: new ErrsoleSQLite(logFile),
   exitOnException: true,
   collectLogs: ['error', 'info'],
   enableConsoleOutput: true,
@@ -169,7 +169,7 @@ errsole.initialize({
 
 ```javascript
 errsole.initialize({
-  storage: new ErrsoleSQLite(logsFile),
+  storage: new ErrsoleSQLite(logFile),
   appName: 'your-app-name',
   integrations: {
     email: {
@@ -197,7 +197,7 @@ errsole.initialize({
 
 ```javascript
 errsole.initialize({
-  storage: new ErrsoleSQLite(logsFile),
+  storage: new ErrsoleSQLite(logFile),
   appName: 'your-app-name',
   integrations: {
     slack: {
