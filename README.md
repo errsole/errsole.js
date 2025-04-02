@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/6cb1d5fa-6a9f-4b96-8843-71121dad6da5" width="256"/>
+  <img src="https://github.com/user-attachments/assets/efac607f-4f41-4e60-8c8c-df3deb94a3da" width="256"/>
 
   <h3 align="center">Collect, Store, and Visualize Logs with a Single Module</h3>
 
