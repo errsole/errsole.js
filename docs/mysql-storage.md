@@ -56,7 +56,7 @@ export default errsole;
 
 ### 3. Use the logger in your app code
 
-To start logging, include the logger in your appl code. Here is an example using Express:
+To start logging, include the logger in your app code. Here is an example using Express:
 
 ```javascript
 import express from 'express';
