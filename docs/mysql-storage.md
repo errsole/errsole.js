@@ -52,6 +52,8 @@ errsole.initialize({
 export default errsole;
 ```
 
+**Note:** `errsole-mysql` uses the `mysql2` package to connect to your MySQL database. It supports all the connection options provided by the MySQL client, so you can pass any of them for advanced configuration. For a full list of options, refer to the [MySQL Connection Options](https://github.com/mysqljs/mysql?tab=readme-ov-file#connection-options) documentation.
+
 ### 3. Include the logger in your app code
 
 Include the logger in your app code to start logging. Here is an example using Express:
