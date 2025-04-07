@@ -20,13 +20,13 @@ const ErrsoleMySQL = require('errsole-mysql');
 
 errsole.initialize({
   storage: new ErrsoleMySQL({
-    host: 'mysql-host', // Replace with your actual MySQL host
-    user: 'database-user', // Replace with your actual MySQL user
+    host: 'mysql-host',            // Replace with your actual MySQL host
+    user: 'database-user',         // Replace with your actual MySQL user
     password: 'database-password', // Replace with your actual MySQL password
-    database: 'database-name', // Replace with the name of your MySQL database
-    tablePrefix: 'app-name' // Replace with your actual app name
+    database: 'database-name',     // Replace with the name of your MySQL database
+    tablePrefix: 'app-name'        // Replace with your actual app name
   }),
-  appName: 'app-name' // Replace with your actual app name
+  appName: 'app-name'              // Replace with your actual app name
 });
 
 module.exports = errsole;
@@ -40,13 +40,13 @@ import ErrsoleMySQL from 'errsole-mysql';
 
 errsole.initialize({
   storage: new ErrsoleMySQL({
-    host: 'mysql-host', // Replace with your actual MySQL host
-    user: 'database-user', // Replace with your actual MySQL user
+    host: 'mysql-host',            // Replace with your actual MySQL host
+    user: 'database-user',         // Replace with your actual MySQL user
     password: 'database-password', // Replace with your actual MySQL password
-    database: 'database-name', // Replace with the name of your MySQL database
-    tablePrefix: 'app-name' // Replace with your actual app name
+    database: 'database-name',     // Replace with the name of your MySQL database
+    tablePrefix: 'app-name'        // Replace with your actual app name
   }),
-  appName: 'app-name' // Replace with your actual app name
+  appName: 'app-name'              // Replace with your actual app name
 });
 
 export default errsole;
