@@ -2,19 +2,23 @@
 
 ### 1. Install the modules
 
-Install the `errsole` and `errsole-mongodb` modules using the npm install command:
+Run the following command to install Errsole and the MongoDB storage module in your Node.js project:
 
 ```bash
 npm install errsole errsole-mongodb
 ```
 
-### 2. Configure your logger
+### 2. Configure the logger
 
-Create a `logger.js` file to configure Errsole with MongoDB for your app.
+Create a separate `logger.js` file to initialize and export the Errsole logger, so that you can use it across your project:
 
 ```
 errsole.initialize({
-  storage: new ErrsoleMongoDB('<MongoDB Connection URL>', '<Optional: Database Name>', {<Optional: MongoDB Client Options>})
+  storage: new ErrsoleMongoDB(
+    '<MongoDB Connection URL>',
+    '<Optional: Database Name>',
+    {<Optional: MongoDB Client Options>}
+  )
 });
 ```
 
@@ -25,7 +29,11 @@ const errsole = require('errsole');
 const ErrsoleMongoDB = require('errsole-mongodb');
 
 errsole.initialize({
-  storage: new ErrsoleMongoDB('mongodb-connection-url', 'optional-database-name', { collectionPrefix: 'your-app-name' }),
+  storage: new ErrsoleMongoDB(
+    'mongodb-connection-url',
+    'optional-database-name',
+    { collectionPrefix: 'your-app-name' }
+  ),
   appName: 'your-app-name'
 });
 
@@ -40,16 +48,22 @@ import errsole from 'errsole';
 import ErrsoleMongoDB from 'errsole-mongodb';
 
 errsole.initialize({
-  storage: new ErrsoleMongoDB('mongodb-connection-url', 'optional-database-name', { collectionPrefix: 'your-app-name' }),
+  storage: new ErrsoleMongoDB(
+    'mongodb-connection-url',
+    'optional-database-name',
+    { collectionPrefix: 'your-app-name' }
+  ),
   appName: 'your-app-name'
 });
 
 export default errsole;
 ```
 
-### 3. Include the logger in your app code
+**Note:** `errsole-mongodb` uses the `mongodb` package to connect to your MongoDB database. It supports all the connection options provided by the MongoDB client, so you can pass any of them for advanced configuration. For a full list of options, refer to the [MongoDB Connection Options](https://www.mongodb.com/docs/drivers/node/current/fundamentals/connection/connection-options/#std-label-node-connection-options) documentation.
 
-Include the logger in your app code to start logging. Here is an example using Express:
+### 3. Use the logger in your app code
+
+To start logging, include the logger in your app code. Here is an example using Express:
 
 ```javascript
 import express from 'express';
@@ -69,7 +83,7 @@ app.listen(port, () => {
 
 After completing the setup, start your app and access the Errsole Web Dashboard to view and manage your logs:
 * Local Development: Open your web browser and go to `http://localhost:8001/`
-* Remote Deployment: Replace `your-server-ip` or `your-domain` with your server details:
+* Remote Deployment: Replace with your server IP or domain:
 ```
 http://your-server-ip:8001/
 http://your-domain:8001/
@@ -77,7 +91,7 @@ http://your-domain:8001/
 
 ### 4. Configure NGINX
 
-If your app is behind an NGINX reverse proxy, you can configure access to the Errsole Web Dashboard by adding the following lines to your NGINX configuration file:
+If your app is behind NGINX, you can configure access to the Errsole Web Dashboard by adding the following lines to your NGINX configuration file:
 
 ```
 location = /your-app-name/logs {
@@ -91,7 +105,9 @@ location /your-app-name/logs/ {
 }
 ```
 
-After updating the configuration, reload NGINX:
+**Note:** Replace `/your-app-name/logs` and `/your-app-name/logs/` with the desired URL path where you want the log viewer to be accessible.
+
+After updating the configuration, reload NGINX to apply the changes:
 
 ```
 sudo nginx -s reload
@@ -102,7 +118,7 @@ You can now access the Errsole Web Dashboard through your domain:
 * For HTTP: `http://your-domain/your-app-name/logs/`
 * For HTTPS: `https://your-domain/your-app-name/logs/`
 
-**Note:** Replace `/your-app-name/logs` with your desired log path.
+**Note:** Replace `/your-app-name/logs/` in the URLs above to match the path you configured in NGINX.
 
 ## Advanced Configuration
 
