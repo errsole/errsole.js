@@ -4,15 +4,15 @@ SQLite stores databases as files, so your app logs will be stored in a file on y
 
 ### 1. Install the modules
 
-Install the `errsole` and `errsole-sqlite` modules using the npm install command:
+Run the following command to install Errsole and the SQLite storage module in your Node.js project:
 
 ```bash
 npm install errsole errsole-sqlite
 ```
 
-### 2. Configure your logger
+### 2. Configure the logger
 
-Create a `logger.js` file to configure Errsole with SQLite for your app.
+Create a separate `logger.js` file to initialize and export the Errsole logger, so that you can use it across your project:
 
 #### CommonJS
 
@@ -62,9 +62,9 @@ errsole.initialize({
 export default errsole;
 ```
 
-### 3. Include the logger in your app code
+### 3. Use the logger in your app code
 
-Include the logger in your app code to start logging. Here is an example using Express:
+To start logging, include the logger in your app code. Here is an example using Express:
 
 ```javascript
 import express from 'express';
@@ -84,7 +84,7 @@ app.listen(port, () => {
 
 After completing the setup, start your app and access the Errsole Web Dashboard to view and manage your logs:
 * Local Development: Open your web browser and go to `http://localhost:8001/`
-* Remote Deployment: Replace `your-server-ip` or `your-domain` with your server details:
+* Remote Deployment: Replace with your server IP or domain:
 ```
 http://your-server-ip:8001/
 http://your-domain:8001/
@@ -92,7 +92,7 @@ http://your-domain:8001/
 
 ### 4. Configure NGINX
 
-If your app is behind an NGINX reverse proxy, you can configure access to the Errsole Web Dashboard by adding the following lines to your NGINX configuration file:
+If your app is behind NGINX, you can configure access to the Errsole Web Dashboard by adding the following lines to your NGINX configuration file:
 
 ```
 location = /your-app-name/logs {
@@ -106,7 +106,9 @@ location /your-app-name/logs/ {
 }
 ```
 
-After updating the configuration, reload NGINX:
+**Note:** Replace `/your-app-name/logs` and `/your-app-name/logs/` with the desired URL path where you want the log viewer to be accessible.
+
+After updating the configuration, reload NGINX to apply the changes:
 
 ```
 sudo nginx -s reload
@@ -117,7 +119,7 @@ You can now access the Errsole Web Dashboard through your domain:
 * For HTTP: `http://your-domain/your-app-name/logs/`
 * For HTTPS: `https://your-domain/your-app-name/logs/`
 
-**Note:** Replace `/your-app-name/logs` with your desired log path.
+**Note:** Replace `/your-app-name/logs/` in the URLs above to match the path you configured in NGINX.
 
 ## Advanced Configuration
 
