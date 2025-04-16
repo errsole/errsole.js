@@ -10,6 +10,13 @@
   </p>
 
   <p align="center">
+    <img src="https://github.com/user-attachments/assets/62746b2f-3cc6-4377-8284-3b6463ae2b9d" height="30"/>
+    <img src="https://github.com/user-attachments/assets/baf5025c-d7e4-4344-baf1-65cc0613602e" height="30"/>
+    <img src="https://github.com/user-attachments/assets/e9be7003-1c77-494e-8765-6f403622a649" height="30"/>
+    <img src="https://github.com/user-attachments/assets/e83158ac-730d-46bc-bb62-3e55ac5ff693" height="30"/>
+  </p>
+
+  <p align="center">
     <img src="https://img.shields.io/github/v/release/errsole/errsole.js" alt="Release Version" />
     <img src="https://img.shields.io/github/last-commit/errsole/errsole.js" alt="Last Commit" />
     <img src="https://img.shields.io/github/license/errsole/errsole.js" alt="License" />
@@ -78,7 +85,6 @@ In production environments, where centralized log storage is critical, Errsole o
 #### Integrations
 
 * [Winston with Errsole](https://github.com/errsole/errsole.js/blob/master/docs/winston-errsole.md)
-* Pino with Errsole (Upcoming)
 
 ## FAQs
 
