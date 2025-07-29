@@ -225,6 +225,16 @@ describe('logCollector', () => {
         process.stderr.write('', null, () => {});
       }).not.toThrow();
     });
+    test('logCustomMessage should write to stdout if enableConsoleOutput is true', () => {
+      logCollector.logStream = { write: jest.fn() };
+      logCollector.enableConsoleOutput = true;
+
+      const stdoutSpy = jest.spyOn(logCollector.originalStdoutWrite, 'call').mockImplementation(() => {});
+      logCollector.logCustomMessage('info', 'Test message');
+
+      expect(stdoutSpy).toHaveBeenCalled();
+      stdoutSpy.mockRestore();
+    });
   });
 
   describe('createLogStream', () => {
@@ -241,6 +251,14 @@ describe('logCollector', () => {
 
   describe('createEmptyLogStream', () => {
     test('should destroy existing log stream if present', () => {
+      const destroySpy = jest.fn();
+      logCollector.logStream = { destroy: destroySpy };
+
+      logCollector.createEmptyLogStream();
+
+      expect(destroySpy).toHaveBeenCalled();
+    });
+    test('createEmptyLogStream should call destroy on existing logStream', () => {
       const destroySpy = jest.fn();
       logCollector.logStream = { destroy: destroySpy };
 
@@ -380,6 +398,61 @@ describe('logCollector', () => {
       logCollector.logCustomMessage(level, message, metadata);
 
       expect(console.error).toHaveBeenCalledWith(error);
+    });
+  });
+
+  describe('resetConsoleOutput', () => {
+    test('should restore console output and uncork logStream', () => {
+      const uncorkSpy = jest.fn();
+      logCollector.logStream = {
+        uncork: uncorkSpy,
+        write: jest.fn()
+      };
+      logCollector.enableConsoleOutput = false;
+
+      const originalStdout = process.stdout.write;
+      const originalStderr = process.stderr.write;
+
+      logCollector.resetConsoleOutput();
+
+      expect(logCollector.enableConsoleOutput).toBe(true);
+      expect(process.stdout.write).toBe(logCollector.originalStdoutWrite);
+      expect(process.stderr.write).toBe(logCollector.originalStderrWrite);
+      expect(uncorkSpy).toHaveBeenCalled();
+
+      process.stdout.write = originalStdout;
+      process.stderr.write = originalStderr;
+    });
+  });
+
+  describe('setInitializationTimeout', () => {
+    test('should mark initialization failed and create empty log stream', () => {
+      jest.useFakeTimers();
+      const createEmptyLogStreamSpy = jest.spyOn(logCollector, 'createEmptyLogStream');
+
+      // ✅ Provide a mock logStream with a destroy() method
+      logCollector.logStream = { destroy: jest.fn() };
+
+      logCollector.setInitializationTimeout();
+      jest.runAllTimers();
+
+      expect(createEmptyLogStreamSpy).toHaveBeenCalled();
+      expect(logCollector.isInitializationFailed).toBe(true);
+      expect(console.error).toHaveBeenCalledWith('Error: Unable to initialize Errsole');
+
+      jest.useRealTimers();
+      createEmptyLogStreamSpy.mockRestore();
+    });
+  });
+
+  describe('initialize swallowWrite', () => {
+    test('should not throw when stdout.write is called without a callback', () => {
+      const options = { storage: storageMock, enableConsoleOutput: false };
+      logCollector.initialize(options);
+
+      expect(() => {
+        process.stdout.write('test message'); // no callback passed
+      }).not.toThrow();
     });
   });
 });
