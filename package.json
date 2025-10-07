@@ -50,7 +50,7 @@
     "json-api-serializer": "^2.6.6",
     "jsonwebtoken": "^9.0.2",
     "koa-proxies": "^0.12.4",
-    "nodemailer": "^6.9.13",
+    "nodemailer": "^7.0.9",
     "strip-ansi": "^6.0.1",
     "uuid": "^10.0.0"
   },
